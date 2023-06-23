@@ -50,6 +50,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 $route['default_controller'] = 'frontend';
-$route['backend'] = 'backend/index';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+/*front*/
+
+
+
+/*admin*/
+$route['admin'] = 'admin/index';
+$route['admin/dashboard'] = 'admin/dashboard';
+$route['admin/process_login'] = 'admin/process_login';
+
+$route['admin/category'] = 'admin/category';
+$route['admin/addCategory'] = 'admin/addCategory';
+$route['admin/editCategory'] = 'admin/editCategory';
+$route['admin/categorydelete'] = 'admin/categorydelete';
+
+$route['admin/subcategory'] = 'admin/subcategory';
+$route['admin/addsubcategory'] = 'admin/addSubCategory';
+$route['admin/editsubcategory/(:any)'] = 'admin/editsubcategory/$1';
+$route['admin/subcategorydelete'] = 'admin/subcategorydelete';
+
+$route['admin/product'] = 'admin/product';
+$route['admin/addproduct'] = 'admin/addproduct';
+$route['admin/productdelete'] = 'admin/productdelete';
+
+$route['admin/brand'] = 'admin/brand';
+$route['admin/addbrand'] = 'admin/addbrand';
+$route['admin/brandelete'] = 'admin/brandelete';
+$route['admin/editbrand/(:any)'] = 'admin/editbrand/$1';
+
+$route['admin/offerslider'] = 'admin/offerslider';
+$route['admin/addofferslider'] = 'admin/addofferslider';
+$route['admin/offersliderdelete'] = 'admin/offersliderdelete';
+$route['admin/editofferslider/(:any)'] = 'admin/editofferslider/$1';
+
+/*vendor*/
+$route['backend'] = 'backend/index';
