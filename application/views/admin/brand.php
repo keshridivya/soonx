@@ -44,7 +44,9 @@
                                             <table class="table all-package theme-table" id="table_id">
                                                 <thead>
                                                     <tr>
+                                                        <th>Subcategory</th>
                                                         <th>Brand Name</th>
+                                                        <th>Brand Icon</th>
                                                         <th>Created On</th>
                                                         <th>Option</th>
                                                     </tr>
@@ -55,19 +57,25 @@
                                                     foreach($brand as $brand){
                                                     ?>
                                                     <tr>
+                                                    <td><?= $brand['subcategory_name']; ?></td>
                                                         <td><?= $brand['brand_name']; ?></td>
+                                                        <td>
+                                                            <div class="table-image">
+                                                                <img src="<?= base_url() ?>uploads/brand_icon/<?= $brand['brand_icon']; ?>" class="img-fluid" alt="">
+                                                            </div>
+                                                        </td>
                                                         <td><?= $brand['created_on']; ?></td>
 
                                                         <td>
                                                             <ul>
                                                                 <li>
-                                                                    <a href="<?= base_url() ?>admin/editbrand/<?= $brand['id'] ?>">
+                                                                    <a href="<?= base_url() ?>admin/editbrand/<?= $brand['bid'] ?>">
                                                                         <i class="ri-pencil-line"></i>
                                                                     </a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="javascript:void(0)" id="delete" class="delete-button" data-row="<?= $brand['id'] ?>">
+                                                                    <a href="javascript:void(0)" id="delete" class="delete-button" data-row="<?= $brand['bid'] ?>">
                                                                         <i class="ri-delete-bin-line"></i>
                                                                     </a>
                                                                 </li>

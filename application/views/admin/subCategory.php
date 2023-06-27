@@ -44,6 +44,7 @@
                                             <table class="table all-package theme-table" id="table_id">
                                                 <thead>
                                                     <tr>
+                                                        <th>Category</th>
                                                         <th>Sub Category Name</th>
                                                         <th>Image</th>
                                                         <th>Slug</th>
@@ -56,6 +57,7 @@
                                                     foreach($subcategory as $subcategory){
                                                     ?>
                                                     <tr>
+                                                    <td><?= $subcategory['category_name']; ?></td>
                                                         <td><?= $subcategory['subcategory_name']; ?></td>
                                                         <td>
                                                             <div class="table-image">
@@ -68,13 +70,13 @@
                                                         <td>
                                                             <ul>
                                                                 <li>
-                                                                    <a href="<?= base_url() ?>/admin/editsubcategory/<?= $subcategory['id'] ?>">
+                                                                    <a href="<?= base_url() ?>/admin/editsubcategory/<?= $subcategory['sid'] ?>">
                                                                         <i class="ri-pencil-line"></i>
                                                                     </a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="javascript:void(0)" id="delete" class="delete-button" data-row="<?= $subcategory['id'] ?>">
+                                                                    <a href="javascript:void(0)" id="delete" class="delete-button" data-row="<?= $subcategory['sid'] ?>">
                                                                         <i class="ri-delete-bin-line"></i>
                                                                     </a>
                                                                 </li>

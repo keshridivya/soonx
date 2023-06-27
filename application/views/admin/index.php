@@ -44,7 +44,9 @@
 
                         <div class="input-box">
                             <?php 
-                            echo $message;
+                            if($message ?? false){
+                                echo '<div class="alert alert-success">'.$message.'</div>';
+                            }
                             ?>
                             <form class="row g-4" method="post" action="<?php echo base_url('admin/process_login'); ?>">
                                 <div class="col-12">

@@ -60,7 +60,7 @@
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="col-sm-3 col-form-label form-label-title">Category</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-example-basic-single w-100" name="state">
+                                                        <select class="js-example-basic-single w-100" name="state" id="cateegory">
                                                             <option disabled="">Category Menu</option>
                                                             <?php 
                                                             foreach($category as $category){
@@ -74,13 +74,13 @@
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="col-sm-3 col-form-label form-label-title">Subcategory</label>
                                                     <div class="col-sm-9">
-                                                        <select class="js-example-basic-single w-100" name="state">
+                                                        <select class="js-example-basic-single w-100" name="subcate" id="subcate">
                                                             <option disabled="">Subcategory Menu</option>
-                                                            <?php 
+                                                            <!-- <?php 
                                                             foreach($subcategory as $subcategory){
                                                             ?>
                                                             <option><?= $subcategory['subcategory_name'] ?></option>
-                                                            <?php } ?>
+                                                            <?php } ?> -->
                                                         </select>
                                                     </div>
                                                 </div>
@@ -422,7 +422,7 @@
 
                                     <div class="card">
                                         <div class="card-body">
-                                            <div class="card-header-2">
+                                            <!-- <div class="card-header-2">
                                                 <h5>Search engine listing</h5>
                                             </div>
 
@@ -432,7 +432,7 @@
                                                 <p>Online Vegetable Store - Buy fresh vegetables & Fruits online at best
                                                     prices. Order online and get free delivery.</p>
                                             </div>
-
+ -->
                                             <form class="theme-form theme-form-2 mega-form">
                                                 <div class="mb-4 row align-items-center">
                                                     <label class="form-label-title col-sm-3 mb-0">Page title</label>
@@ -479,6 +479,31 @@
 
 
     <?php require_once 'include/foot.php' ?>
+    <script>
+        $(document).ready(function(){
+            $('#cateegory').change(function(){
+                var selectedValue = $(this).val();
+                $.ajax({
+                    url: '<?php echo base_url("admin/getsuboptions"); ?>',
+                    type: 'POST',
+                    data: { selectedValue: selectedValue },
+                    dataType: 'json',
+                    success: function(response) {
+                        // Append the new options based on the response
+                        $.each(response, function(index, option) {
+                            $('#subcate').append($('<option>', {
+                                value: option.value,
+                                text: option.text
+                            }));
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            })
+        })
+    </script>
 </body>
 
 </html>

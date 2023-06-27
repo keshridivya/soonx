@@ -6,6 +6,7 @@ class Admin extends CI_Controller {
     {
 		parent::__construct();
 		$this->load->library(array('form_validation','upload'));
+		$this->load->helper('cookie');
 	}
 
 	public function index()
@@ -30,7 +31,6 @@ class Admin extends CI_Controller {
 		  if ($remember_me) {
 			$remember_token = $this->generate_remember_token();
 			$this->update_remember_token($username, $remember_token);
-			$this->load->helper('cookie');
 			$remember_me_cookie = array(
 			  'name' => 'remember_me',
 			  'value' => $remember_token,
@@ -38,8 +38,11 @@ class Admin extends CI_Controller {
 			);
 			$this->input->set_cookie($remember_me_cookie);
 		  }
-	
+		  if($this->session->userdata['username']){
 		  redirect('admin/dashboard'); // Redirect to dashboard or any other page after successful login
+
+		  }
+	
 		} else {
 		  $page_data['message'] = 'Username or Password is not correct';
 		  $this->load->view('admin/index',$page_data);
@@ -76,387 +79,520 @@ class Admin extends CI_Controller {
 	}
 	
 	public function logout() {
-		// Clear session data
-		// $this->session->unset_userdata('username');
-	
-		// Delete remember me cookie
-		$this->load->helper('cookie');
+		// Check if the user is logged in
+		if ($this->session->userdata('username')) {
+		// Destroy the session
 		delete_cookie('remember_me');
-	
-		if($this->session->unset_userdata('username')){
-			echo 'success';
-		}else{
-			echo 'error';
+		$this->session->sess_destroy();
+			redirect('admin');
+		} else {
+			redirect('admin/dashboard');
 		}
 	}
 
+
+
 	public function dashboard()
 	{
-		$this->load->view('admin/dashboard');
+		if($this->session->userdata['username']){
+			$this->load->view('admin/dashboard');
+		}
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function product(){
 		// $page_data['category'] = $this->db->get('category')->result_array();
-		$page_data['title'] = 'Product';
-		$this->load->view('admin/products');
+		if($this->session->userdata['username']){
+			$page_data['title'] = 'Product';
+			$this->load->view('admin/products');
+		}
+		else{
+			redirect('admin');
+		}
+
 	}
 
 	public function addproduct(){
-		$page_data['category'] = $this->db->get('category')->result_array();
-		$page_data['subcategory'] = $this->db->get('subcategory')->result_array();
-		$page_data['brand'] = $this->db->get('brand')->result_array();
-		$page_data['title'] = 'Add Product';
-		$this->load->view('admin/addproduct',$page_data);
+		if($this->session->userdata['username']){
+			$page_data['category'] = $this->db->get('category')->result_array();
+			$page_data['subcategory'] = $this->db->get('subcategory')->result_array();
+			$page_data['brand'] = $this->db->get('brand')->result_array();
+			$page_data['title'] = 'Add Product';
+			$this->load->view('admin/addproduct',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+
 	}
 
 	//category start
 	public function category(){
-		$page_data['category'] = $this->db->get('category')->result_array();
-		$page_data['title'] = 'Category';
-		$this->load->view('admin/category',$page_data);
+		if($this->session->userdata['username']){
+			$page_data['category'] = $this->db->get('category')->result_array();
+			$page_data['title'] = 'Category';
+			$this->load->view('admin/category',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+
 	}
 
 	public function addCategory(){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('category', 'Category', 'required');
-			$this->form_validation->set_rules('slug', 'Slug', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('category', 'Category', 'required');
+				$this->form_validation->set_rules('slug', 'Slug', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong';
-			} else {
-				if($_FILES['mainimage']['name'] != ""){
-					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/category_image/','name'=>'mainimage'));
-				}
-				if($_FILES['icon']['name']!= ""){
-				$uploaded_data1=$this->uploadimg(array('upload_path'=>'./uploads/category_icon/','name'=>'icon'));
-				}
-
-				$data = [
-					'category_name' => $this->input->post('category'),
-					'category_slug' => $this->input->post('slug'),
-					'created_on' => date('y-m-d h:i:a'),
-				];
-
-				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
-					$data['category_image']=$uploaded_data['file_name'];
-				}
-
-				if(is_countable($uploaded_data1) && count($uploaded_data1)>=1){
-					$data['category_icon']=$uploaded_data1['file_name'];
-				}
-				if($this->db->insert('category',$data)){
-					$page_data['message'] = 'Insert Successfully';
-				}
-				else{
+				if ($this->form_validation->run() == FALSE) {
 					$page_data['message'] = 'Something Wrong';
+				} else {
+					if($_FILES['mainimage']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/category_image/','name'=>'mainimage'));
+					}
+					if($_FILES['icon']['name']!= ""){
+					$uploaded_data1=$this->uploadimg(array('upload_path'=>'./uploads/category_icon/','name'=>'icon'));
+					}
+
+					$data = [
+						'category_name' => $this->input->post('category'),
+						'category_slug' => $this->input->post('slug'),
+						'created_on' => date('y-m-d h:i:a'),
+					];
+
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['category_image']=$uploaded_data['file_name'];
+					}
+
+					if(is_countable($uploaded_data1) && count($uploaded_data1)>=1){
+						$data['category_icon']=$uploaded_data1['file_name'];
+					}
+					if($this->db->insert('category',$data)){
+						$page_data['message'] = 'Insert Successfully';
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
+			$page_data['title'] = 'Add Category';
+				$this->load->view('admin/addCategory',$page_data);
 		}
-		$page_data['title'] = 'Add Category';
-			$this->load->view('admin/addCategory',$page_data);
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function editCategory($id=false){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('category', 'Category', 'required');
-			$this->form_validation->set_rules('slug', 'Slug', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('category', 'Category', 'required');
+				$this->form_validation->set_rules('slug', 'Slug', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong';
-			} else {
-				if($_FILES['mainimage']['name'] != ""){
-					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/category_image/','name'=>'mainimage'));
-				}
-				if($_FILES['icon']['name']!= ""){
-				$uploaded_data1=$this->uploadimg(array('upload_path'=>'./uploads/category_icon/','name'=>'icon'));
-				}
-
-				$data = [
-					'category_name' => $this->input->post('category'),
-					'category_slug' => $this->input->post('slug'),
-					'modified_on' => date('y-m-d h:i:a'),
-				];
-
-				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
-					$data['category_image']=$uploaded_data['file_name'];
-				}
-
-				if(is_countable($uploaded_data1) && count($uploaded_data1)>=1){
-					$data['category_icon']=$uploaded_data1['file_name'];
-				}
-				$this->db->where('id',$id);
-				if($this->db->update('category',$data)){
-					redirect('admin/category');
-				}
-				else{
+				if ($this->form_validation->run() == FALSE) {
 					$page_data['message'] = 'Something Wrong';
+				} else {
+					if($_FILES['mainimage']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/category_image/','name'=>'mainimage'));
+					}
+					if($_FILES['icon']['name']!= ""){
+					$uploaded_data1=$this->uploadimg(array('upload_path'=>'./uploads/category_icon/','name'=>'icon'));
+					}
+
+					$data = [
+						'category_name' => $this->input->post('category'),
+						'category_slug' => $this->input->post('slug'),
+						'modified_on' => date('y-m-d h:i:a'),
+					];
+
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['category_image']=$uploaded_data['file_name'];
+					}
+
+					if(is_countable($uploaded_data1) && count($uploaded_data1)>=1){
+						$data['category_icon']=$uploaded_data1['file_name'];
+					}
+					$this->db->where('id',$id);
+					if($this->db->update('category',$data)){
+						redirect('admin/category');
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
+			$page_data['category'] = $this->db->get_where('category',array('id'=>$id))->row();
+			$page_data['title'] = 'Edit Category';
+				$this->load->view('admin/addCategory',$page_data);
 		}
-		$page_data['category'] = $this->db->get('category')->row();
-		$page_data['title'] = 'Edit Category';
-			$this->load->view('admin/addCategory',$page_data);
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function categorydelete(){
-		$id = $this->input->post('row_id');
-		if($this->db->where('id',$id)->delete('category')){
-			echo 'success';
-		}else{
-			echo 'error';
+		if($this->session->userdata['username']){
+			$id = $this->input->post('row_id');
+			if($this->db->where('id',$id)->delete('category')){
+				echo 'success';
+			}else{
+				echo 'error';
+			}
+		}
+		else{
+			redirect('admin');
 		}
 	}
 	// category end
 
 	//subcategory start
 	public function subcategory(){
-		$page_data['subcategory'] = $this->db->get('subcategory')->result_array();
-		$page_data['title'] = 'Category';
-		$this->load->view('admin/subCategory',$page_data);
+		if($this->session->userdata['username']){
+			$this->db->select('*, subcategory.id as sid');
+			$this->db->from('subcategory');
+			$this->db->join('category', 'subcategory.category_id = category.id', 'left');
+			$page_data['subcategory'] = $this->db->get()->result_array();
+			$page_data['title'] = 'Category';
+			$this->load->view('admin/subCategory',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function addsubcategory(){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
-			$this->form_validation->set_rules('slug', 'Slug', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
+				$this->form_validation->set_rules('slug', 'Slug', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong ';
-			} else {
-				if($_FILES['mainimage']['name'] != ""){
-					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/subcategory/','name'=>'mainimage'));
-				}
-				$data = [
-					'subcategory_name' => $this->input->post('subcategory'),
-					'subcategory_slug' => $this->input->post('slug'),
-					'created_on' => date('y-m-d h:i:a'),
-				];
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					if($_FILES['mainimage']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/subcategory/','name'=>'mainimage'));
+					}
+					$data = [
+						'subcategory_name' => $this->input->post('subcategory'),
+						'subcategory_slug' => $this->input->post('slug'),
+						'category_id' => $this->input->post('category'),
+						'created_on' => date('y-m-d h:i:a'),
+					];
 
-				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
-					$data['subcategory_image']=$uploaded_data['file_name'];
-				}
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['subcategory_image']=$uploaded_data['file_name'];
+					}
 
-				if($this->db->insert('subcategory',$data)){
-					$page_data['message'] = 'Insert Successfully';
-				}
-				else{
-					$page_data['message'] = 'Something Wrong';
+					if($this->db->insert('subcategory',$data)){
+						$page_data['message'] = 'Insert Successfully';
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
+			$page_data['category'] = $this->db->get('category')->result_array();
+			$page_data['title'] = 'Add Sub Category';
+				$this->load->view('admin/addSubCategory',$page_data);
+		}else{
+			redirect('admin');
 		}
-		$page_data['title'] = 'Add Sub Category';
-			$this->load->view('admin/addSubCategory',$page_data);
 	}
 
 	public function editsubcategory($id=false){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
-			$this->form_validation->set_rules('slug', 'Slug', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('subcategory', 'Subcategory', 'required');
+				$this->form_validation->set_rules('slug', 'Slug', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong ';
-			} else {
-				if($_FILES['mainimage']['name'] != ""){
-					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/subcategory/','name'=>'mainimage'));
-				}
-				$data = [
-					'subcategory_name' => $this->input->post('subcategory'),
-					'subcategory_slug' => $this->input->post('slug'),
-					'created_on' => date('y-m-d h:i:a'),
-				];
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					if($_FILES['mainimage']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/subcategory/','name'=>'mainimage'));
+					}
+					$data = [
+						'subcategory_name' => $this->input->post('subcategory'),
+						'subcategory_slug' => $this->input->post('slug'),
+						'category_id' => $this->input->post('category'),
+						'created_on' => date('y-m-d h:i:a'),
+					];
 
-				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
-					$data['subcategory_image']=$uploaded_data['file_name'];
-				}
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['subcategory_image']=$uploaded_data['file_name'];
+					}
 
-				$this->db->where('id',$id);
-				if($this->db->update('subcategory',$data)){
-					redirect('admin/subcategory');
-				}
-				else{
-					$page_data['message'] = 'Something Wrong';
+					$this->db->where('id',$id);
+					if($this->db->update('subcategory',$data)){
+						redirect('admin/subcategory');
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
+			$page_data['category'] = $this->db->get('category')->result_array();
+			$page_data['subcategory'] = $this->db->get_where('subcategory',array('id'=>$id))->row();
+			$page_data['title'] = 'Add Sub Category';
+				$this->load->view('admin/addSubCategory',$page_data);
+		}		else{
+			redirect('admin');
 		}
-		$page_data['subcategory'] = $this->db->get('subcategory')->row();
-		$page_data['title'] = 'Add Sub Category';
-			$this->load->view('admin/addSubCategory',$page_data);
 	}
 
 	public function subcategorydelete(){
-		$id = $this->input->post('row_id');
-		if($this->db->where('id',$id)->delete('subcategory')){
-			echo 'success';
-		}else{
-			echo 'error';
+		if($this->session->userdata['username']){
+			$id = $this->input->post('row_id');
+			if($this->db->where('id',$id)->delete('subcategory')){
+				echo 'success';
+			}else{
+				echo 'error';
+			}
+		}
+		else{
+			redirect('admin');
 		}
 	}
 	//subcategory end
 
 	//brand start
 	public function brand(){
-		$page_data['brand'] = $this->db->get('brand')->result_array();
-		$page_data['title'] = 'Brand';
-		$this->load->view('admin/brand',$page_data);
+		if($this->session->userdata['username']){
+			$page_data['subcategories'] = $this->db->get('subcategory')->result_array();
+			$this->db->select('*, brand.id as bid');
+			$this->db->from('subcategory');
+			$this->db->join('brand', 'subcategory.id = brand.subcategory_id', 'right');
+			$page_data['brand'] = $this->db->get()->result_array();
+			$page_data['title'] = 'Brand';
+			$this->load->view('admin/brand',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function addbrand(){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('brand', 'Brand', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('brand', 'Brand', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong ';
-			} else {
-				$data = [
-					'brand_name' => $this->input->post('brand'),
-					'created_on' => date('y-m-d h:i:a'),
-				];
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					if($_FILES['brandicon']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/brand_icon/','name'=>'brandicon'));
+					}
+					$data = [
+						'brand_name' => $this->input->post('brand'),
+						'subcategory_id' => $this->input->post('subcategory'),
+						'created_on' => date('y-m-d h:i:a'),
+					];
 
-				if($this->db->insert('brand',$data)){
-					$page_data['message'] = 'Insert Successfully';
-				}
-				else{
-					$page_data['message'] = 'Something Wrong';
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['brand_icon']=$uploaded_data['file_name'];
+					}
+
+					if($this->db->insert('brand',$data)){
+						$page_data['message'] = 'Insert Successfully';
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
+			$page_data['subcategories'] = $this->db->get('subcategory')->result_array();
+			$page_data['title'] = 'Add Brand';
+				$this->load->view('admin/addbrand',$page_data);
 		}
-		$page_data['title'] = 'Add Brand';
-			$this->load->view('admin/addbrand',$page_data);
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function editbrand($id=false){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('brand', 'Brand', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('brand', 'Brand', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong ';
-			} else {
-				$data = [
-					'brand_name' => $this->input->post('brand'),
-					'modified_on' => date('y-m-d h:i:a'),
-				];
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					if($_FILES['brandicon']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/brand_icon/','name'=>'brandicon'));
+					}
+					$data = [
+						'brand_name' => $this->input->post('brand'),
+						'subcategory_id' => $this->input->post('subcategory'),
+						'modified_on' => date('y-m-d h:i:a'),
+					];
 
-				$this->db->where('id',$id);
-				if($this->db->update('brand',$data)){
-					redirect('admin/brand');
-				}
-				else{
-					$page_data['message'] = 'Something Wrong';
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['brand_icon']=$uploaded_data['file_name'];
+					}
+
+					$this->db->where('id',$id);
+					if($this->db->update('brand',$data)){
+						redirect('admin/brand');
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
-		}
-		$page_data['brand'] = $this->db->get('brand')->row();
-		$page_data['title'] = 'Add Brand';
+			$page_data['subcategories'] = $this->db->get('subcategory')->result_array();
+			$page_data['brand'] = $this->db->get_where('brand',array('id'=>$id))->row();
+			$page_data['title'] = 'Edit Brand';
 			$this->load->view('admin/addbrand',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function brandelete(){
-		$id = $this->input->post('row_id');
-		if($this->db->where('id',$id)->delete('brand')){
-			echo 'success';
-		}else{
-			echo 'error';
+		if($this->session->userdata['username']){
+			$id = $this->input->post('row_id');
+			if($this->db->where('id',$id)->delete('brand')){
+				echo 'success';
+			}else{
+				echo 'error';
+			}
 		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function getsuboptions()
+	{
+		$selectedValue = $this->input->post('selectedValue');
+		$options = $this->db->get_where('subcategory', ['category_id' => $selectedValue])->result_array();
+		print_r($this->db->last_query());
+		echo json_encode($options);
 	}
 	//brand end
 
 	//offerslider start
 	public function offerslider(){
-		$page_data['offerslider'] = $this->db->get('offerslider')->result_array();
-		$page_data['title'] = 'Offer Slider';
-		$this->load->view('admin/offerslider',$page_data);
+		if($this->session->userdata['username']){
+			$page_data['offerslider'] = $this->db->get('offerslider')->result_array();
+			$page_data['title'] = 'Offer Slider';
+			$this->load->view('admin/offerslider',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function addofferslider(){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('slidername', 'Slidername', 'required');
-			$this->form_validation->set_rules('title', 'Title', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('slidername', 'Slidername', 'required');
+				$this->form_validation->set_rules('title', 'Title', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong ';
-			} else {
-				if($_FILES['mainimage']['name'] != ""){
-					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/offer_slider/','name'=>'mainimage'));
-				}
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					if($_FILES['mainimage']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/offer_slider/','name'=>'mainimage'));
+					}
 
-				$data = [
-					'slider_name' => $this->input->post('slidername'),
-					'for' => $this->input->post('title'),
-					'button' => $this->input->post('redirect'),
-					'created_on' => date('y-m-d h:i:a'),
-				];
+					$data = [
+						'slider_name' => $this->input->post('slidername'),
+						'for' => $this->input->post('title'),
+						'button' => $this->input->post('redirect'),
+						'created_on' => date('y-m-d h:i:a'),
+					];
 
-				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
-					$data['slider_image']=$uploaded_data['file_name'];
-				}
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['slider_image']=$uploaded_data['file_name'];
+					}
 
 
-				if($this->db->insert('offerslider',$data)){
-					$page_data['message'] = 'Insert Successfully';
-				}
-				else{
-					$page_data['message'] = 'Something Wrong';
+					if($this->db->insert('offerslider',$data)){
+						$page_data['message'] = 'Insert Successfully';
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
+			$page_data['category'] = $this->db->get('category')->result_array();
+			$page_data['title'] = 'Add Add Offer Slider';
+			$this->load->view('admin/addOfferSlider',$page_data);
 		}
-		$page_data['category'] = $this->db->get('category')->result_array();
-		$page_data['title'] = 'Add Add Offer Slider';
-		$this->load->view('admin/addOfferSlider',$page_data);
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function editofferslider($id=false){
-		if($this->input->post()){
-			$this->form_validation->set_error_delimiters('<div class="error"','</div>');
-			$this->form_validation->set_rules('slidername', 'Slidername', 'required');
-			$this->form_validation->set_rules('title', 'Title', 'required');
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('slidername', 'Slidername', 'required');
+				$this->form_validation->set_rules('title', 'Title', 'required');
 
-			if ($this->form_validation->run() == FALSE) {
-				$page_data['message'] = 'Something Wrong ';
-			} else {
-				if($_FILES['mainimage']['name'] != ""){
-					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/offer_slider/','name'=>'mainimage'));
-				}
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					if($_FILES['mainimage']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/offer_slider/','name'=>'mainimage'));
+					}
 
-				$data = [
-					'slider_name' => $this->input->post('slidername'),
-					'for' => $this->input->post('title'),
-					'button' => $this->input->post('redirect'),
-					'modified_on' => date('y-m-d h:i:a'),
-				];
+					$data = [
+						'slider_name' => $this->input->post('slidername'),
+						'for' => $this->input->post('title'),
+						'button' => $this->input->post('redirect'),
+						'modified_on' => date('y-m-d h:i:a'),
+					];
 
-				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
-					$data['slider_image']=$uploaded_data['file_name'];
-				}
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['slider_image']=$uploaded_data['file_name'];
+					}
 
-				$this->db->where('id',$id);
-				if($this->db->update('offerslider',$data)){
-					redirect('admin/offerslider');
-				}
-				else{
-					$page_data['message'] = 'Something Wrong';
+					$this->db->where('id',$id);
+					if($this->db->update('offerslider',$data)){
+						redirect('admin/offerslider');
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
 				}
 			}
+			$page_data['category'] = $this->db->get('category')->result_array();
+			$page_data['offerslider'] = $this->db->get_where('offerslider',array('id'=>$id))->row();
+			$page_data['title'] = 'Add Add Offer Slider';
+			$this->load->view('admin/addOfferSlider',$page_data);
 		}
-		$page_data['category'] = $this->db->get('category')->result_array();
-		$page_data['offerslider'] = $this->db->get('offerslider')->row();
-		$page_data['title'] = 'Add Add Offer Slider';
-		$this->load->view('admin/addOfferSlider',$page_data);
+		else{
+			redirect('admin');
+		}
 	}
 
 	public function offersliderdelete(){
-		$id = $this->input->post('row_id');
-		if($this->db->where('id',$id)->delete('offerslider')){
-			echo 'success';
-		}else{
-			echo 'error';
+		if($this->session->userdata['username']){
+			$id = $this->input->post('row_id');
+			if($this->db->where('id',$id)->delete('offerslider')){
+				echo 'success';
+			}else{
+				echo 'error';
+			}
 		}
+		else{
+			redirect('admin');
+		}
+
 	}
 	//offerslider end
 

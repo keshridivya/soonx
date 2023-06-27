@@ -44,6 +44,19 @@
 											<form class="theme-form theme-form-2 mega-form"
 												enctype="multipart/form-data" method="post">
 												<div class="mb-4 row align-items-center">
+													<label class="form-label-title col-sm-3 mb-0">Category Name</label>
+													<div class="col-sm-9">
+														<select class="js-example-basic-single w-100" name="category" required>
+															<?php
+															foreach($category as $category){
+															?>
+                                                            <option value="<?= $category['id']; ?>" <?php echo (($subcategory->category_id ?? '') == $category['id']) ? 'selected' : ''; ?> ><?= $category['category_name']; ?></option>
+															<?php } ?>
+                                                        </select>
+													</div>
+												</div>
+												
+												<div class="mb-4 row align-items-center">
 													<label class="form-label-title col-sm-3 mb-0">Sub Category Name</label>
 													<div class="col-sm-9">
 														<input class="form-control" type="text"
