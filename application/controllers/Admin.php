@@ -104,9 +104,15 @@ class Admin extends CI_Controller {
 
 	public function product(){
 		// $page_data['category'] = $this->db->get('category')->result_array();
+		$this->db->select('*, product.id as pid');
+		$this->db->from('category');
+		$this->db->join('product', 'category.id = product.category', 'right');
+		$page_data['product'] = $this->db->get()->result_array();
+		// print_r($this->db->last_query());
+
 		if($this->session->userdata['username']){
 			$page_data['title'] = 'Product';
-			$this->load->view('admin/products');
+			$this->load->view('admin/products',$page_data);
 		}
 		else{
 			redirect('admin');
@@ -120,27 +126,12 @@ class Admin extends CI_Controller {
 			if ($this->input->post()) {
 				$variant_color = implode(',', $this->input->post('variant_color'));
 				$variant_qty = implode(',', $this->input->post('variant_qty'));
-				$uploaded_images = array();
 	
 				// Upload thumbnail image
-				if ($_FILES['thumbnail_image']['name'] != "") {
-					$uploaded_data = $this->uploadimg(array('upload_path' => './uploads/category_image/', 'name' => 'thumbnail_image'));
-					$uploaded = $uploaded_data['file_name'];
+				if($_FILES['thumbnail_image']['name'] != ""){
+					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/product_thumb_image/','name'=>'thumbnail_image'));
 				}
-	
-				// Handle multiple images
-				$multiple_images = $_FILES['multiple_images'];
-	
-				if (!empty($multiple_images['name'])) {
-					$num_files = count($multiple_images['name']);
-					for ($i = 0; $i < $num_files; $i++) {
-						if ($multiple_images['name'][$i] != "") {
-							$uploaded_data = $this->uploadimg1(array('upload_path' => './uploads/product_img/', 'name' => $multiple_images['name'][$i]));
-							$uploaded_images[] = $uploaded_data['file_name'];
-						}
-					}
-				}
-	
+		
 				// Prepare data for database insertion
 				$data = [
 					'product_name' => $this->input->post('product_name'),
@@ -148,7 +139,6 @@ class Admin extends CI_Controller {
 					'subCategory' => $this->input->post('subCategory'),
 					'unit' => $this->input->post('unit'),
 					'product_desc' => $this->input->post('product_desc'),
-					'multiple_images' => implode(',', $uploaded_images),
 					'thumbnail_image' => $this->input->post('thumbnail_image'),
 					'product_variant_name' => $this->input->post('product_variant_name'),
 					'product_variant_value' => $this->input->post('product_variant_value'),
@@ -160,11 +150,29 @@ class Admin extends CI_Controller {
 					'stock_status' => $this->input->post('stock_status'),
 					'variant_color' => $variant_color,
 					'variant_qty' => $variant_qty,
+					'status' => $this->input->post('status'),
 					'page_title' => $this->input->post('page_title'),
 					'meta_description' => $this->input->post('meta_description'),
 					// Add other fields as needed
 				];
-	
+				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+					$data['thumbnail_image']=$uploaded_data['file_name'];
+				}
+
+				if ($_FILES['multiple_images']['name'][0] != "") {
+					$uploaded_data = $this->uploadmutipleimg(array('upload_path' => './uploads/product_img/', 'name' => 'multiple_images'));
+					if (!empty($uploaded_data)) {
+						$imagePaths = array();
+						foreach ($uploaded_data as $image) {
+							$imagePaths[] = $image['file_name'];
+						}
+						$data['multiple_images'] = implode(',', $imagePaths);
+					} else {
+						$page_data['message'] = 'Error uploading images.';
+					}
+					
+				}
+
 				// Insert data into the database
 				if ($this->db->insert('product', $data)) {
 					echo 'success';
@@ -686,24 +694,35 @@ class Admin extends CI_Controller {
             }
     }
 
-	public function uploadimg1($data)
-{
-    $config['upload_path'] = $data['upload_path'];
-    $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
-    $config['encrypt_name'] = TRUE;
+	public function uploadmutipleimg($data)
+		{
+    	$config['upload_path'] = $data['upload_path'];
+    	$config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+    	$config['encrypt_name'] = TRUE;
 
-    $this->load->library('upload', $config);
-    $this->upload->initialize($config);
+    	$this->load->library('upload', $config);
+    	$this->upload->initialize($config);
 
-    if (!$this->upload->do_upload($data['name'])) {
-        // Handle upload errors
-        $error = $this->upload->display_errors();
-        print_r($error);
-    } else {
-        $uploaded_data = $this->upload->data();
-        return $uploaded_data['file_name']; // Return only the file name
-    }
-}
+    	$uploaded_data = array(); // Array to store uploaded file data
 
+    	// Loop through each uploaded file
+    	foreach ($_FILES[$data['name']]['name'] as $key => $filename) {
+    	    $_FILES['userfile']['name'] = $_FILES[$data['name']]['name'][$key];
+    	    $_FILES['userfile']['type'] = $_FILES[$data['name']]['type'][$key];
+    	    $_FILES['userfile']['tmp_name'] = $_FILES[$data['name']]['tmp_name'][$key];
+    	    $_FILES['userfile']['error'] = $_FILES[$data['name']]['error'][$key];
+    	    $_FILES['userfile']['size'] = $_FILES[$data['name']]['size'][$key];
+
+    	    if (!$this->upload->do_upload('userfile')) {
+    	        $error = $this->upload->display_errors();
+    	        print_r($error);
+    	    } else {
+    	        $uploaded_data[] = $this->upload->data();
+    	    }
+    	}
+
+ 		   unset($this->upload);
+    	return $uploaded_data;
+	}
 
 }

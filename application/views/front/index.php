@@ -348,20 +348,21 @@
     <section class="product-section-3">
         <div class="container-fluid-lg">
             <div class="title">
-                <h2>Fruits & Vegetables</h2>
+                <h2>Today's Deal</h2>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="slider-7_1 arrow-slider img-slider">
+                    <?php    foreach($product as $product){    ?>
                         <div>
                             <div class="product-box-4 wow fadeInUp">
                                 <div class="product-image product-image-2">
                                     <a href="product-left-thumbnail.html">
-                                        <img src="<?= base_url() ?>assets/images/grocery/product/fruits-vegetables/1.png"
+                                        <img src="<?= base_url() ?>uploads/product_thumb_image/<?= $product['thumbnail_image'] ?>"
                                             class="img-fluid blur-up lazyload" alt="">
                                     </a>
 
-                                    <ul class="option">
+                                    <!-- <ul class="option">
                                         <li data-bs-toggle="tooltip" data-bs-placement="top" title="Quick View">
                                             <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
                                                 <i class="iconly-Show icli"></i>
@@ -377,7 +378,7 @@
                                                 <i class="iconly-Swap icli"></i>
                                             </a>
                                         </li>
-                                    </ul>
+                                    </ul> -->
                                 </div>
 
                                 <div class="product-detail">
@@ -399,7 +400,7 @@
                                         </li>
                                     </ul>
                                     <a href="product-left-thumbnail.html">
-                                        <h5 class="name text-title">Bell pepper</h5>
+                                        <h5 class="name text-title"><?= $product['product_name'] ?></h5>
                                     </a>
                                     <h5 class="price theme-color">$65.21<del>$71.25</del></h5>
 
@@ -425,8 +426,9 @@
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
 
-                        <div>
+                        <!-- <div>
                             <div class="product-box-4 wow fadeInUp" data-wow-delay="0.05s">
                                 <div class="product-image product-image-2">
                                     <a href="product-left-thumbnail.html">
@@ -928,7 +930,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

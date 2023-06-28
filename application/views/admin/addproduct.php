@@ -42,7 +42,7 @@
 														<label class="form-label-title col-sm-3 mb-0">Product
 															Name</label>
 														<div class="col-sm-9">
-															<input class="form-control" type="text"
+															<input class="form-control" name="product_name" type="text"
 																placeholder="Product Name">
 														</div>
 													</div>
@@ -63,7 +63,7 @@
 														<label
 															class="col-sm-3 col-form-label form-label-title">Category</label>
 														<div class="col-sm-9">
-															<select class="js-example-basic-single w-100" name="state"
+															<select class="js-example-basic-single w-100" name="category"
 																id="cateegory">
 																<option disabled="">Category Menu</option>
 																<?php 
@@ -80,7 +80,7 @@
 														<label
 															class="col-sm-3 col-form-label form-label-title">Subcategory</label>
 														<div class="col-sm-9">
-															<select class="js-example-basic-single w-100" name="subcate"
+															<select class="js-example-basic-single w-100" name="subCategory"
 																id="subcate">
 																<option selected>Select Subcategory</option>
 																<!-- <?php 
@@ -105,7 +105,7 @@
 														<label
 															class="col-sm-3 col-form-label form-label-title">Unit</label>
 														<div class="col-sm-9">
-															<select class="js-example-basic-single w-100">
+															<select class="js-example-basic-single w-100" name="unit">
 																<option disabled="">Unit Menu</option>
 																<option>Kilogram</option>
 																<option>Pieces</option>
@@ -129,9 +129,7 @@
 																<label class="form-label-title col-sm-12 mb-0">Product
 																	Description</label>
 																<div class="col-sm-12">
-																	<input class="form-control form-choose"
-																		name="product_desc" type="text" id="editor"
-																		multiple="">
+																	<textarea name="product_desc" id="editor" cols="30" rows="10"></textarea>
 																</div>
 															</div>
 														</div>
@@ -164,7 +162,7 @@
 														<div class="col-sm-9">
 															<input class="form-control form-choose"
 																name="thumbnail_image" type="file"
-																id="formFileMultiple1" multiple="">
+																id="formFileMultiple1">
 														</div>
 													</div>
 												</div>
@@ -307,11 +305,11 @@
 													<tbody>
 														<tr>
 															<td><input class="form-control" type="text"
-																	name="page_title" placeholder="0"
+																	placeholder="0"
 																	name="variant_color[]"></td>
 															<td>
 																<input class="form-control" type="number"
-																	name="page_title" placeholder="0"
+																	 placeholder="0"
 																	name="variant_qty[]">
 															</td>
 															<td>
@@ -324,6 +322,26 @@
 															</td>
 														</tr>
 
+														<tr>
+															<td><input class="form-control" type="text"
+																	placeholder="0"
+																	name="variant_color[]"></td>
+															<td>
+																<input class="form-control" type="number"
+																	 placeholder="0"
+																	name="variant_qty[]">
+															</td>
+															<td>
+																<ul class="order-option">
+																	<li><a href="javascript:void(0)" data-toggle="modal"
+																			data-target="#deleteModal"><i
+																				class="ri-delete-bin-line"></i></a>
+																	</li>
+																</ul>
+															</td>
+														</tr>
+
+
 													</tbody>
 												</table>
 											</div>
@@ -332,6 +350,16 @@
 
 										<div class="card">
 												<div class="theme-form theme-form-2 mega-form">
+												<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-3 mb-0">Status</label>
+														<div class="col-sm-9">
+														<select class="js-example-basic-single w-100"
+																name="status">
+																<option>Approved</option>
+																<option>Pending</option>
+															</select>
+														</div>
+													</div>
 													<div class="mb-4 row align-items-center">
 														<label class="form-label-title col-sm-3 mb-0">Page title</label>
 														<div class="col-sm-9">
