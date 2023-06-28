@@ -45,4 +45,5 @@
 
     <!-- App css -->
     <link rel="stylesheet" type="text/css" href="<?= base_url() ?>assets/admin/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 </head>

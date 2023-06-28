@@ -114,19 +114,79 @@ class Admin extends CI_Controller {
 
 	}
 
-	public function addproduct(){
-		if($this->session->userdata['username']){
+	public function addproduct()
+	{
+		if ($this->session->userdata('username')) {
+			if ($this->input->post()) {
+				$variant_color = implode(',', $this->input->post('variant_color'));
+				$variant_qty = implode(',', $this->input->post('variant_qty'));
+				$uploaded_images = array();
+	
+				// Upload thumbnail image
+				if ($_FILES['thumbnail_image']['name'] != "") {
+					$uploaded_data = $this->uploadimg(array('upload_path' => './uploads/category_image/', 'name' => 'thumbnail_image'));
+					$uploaded = $uploaded_data['file_name'];
+				}
+	
+				// Handle multiple images
+				$multiple_images = $_FILES['multiple_images'];
+	
+				if (!empty($multiple_images['name'])) {
+					$num_files = count($multiple_images['name']);
+					for ($i = 0; $i < $num_files; $i++) {
+						if ($multiple_images['name'][$i] != "") {
+							$uploaded_data = $this->uploadimg1(array('upload_path' => './uploads/product_img/', 'name' => $multiple_images['name'][$i]));
+							$uploaded_images[] = $uploaded_data['file_name'];
+						}
+					}
+				}
+	
+				// Prepare data for database insertion
+				$data = [
+					'product_name' => $this->input->post('product_name'),
+					'category' => $this->input->post('category'),
+					'subCategory' => $this->input->post('subCategory'),
+					'unit' => $this->input->post('unit'),
+					'product_desc' => $this->input->post('product_desc'),
+					'multiple_images' => implode(',', $uploaded_images),
+					'thumbnail_image' => $this->input->post('thumbnail_image'),
+					'product_variant_name' => $this->input->post('product_variant_name'),
+					'product_variant_value' => $this->input->post('product_variant_value'),
+					'weight' => $this->input->post('weight'),
+					'dimension' => $this->input->post('dimension'),
+					'price' => $this->input->post('price'),
+					'dis_price' => $this->input->post('dis_price'),
+					'sku' => $this->input->post('sku'),
+					'stock_status' => $this->input->post('stock_status'),
+					'variant_color' => $variant_color,
+					'variant_qty' => $variant_qty,
+					'page_title' => $this->input->post('page_title'),
+					'meta_description' => $this->input->post('meta_description'),
+					// Add other fields as needed
+				];
+	
+				// Insert data into the database
+				if ($this->db->insert('product', $data)) {
+					echo 'success';
+				} else {
+					echo 'error';
+				}
+			}
+	
+			// Prepare data for the view
 			$page_data['category'] = $this->db->get('category')->result_array();
 			$page_data['subcategory'] = $this->db->get('subcategory')->result_array();
 			$page_data['brand'] = $this->db->get('brand')->result_array();
 			$page_data['title'] = 'Add Product';
-			$this->load->view('admin/addproduct',$page_data);
-		}
-		else{
+	
+			// Load the view
+			$this->load->view('admin/addproduct', $page_data);
+		} else {
 			redirect('admin');
 		}
-
 	}
+	
+	
 
 	//category start
 	public function category(){
@@ -360,6 +420,14 @@ class Admin extends CI_Controller {
 			redirect('admin');
 		}
 	}
+
+	public function getsuboptions()
+	{
+		$selectedValue = $this->input->post('selectedValue');
+		$options = $this->db->get_where('subcategory', ['category_id' => $selectedValue])->result_array();
+		// print_r($this->db->last_query());
+		echo json_encode($options);
+	}
 	//subcategory end
 
 	//brand start
@@ -472,11 +540,11 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function getsuboptions()
+	public function getbrandoptions()
 	{
 		$selectedValue = $this->input->post('selectedValue');
-		$options = $this->db->get_where('subcategory', ['category_id' => $selectedValue])->result_array();
-		print_r($this->db->last_query());
+		$options = $this->db->get_where('brand', ['subcategory_id' => $selectedValue])->result_array();
+		// print_r($this->db->last_query());
 		echo json_encode($options);
 	}
 	//brand end
@@ -618,6 +686,24 @@ class Admin extends CI_Controller {
             }
     }
 
+	public function uploadimg1($data)
+{
+    $config['upload_path'] = $data['upload_path'];
+    $config['allowed_types'] = 'gif|jpg|png|jpeg|pdf';
+    $config['encrypt_name'] = TRUE;
+
+    $this->load->library('upload', $config);
+    $this->upload->initialize($config);
+
+    if (!$this->upload->do_upload($data['name'])) {
+        // Handle upload errors
+        $error = $this->upload->display_errors();
+        print_r($error);
+    } else {
+        $uploaded_data = $this->upload->data();
+        return $uploaded_data['file_name']; // Return only the file name
+    }
+}
 
 
 }
