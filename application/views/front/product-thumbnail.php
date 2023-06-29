@@ -251,7 +251,7 @@
                                             <li>Product Category : <a href="javascript:void(0)"><?= $product->category_name ?></a></li>
                                             <!-- <li>Product Type : <a href="javascript:void(0)">Black Forest</a></li> -->
                                             <li>SKU : <a href="javascript:void(0)"><?= $product->sku ?></a></li>
-                                            <li>Stock : <a href="javascript:void(0)"><?= $product->stock_status ?></a></li>
+                                            <li>Stock : <a href="javascript:void(0)"><?= $product->stock_status; ?></a></li>
                                         </ul>
                                     </div>
                                 </div>
