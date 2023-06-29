@@ -59,3 +59,32 @@
 
     <!-- thme setting js -->
     <script src="<?= base_url() ?>assets/js/theme-setting.js"></script>
+
+    <script>
+		$(document).ready(function () {
+			$('.heartspan,.heartspan1').click(function () {
+				let heartid = $(this).data('id');
+				var spanElement = $(this);
+
+				$.ajax({
+					url: "<?= base_url() ?>ajax/whistlist",
+					method: "post",
+					data: {
+						heartid: heartid,
+					},
+					dataType: 'json',
+					success: function (response) {
+						if (response.whislist === 1) {
+							spanElement.children('svg').css('fill', '#239698');
+						} else {
+							spanElement.children('svg').css('fill', 'none');
+						}
+					},
+					error: function () {
+						alert('uu');
+					}
+				});
+			});
+		});
+
+	</script>
