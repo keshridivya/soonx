@@ -18,10 +18,23 @@ class Frontend extends CI_Controller {
 		$this->db->from('category');
 		$this->db->join('product', 'category.id = product.category', 'right');
 		$this->db->where('product.id',$id);
+		$this->db->order_by('product.id', 'desc');
 		$page_data['product'] = $this->db->get()->row();
 		// $page_data['product_img'] = $this->db->get_where('product',array('id'=>$id))->result_array();
 
 		$this->load->view('front/product-thumbnail',$page_data);
+	}
+
+	public function wishlist(){
+		$this->db->select('*, product.id as pid,price-(price*dis_price/100) as rate');
+		$this->db->from('category');
+		$this->db->join('product', 'category.id = product.category', 'right');
+		$this->db->where('product.whislist','1');
+		$this->db->order_by('product.id', 'desc');
+		$page_data['product'] = $this->db->get()->result_array();
+
+		$this->load->view('front/wishlist',$page_data);
+
 	}
 }
 ?>

@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'frontend';
 $route['product-thumbnail/(:any)'] = 'frontend/productThumbnail/$1';
+$route['wishlist'] = 'frontend/wishlist';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

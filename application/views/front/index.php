@@ -360,7 +360,7 @@
 						<div>
 							<div class="product-box-4 wow fadeInUp">
 								<div class="product-image product-image-2">
-									<span class="heartspan" data-id="<?= $product['id'] ?>">
+									<span class="heartspan" data-id="<?= $product['pid'] ?>">
 										<?php
                                         if($product['whislist'] == '1'){
                                         ?>
@@ -383,7 +383,7 @@
 										</svg>
 										<?php } ?>
 									</span>
-									<a href="<?= base_url() ?>product-thumbnail/<?= $product['id'] ?>">
+									<a href="<?= base_url() ?>product-thumbnail/<?= $product['pid'] ?>">
 										<img src="<?= base_url() ?>uploads/product_thumb_image/<?= $product['thumbnail_image'] ?>"
 											class="img-fluid blur-up lazyload" alt="">
 									</a>
@@ -425,7 +425,7 @@
 											<i data-feather="star"></i>
 										</li>
 									</ul>
-									<a href="<?= base_url() ?>product-thumbnail/<?= $product['id'] ?>">
+									<a href="<?= base_url() ?>product-thumbnail/<?= $product['pid'] ?>">
 										<h5 class="name text-title"><?= $product['product_name'] ?></h5>
 									</a>
 									<h5 class="price theme-color"><i
@@ -433,7 +433,7 @@
 												class="fa fa-inr"></i><?= $product['price'] ?></del></h5>
 
 									<div class="addtocart_btn">
-										<a href="<?= base_url() ?>product-thumbnail/<?= $product['id'] ?>"
+										<a href="<?= base_url() ?>product-thumbnail/<?= $product['pid'] ?>"
 											class="add-button addcart-button btn buy-button text-light">
 											<i class="fa-solid fa-plus"></i>
 										</a>

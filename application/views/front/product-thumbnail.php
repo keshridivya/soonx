@@ -211,8 +211,8 @@
                                                     data-field="">
                                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                                 </button>
-                                                <input class="form-control input-number qty-input" type="text"
-                                                    name="quantity" value="1">
+                                                <input class="form-control input-number qty-input qtyVal" type="text"
+                                                    name="quantity" value="1" >
                                                 <button type="button" class="btn qty-right-plus" data-type="plus"
                                                     data-field="">
                                                     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -222,7 +222,7 @@
                                         </div>
                                     </div>
 
-                                    <button onclick="location.href = 'cart.html';" class="btn btn-md bg-dark cart-button text-white w-100">Add To Cart</button>
+                                    <button class="btn btn-md bg-dark cart-button text-white w-100 add-to-cart-button" data-id="<?= $product->id; ?>">Add To Cart</button>
                                 </div>
 
                                 <div class="buy-box">
