@@ -23,4 +23,5 @@ class Frontend extends CI_Controller {
 
 		$this->load->view('front/product-thumbnail',$page_data);
 	}
+	
 }
