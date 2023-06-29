@@ -160,7 +160,7 @@
                                     </ul>
                                 </div>
 
-                                <div class="time deal-timer product-deal-timer mx-md-0 mx-auto" id="clockdiv-1" data-hours="1" data-minutes="2" data-seconds="3">
+                                <!-- <div class="time deal-timer product-deal-timer mx-md-0 mx-auto" id="clockdiv-1" data-hours="1" data-minutes="2" data-seconds="3">
                                     <div class="product-title">
                                         <h4>Hurry up! Sales Ends In</h4>
                                     </div>
@@ -198,7 +198,7 @@
                                             </div>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
 
 
 
