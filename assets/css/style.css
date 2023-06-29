@@ -29789,3 +29789,13 @@ header .offcanvas-backdrop {
     left: 20px;
     bottom: 20px
 }
+
+.heartspan{
+    position: absolute;
+    z-index: 1;
+    font-size: 21px;
+    top: -8px;
+    right: 0;
+    border-color:#000;
+    background-color: #fff;
+}
