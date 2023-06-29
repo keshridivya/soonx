@@ -357,7 +357,7 @@
                         <div>
                             <div class="product-box-4 wow fadeInUp">
                                 <div class="product-image product-image-2">
-                                    <span class="heartspan"><i class="fa fa-heart"></i></span>
+                                    <span class="heartspan" data-id="<?= $product['id'] ?>"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#239698" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-heart"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg></span>
                                     <a href="<?= base_url() ?>product-thumbnail/<?= $product['id'] ?>">
                                         <img src="<?= base_url() ?>uploads/product_thumb_image/<?= $product['thumbnail_image'] ?>"
                                             class="img-fluid blur-up lazyload" alt="">
@@ -400,16 +400,16 @@
                                             <i data-feather="star"></i>
                                         </li>
                                     </ul>
-                                    <a href="product-left-thumbnail.html">
+                                    <a href="<?= base_url() ?>product-thumbnail/<?= $product['id'] ?>">
                                         <h5 class="name text-title"><?= $product['product_name'] ?></h5>
                                     </a>
                                     <h5 class="price theme-color"><i class="fa fa-inr"></i><?= $product['rate'] ?><del><i class="fa fa-inr"></i><?= $product['price'] ?></del></h5>
 
                                     <div class="addtocart_btn">
-                                        <button class="add-button addcart-button btn buy-button text-light">
+                                        <a href="<?= base_url() ?>product-thumbnail/<?= $product['id'] ?>" class="add-button addcart-button btn buy-button text-light">
                                             <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                        <div class="qty-box cart_qty">
+                                         </a>
+                                        <!-- <div class="qty-box cart_qty">
                                             <div class="input-group">
                                                 <button type="button" class="btn qty-left-minus" data-type="minus"
                                                     data-field="">
@@ -422,7 +422,7 @@
                                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                                 </button>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </div>
                             </div>

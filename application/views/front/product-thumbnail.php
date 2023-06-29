@@ -129,13 +129,13 @@
                                     </div>
                                 </div>
 
-                                <div class="procuct-contain">
+                                <!-- <div class="procuct-contain">
                                     <p>Lollipop cake chocolate chocolate cake dessert jujubes. Shortbread sugar plum
                                         dessert
                                         powder cookie sweet brownie. Cake cookie apple pie dessert sugar plum muffin
                                         cheesecake.
                                     </p>
-                                </div>
+                                </div> -->
 
                                 <div class="product-packege">
                                     <div class="product-title">
@@ -205,13 +205,20 @@
                                 <div class="note-box product-packege">
                                     <div class="cart_qty qty-box product-qty">
                                         <div class="input-group">
-                                            <button type="button" class="qty-right-plus" data-type="plus" data-field="">
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                            </button>
-                                            <input class="form-control input-number qty-input" type="text" name="quantity" value="0">
-                                            <button type="button" class="qty-left-minus" data-type="minus" data-field="">
-                                                <i class="fa fa-minus" aria-hidden="true"></i>
-                                            </button>
+                                        <div class="qty-box cart_qty">
+                                            <div class="input-group">
+                                                <button type="button" class="btn qty-left-minus" data-type="minus"
+                                                    data-field="">
+                                                    <i class="fa fa-minus" aria-hidden="true"></i>
+                                                </button>
+                                                <input class="form-control input-number qty-input" type="text"
+                                                    name="quantity" value="1">
+                                                <button type="button" class="btn qty-right-plus" data-type="plus"
+                                                    data-field="">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
                                         </div>
                                     </div>
 
@@ -236,17 +243,15 @@
                                     </div>
 
                                     <div class="pickup-detail">
-                                        <h4 class="text-content">Lollipop cake chocolate chocolate cake dessert jujubes.
-                                            Shortbread sugar plum dessert powder cookie sweet brownie.</h4>
+                                        <h4 class="text-content"><?= $product->product_desc ?></h4>
                                     </div>
 
                                     <div class="product-info">
                                         <ul class="product-info-list product-info-list-2">
-                                            <li>Type : <a href="javascript:void(0)">Black Forest</a></li>
-                                            <li>SKU : <a href="javascript:void(0)">SDFVW65467</a></li>
-                                            <li>MFG : <a href="javascript:void(0)">Jun 4, 2022</a></li>
-                                            <li>Stock : <a href="javascript:void(0)">2 Items Left</a></li>
-                                            <li>Tags : <a href="javascript:void(0)">Cake,</a> <a href="javascript:void(0)">Backery</a></li>
+                                            <li>Product Category : <a href="javascript:void(0)"><?= $product->category_name ?></a></li>
+                                            <!-- <li>Product Type : <a href="javascript:void(0)">Black Forest</a></li> -->
+                                            <li>SKU : <a href="javascript:void(0)"><?= $product->sku ?></a></li>
+                                            <li>Stock : <a href="javascript:void(0)"><?= $product->stock_status ?></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -286,7 +291,7 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <!-- <div class="col-12">
                             <div class="product-section-box">
                                 <ul class="nav nav-tabs custom-nav" id="myTab" role="tablist">
                                     <li class="nav-item" role="presentation">
@@ -733,7 +738,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
 
