@@ -76,7 +76,6 @@
 											class="fa fa-inr"></i><?= $product['rate'] ?></span><del><i
 												class="fa fa-inr"></i><?= $product['price'] ?></del>
                                 </h5>
-
                                 <div class="add-to-cart-box bg-white mt-2">
                                     <button class="btn btn-add-cart addcart-button">Add
                                         <span class="add-icon bg-light-gray">
