@@ -222,7 +222,7 @@
                                         </div>
                                     </div>
 
-                                    <button class="btn btn-md bg-dark cart-button text-white w-100 add-to-cart-button" data-id="<?= $product->id; ?>">Add To Cart</button>
+                                    <button class="btn btn-md bg-dark cart-button text-white w-100 add-to-cart-button" data-id="<?= $product->pid; ?>" data-userid="123">Add To Cart</button>
                                 </div>
 
                                 <div class="buy-box">
@@ -903,7 +903,7 @@
                         </div>
 
                         <!-- Banner Section -->
-                        <div class="ratio_156 pt-25">
+                        <!-- <div class="ratio_156 pt-25">
                             <div class="home-contain">
                                 <img src="../assets/images/vegetable/banner/8.jpg" class="bg-img blur-up lazyload" alt="">
                                 <div class="home-detail p-top-left home-p-medium">
@@ -915,7 +915,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>

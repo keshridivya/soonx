@@ -91,39 +91,45 @@
 		$(document).ready(function () {
 			// Add to cart function
 			$('.add-to-cart-button').click(function () {
-				let product_id = $(this).data('product-id');
+				let product_id = $(this).data('id');
 				let quantity = $(this).parent('div').find('input').val();
+				let userid = $(this).data('userid');
 
-				// $.ajax({
-				// 	url: "<?php echo base_url('controller_name/addToCart'); ?>",
-				// 	method: "POST",
-				// 	data: {
-				// 		product_id: product_id,
-				// 		quantity: quantity
-				// 	},
-				// 	dataType: "json",
-				// 	success: function (response) {
-				// 		console.log('Item added to cart successfully');
-				// 	},
-				// 	error: function () {
-				// 		console.log('Failed to add item to cart');
-				// 	}
-				// });
+				$.ajax({
+					url: "<?php echo base_url('ajax/addToCart'); ?>",
+					method: "POST",
+					data: {
+						product_id: product_id,
+						quantity: quantity,
+						userid: userid,
+					},
+					dataType: "json",
+					success: function (response) {
+						console.log('Item added to cart successfully');
+					},
+					error: function () {
+						console.log('Failed to add item to cart');
+					}
+				});
 			});
 
 			// Remove from cart function
 			$('.remove-from-cart-button').click(function () {
-				let cart_item_id = $(this).data('cart-item-id');
+				let cart_item_id = $(this).data('cart-id');
+                let userid = $(this).data('userid');
+                var $row = $(this).closest('tr');
 
 				$.ajax({
-					url: "<?php echo base_url('controller_name/removeFromCart'); ?>",
+					url: "<?php echo base_url('ajax/removeFromCart'); ?>",
 					method: "POST",
 					data: {
-						cart_item_id: cart_item_id
+						cart_item_id: cart_item_id,
+                        userid: userid,
 					},
 					dataType: "json",
 					success: function (response) {
 						console.log('Item removed from cart successfully');
+                        $row.remove();
 					},
 					error: function () {
 						console.log('Failed to remove item from cart');
@@ -133,5 +139,7 @@
 		});
 
 	});
+
+
 
 </script>

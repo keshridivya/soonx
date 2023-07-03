@@ -88,7 +88,7 @@
 															<?php
 															foreach($category as $category){
 															?>
-                                                            <option <?php echo (($offerslider->button ?? '') == $category['category_slug']) ? 'selected' : '';  ?>><?= $category['category_slug'] ?></option>
+                                                            <option <?php echo (($offerslider->button ?? '') == $category['id']) ? 'selected' : '';  ?>><?= $category['category_slug'] ?></option>
 															<?php } ?>
                                                         </select>
                                                     </div>

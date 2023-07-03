@@ -77,12 +77,15 @@
 												class="fa fa-inr"></i><?= $product['price'] ?></del>
                                 </h5>
                                 <div class="add-to-cart-box bg-white mt-2">
-                                    <button class="btn btn-add-cart addcart-button">Add
-                                        <span class="add-icon bg-light-gray">
+                                <input class=" qty-input qtyVal" type="hidden"
+                                                    name="quantity" value="1" >
+                                    <button class="btn btn-add-cart addcart-button add-to-cart-button" data-id="<?= $product['pid']; ?>" data-userid="123">Add to Cart
+                                    
+                                        <!-- <span class="add-icon bg-light-gray">
                                             <i class="fa-solid fa-plus"></i>
-                                        </span>
+                                        </span> -->
                                     </button>
-                                    <div class="cart_qty qty-box">
+                                    <!-- <div class="cart_qty qty-box">
                                         <div class="input-group bg-white">
                                             <button type="button" class="qty-left-minus bg-gray" data-type="minus" data-field="">
                                                 <i class="fa fa-minus" aria-hidden="true"></i>
@@ -92,7 +95,7 @@
                                                 <i class="fa fa-plus" aria-hidden="true"></i>
                                             </button>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

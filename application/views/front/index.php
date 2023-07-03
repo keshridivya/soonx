@@ -1,7 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 
-<?php include_once('include/head.php'); ?>
+<?php include_once('include/head.php'); 
+$product = $product;
+?>
 
 <body class="theme-color-3 dark">
 
@@ -85,25 +87,29 @@
 	<section class="banner-section banner-small ratio_65">
 		<div class="container-fluid-lg">
 			<div class="slider-4-banner no-arrow slick-height">
+                <?php
+                foreach($offerslider as $offerslider){
+                ?>
 				<div>
 					<div class=" banner-contain-3 hover-effect">
 						<a href="javascript:void(0)">
-							<img src="<?= base_url() ?>assets/images/grocery/banner/2.jpg"
+							<img src="<?= base_url() ?>uploads/offer_slider/<?= $offerslider['slider_image'] ?>"
 								class="bg-img blur-up lazyload" alt="">
 						</a>
 						<div class="banner-detail p-center-left w-75 banner-p-sm mend-auto">
 							<div>
-								<h5 class="fw-light mb-2">50% Discount</h5>
-								<h4 class="fw-bold mb-0">Summer Ice Cream</h4>
-								<button onclick="location.href = 'shop-left-sidebar.html';"
+								<h5 class="fw-light mb-2"><?= $offerslider['for'] ?></h5>
+								<h4 class="fw-bold mb-0"><?= $offerslider['slider_name'] ?></h4>
+								<a href="<?= base_url('shop/'.$offerslider['category_slug'].'/'.$offerslider['id']) ?>"
 									class="btn shop-now-button mt-3 ps-0 mend-auto theme-color fw-bold">Shop Now <i
-										class="fa-solid fa-chevron-right"></i></button>
+										class="fa-solid fa-chevron-right"></i></a>
 							</div>
 						</div>
 					</div>
 				</div>
+                <?php } ?>
 
-				<div>
+				<!-- <div>
 					<div class="banner-contain-3 hover-effect">
 						<a href="javascript:void(0)">
 							<img src="<?= base_url() ?>assets/images/grocery/banner/3.jpg" class="img-fluid bg-img"
@@ -155,7 +161,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</section>
@@ -170,176 +176,27 @@
 			<div class="row">
 				<div class="col-12">
 					<div class="category-slider-1 arrow-slider wow fadeInUp">
+                    <?php    foreach($category as $category){    ?>
 						<div>
 							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Fashion</h4>
-									<h6>25 items</h6>
+								<a href="<?= base_url('shop/'.$category['category_slug'].'/'.$category['id']) ?>" class="category-name">
+									<h4><?= $category['category_name'] ?></h4>
+									<!-- <h6>25 items</h6> -->
 								</a>
 								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/1.png"
+									<a href="<?= base_url('shop/'.$category['category_slug'].'/'.$category['id']) ?>">
+										<img src="<?= base_url() ?>uploads/category_image/<?= $category['category_image']; ?>"
 											class="img-fluid blur-up lazyload" alt="">
 									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
+									<a href="<?= base_url('shop/'.$category['category_slug'].'/'.$category['id']) ?>" class="btn shop-button">
 										<span>Shop Now</span>
 										<i class="fas fa-angle-right"></i>
-									</button>
+                    </a>
 								</div>
 							</div>
 						</div>
+                        <?php } ?>
 
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Beauty</h4>
-									<h6>20 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/2.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Accessories</h4>
-									<h6>14 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/3.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Health</h4>
-									<h6>43 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/4.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Stationery</h4>
-									<h6>23 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/5.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Baby care</h4>
-									<h6>54 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/6.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Electronics</h4>
-									<h6>32 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/7.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Sports</h4>
-									<h6>29 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/8.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<div class="category-box-list">
-								<a href="shop-left-sidebar.html" class="category-name">
-									<h4>Fashion</h4>
-									<h6>25 items</h6>
-								</a>
-								<div class="category-box-view">
-									<a href="shop-left-sidebar.html">
-										<img src="<?= base_url() ?>assets/images/grocery/category/1.png"
-											class="img-fluid blur-up lazyload" alt="">
-									</a>
-									<button onclick="location.href = 'shop-left-sidebar.html';" class="btn shop-button">
-										<span>Shop Now</span>
-										<i class="fas fa-angle-right"></i>
-									</button>
-								</div>
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>
