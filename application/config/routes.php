@@ -87,6 +87,11 @@ $route['admin/addsubcategory'] = 'admin/addSubCategory';
 $route['admin/editsubcategory/(:any)'] = 'admin/editsubcategory/$1';
 $route['admin/subcategorydelete'] = 'admin/subcategorydelete';
 
+$route['admin/homebanner'] = 'admin/homebanner';
+$route['admin/categorybanner'] = 'admin/categorybanner';
+$route['admin/edithomebanner/(:any)'] = 'admin/edithomebanner/$1';
+$route['admin/editcategorybanner/(:any)'] = 'admin/editcategorybanner/$1';
+
 $route['admin/product'] = 'admin/product';
 $route['admin/addproducts'] = 'admin/addproducts';
 $route['admin/editproduct/(:any)'] = 'admin/editproduct/$1';

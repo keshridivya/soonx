@@ -15,6 +15,7 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/index',$page_data);
 	}
 
+	//login start
 	public function process_login() {
 		// Get form input values
 		$username = $this->input->post('username');
@@ -89,9 +90,9 @@ class Admin extends CI_Controller {
 			redirect('admin/dashboard');
 		}
 	}
+	//login end
 
-
-
+    //product start
 	public function dashboard()
 	{
 		if($this->session->userdata['username']){
@@ -161,6 +162,14 @@ class Admin extends CI_Controller {
 					'status' => $this->input->post('status'),
 					'page_title' => $this->input->post('page_title'),
 					'meta_description' => $this->input->post('meta_description'),
+					'product_title'=> $this->input->post('titlename'),
+					'pv'=> $this->input->post('titlename'),
+					'bv'=> $this->input->post('titlename'),
+					'cgst_dis'=> $this->input->post('cgstdis'),
+					'sgst_dis'=> $this->input->post('sgstdis'),
+					'cgst_amt'=> $this->input->post('cgstamt'),
+					'sgst_amt'=> $this->input->post('sgstamt'),
+					'created_on' => date('y-m-d'),
 					// Add other fields as needed
 				];
 				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
@@ -204,21 +213,10 @@ class Admin extends CI_Controller {
 		}
 	}
 
-	public function editproduct()
+	public function editproduct($id=false)
 	{
 		if ($this->session->userdata('username')) {
-			if ($this->input->post()) {
-				$product_variant_name = '';
-				$product_variant_value = '';
-			
-				if (is_array($this->input->post('product_variant_name')) && !empty($this->input->post('product_variant_name'))) {
-					$product_variant_name = implode(',', $this->input->post('product_variant_name'));
-				}
-			
-				if (is_array($this->input->post('product_variant_value')) && !empty($this->input->post('product_variant_value'))) {
-					$product_variant_value = implode(',', $this->input->post('product_variant_value'));
-				}
-	
+			if ($this->input->post()) {	
 				// Upload thumbnail image
 				if($_FILES['thumbnail_image']['name'] != ""){
 					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/product_thumb_image/','name'=>'thumbnail_image'));
@@ -232,8 +230,8 @@ class Admin extends CI_Controller {
 					'unit' => $this->input->post('unit'),
 					'product_desc' => $this->input->post('product_desc'),
 					// 'thumbnail_image' => $this->input->post('thumbnail_image'),
-					'product_variant_name' => $product_variant_name,
-					'product_variant_value' => $product_variant_value,
+					'product_variant_name' => $this->input->post('product_variant_name'),
+					'product_variant_value' => $this->input->post('product_variant_value'),
 					'shipping' => $this->input->post('shipping'),
 					'shippingcharge' => $this->input->post('shippingcharge'),
 					'price' => $this->input->post('price'),
@@ -245,6 +243,14 @@ class Admin extends CI_Controller {
 					'status' => $this->input->post('status'),
 					'page_title' => $this->input->post('page_title'),
 					'meta_description' => $this->input->post('meta_description'),
+					'product_title'=> $this->input->post('titlename'),
+					'pv'=> $this->input->post('titlename'),
+					'bv'=> $this->input->post('titlename'),
+					'cgst_dis'=> $this->input->post('cgstdis'),
+					'sgst_dis'=> $this->input->post('sgstdis'),
+					'cgst_amt'=> $this->input->post('cgstamt'),
+					'sgst_amt'=> $this->input->post('sgstamt'),
+					'modified_on' => date('y-m-d'),
 					// Add other fields as needed
 				];
 				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
@@ -266,7 +272,8 @@ class Admin extends CI_Controller {
 				}
 
 				// Insert data into the database
-				if ($this->db->insert('product', $data)) {
+				$this->db->where('id',$id);
+				if ($this->db->update('product', $data)) {
 					echo 'success';
 				} else {
 					echo 'error';
@@ -279,11 +286,11 @@ class Admin extends CI_Controller {
 			$page_data['attributes'] = $this->db->group_by('name')->get('attributes')->result_array();
 			$page_data['brand'] = $this->db->get('brand')->result_array();
 			$page_data['titles'] = $this->db->get('title')->result_array();
-			$page_data['products'] = $this->db->get('product')->result_array();
+			$page_data['product'] = $this->db->get_where('product',array('id'=>$id))->row();
 			$page_data['title'] = 'Add Product';
 	
 			// Load the view
-			$this->load->view('admin/addproduct', $page_data);
+			$this->load->view('admin/editproduct', $page_data);
 		} else {
 			redirect('admin');
 		}
@@ -318,6 +325,7 @@ class Admin extends CI_Controller {
 
 		echo $options;
 	}
+	//product end
 
 	
 
@@ -888,6 +896,158 @@ class Admin extends CI_Controller {
 
 	}
 	//offerslider end
+
+	//banner start
+	public function homebanner(){
+		if($this->session->userdata['username']){
+			$page_data['home_banner'] = $this->db->get_where('banner',array('banner_name'=>'home_banner'))->result_array();
+			$this->load->view('admin/homebanner',$page_data);	
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function categorybanner(){
+		if($this->session->userdata['username']){
+			$page_data['category_banner'] = $this->db->get_where('banner',array('banner_name'=>'category_banner'))->result_array();
+			$this->load->view('admin/categorybanner',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function edithomebanner($id=false){
+		if($this->session->userdata['username']){
+			if ($this->input->post()) {
+				$data = [
+					'status' => $this->input->post('status'),
+					'modified_on' => date('y-m-d'),
+				];
+			
+				// Check if a new image is uploaded
+				if ($_FILES['image']['name'] != "") {
+					$oldImage = $this->input->post('banner_img');
+					$filePath = './uploads/banner/'.$oldImage;
+			
+					// Check if the old image file exists
+					if (file_exists($filePath)) {
+						// Attempt to delete the old image file
+						if (@unlink($filePath)) {
+							// File deleted successfully, upload the new image
+							$uploaded_data = $this->uploadimg(array('upload_path' => './uploads/banner/', 'name' => 'image'));
+			
+							if (is_countable($uploaded_data) && count($uploaded_data) >= 1) {
+								$data['banner_image'] = $uploaded_data['file_name'];
+							} else {
+								$page_data['message'] = 'Error uploading the new image.';
+							}
+						} else {
+							// Delay and attempt deletion again
+							sleep(1);
+							if (@unlink($filePath)) {
+								// File deleted successfully, upload the new image
+								$uploaded_data = $this->uploadimg(array('upload_path' => './uploads/banner/', 'name' => 'image'));
+			
+								if (is_countable($uploaded_data) && count($uploaded_data) >= 1) {
+									$data['banner_image'] = $uploaded_data['file_name'];
+								} else {
+									$page_data['message'] = 'Error uploading the new image.';
+								}
+							} else {
+								$page_data['message'] = 'Error deleting the old image file.';
+							}
+						}
+					} else {
+						$page_data['message'] = 'Old image file does not exist.';
+					}
+				}
+			
+				$this->db->where('id', $id);
+				if ($this->db->update('banner', $data)) {
+					redirect('admin/homebanner');
+					$page_data['message'] = 'Successfully updated the banner.';
+				} else {
+					$page_data['message'] = 'Something went wrong while updating the banner.';
+				}
+			}
+			
+			
+
+			$page_data['home_banner'] = $this->db->get_where('banner',array('status'=>'1','banner_name'=>'home_banner','id'=>$id))->row();
+			$this->load->view('admin/edithomebanner',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function editcategorybanner($id=false){
+		if($this->session->userdata['username']){
+			if ($this->input->post()) {
+				$data = [
+					'status' => $this->input->post('status'),
+					'modified_on' => date('y-m-d'),
+				];
+			
+				// Check if a new image is uploaded
+				if ($_FILES['image']['name'] != "") {
+					$oldImage = $this->input->post('banner_img');
+					$filePath = './uploads/banner/'.$oldImage;
+			
+					// Check if the old image file exists
+					if (file_exists($filePath)) {
+						// Attempt to delete the old image file
+						if (@unlink($filePath)) {
+							// File deleted successfully, upload the new image
+							$uploaded_data = $this->uploadimg(array('upload_path' => './uploads/banner/', 'name' => 'image'));
+			
+							if (is_countable($uploaded_data) && count($uploaded_data) >= 1) {
+								$data['banner_image'] = $uploaded_data['file_name'];
+							} else {
+								$page_data['message'] = 'Error uploading the new image.';
+							}
+						} else {
+							// Delay and attempt deletion again
+							sleep(1);
+							if (@unlink($filePath)) {
+								// File deleted successfully, upload the new image
+								$uploaded_data = $this->uploadimg(array('upload_path' => './uploads/banner/', 'name' => 'image'));
+			
+								if (is_countable($uploaded_data) && count($uploaded_data) >= 1) {
+									$data['banner_image'] = $uploaded_data['file_name'];
+								} else {
+									$page_data['message'] = 'Error uploading the new image.';
+								}
+							} else {
+								$page_data['message'] = 'Error deleting the old image file.';
+							}
+						}
+					} else {
+						$page_data['message'] = 'Old image file does not exist.';
+					}
+				}
+			
+				$this->db->where('id', $id);
+				if ($this->db->update('banner', $data)) {
+					redirect('admin/homebanner');
+					$page_data['message'] = 'Successfully updated the banner.';
+				} else {
+					$page_data['message'] = 'Something went wrong while updating the banner.';
+				}
+			}
+			
+			
+
+			$page_data['home_banner'] = $this->db->get_where('banner',array('status'=>'1','banner_name'=>'home_banner','id'=>$id))->row();
+			$this->load->view('admin/editcategorybanner',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+	//banner end
 
 
 	public function uploadimg($data)

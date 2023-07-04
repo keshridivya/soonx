@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" dir="ltr">
 
 <?php require_once 'include/head.php' ?>
@@ -33,8 +33,8 @@
 									<div class="col-sm-8 m-auto">
 										<div class="card">
 											<?php
-											if($message ?? FALSE){
-											?>
+                                            if($message ?? FALSE){
+                                            ?>
 											<div class="alert alert-success"><?= $message; ?></div>
 											<?php } ?>
 											<div class="card-body">
@@ -48,7 +48,8 @@
 															Name</label>
 														<div class="col-sm-9">
 															<input class="form-control" name="product_name" type="text"
-																placeholder="Product Name">
+																placeholder="Product Name"
+																value="<?= $product->product_name ?>">
 														</div>
 													</div>
 
@@ -68,13 +69,14 @@
 														<label
 															class="col-sm-3 col-form-label form-label-title">Category</label>
 														<div class="col-sm-9">
-															<select class="js-example-basic-single w-100" name="category"
-																id="cateegory">
-																<option >Category Menu</option>
+															<select class="js-example-basic-single w-100"
+																name="category" id="cateegory">
+																<option>Category Menu</option>
 																<?php 
                                                             foreach($category as $category){
                                                             ?>
-																<option value="<?= $category['id'] ?>">
+																<option value="<?= $category['id'] ?>"
+																	<?php echo ($product->category == $category['id']) ? 'selected' : ''; ?>>
 																	<?= $category['category_name'] ?></option>
 																<?php } ?>
 															</select>
@@ -85,8 +87,8 @@
 														<label
 															class="col-sm-3 col-form-label form-label-title">Subcategory</label>
 														<div class="col-sm-9">
-															<select class="js-example-basic-single w-100" name="subCategory"
-																id="subcate">
+															<select class="js-example-basic-single w-100"
+																name="subCategory" id="subcate">
 																<option selected>Select Subcategory</option>
 																<!-- <?php 
                                                             foreach($subcategory as $subcategory){
@@ -101,14 +103,16 @@
 														<label class="form-label-title col-sm-3 mb-0">Product
 															Title</label>
 														<div class="col-sm-9">
-														<select class="js-example-basic-single w-100" name="titlename"
-																id="titlename">
+															<select class="js-example-basic-single w-100"
+																name="titlename" id="titlename">
 																<option selected>Select Title</option>
 																<?php 
                                                             foreach($titles as $title){
                                                             ?>
-                                                            <option value="<?= $title['id'] ?>"><?= $title['title_name'] ?></option>
-                                                            <?php } ?>
+																<option value="<?= $title['id'] ?>"
+																	<?php echo ($product->product_title == $title['id']) ? 'selected' : ''; ?>>
+																	<?= $title['title_name'] ?></option>
+																<?php } ?>
 															</select>
 														</div>
 													</div>
@@ -150,9 +154,12 @@
 																<label class="form-label-title col-sm-12 mb-0">Product
 																	Description</label>
 																<div class="col-sm-12">
-																	<textarea name="product_desc" id="editor" cols="30" rows="10"></textarea>
+																	<textarea name="product_desc" id="editor" cols="30"
+																		rows="10"><?= $product->product_desc ?></textarea>
 																</div>
+
 															</div>
+															<div><?= $product->product_desc; ?></div>
 														</div>
 													</div>
 												</div>
@@ -170,6 +177,15 @@
 														<label
 															class="col-sm-3 col-form-label form-label-title">Images</label>
 														<div class="col-sm-9">
+															<?php
+															if($product->multiple_images != ''){
+																$imageString = $product->multiple_images;
+																$imageUrls = explode(",", $imageString);
+																foreach ($imageUrls as $imageUrl) {
+																	echo '<img src="'.base_url().'uploads/product_img/' . $imageUrl . '" alt="Image" class="img-fluid" width="50">';
+																}
+															}
+															?>
 															<input class="form-control form-choose"
 																name="multiple_images[]" type="file" id="formFile"
 																multiple="">
@@ -181,7 +197,11 @@
 															class="col-sm-3 col-form-label form-label-title">Thumbnail
 															Image</label>
 														<div class="col-sm-9">
-															
+															<?php 
+															if($product->thumbnail_image != ''){
+																echo '<img src="'.base_url().'uploads/product_thumb_image/'.$product->thumbnail_image.'" class="img-fluid" width="50">';
+															}
+															?>
 															<input class="form-control form-choose"
 																name="thumbnail_image" type="file"
 																id="formFileMultiple1">
@@ -191,42 +211,114 @@
 											</div>
 										</div>
 
-
 										<div class="card">
 											<div class="card-body">
 												<div class="card-header-2">
 													<h5>Product variations</h5>
 												</div>
 
-												<div class="theme-form theme-form-2 mega-form attrform">
-													<div class="mb-4 row align-items-center">
-														<label class="form-label-title col-sm-3 mb-0">Option
-															Name</label>
-														<div class="col-sm-9">
-														<select class="js-example-basic-single w-100 attrname" 
-															name="product_variant_name[]">
-															<option value="">Select Attributes</option>
-															<?php foreach ($attributes as $attribute) { ?>
-																<option><?= $attribute['name']; ?></option>
-															<?php } ?>
-														</select>
-														</div>
-													</div>
+                                                <table class="table variation-table table-responsive-sm">
+													<thead>
+														<tr>
+                                                        <?php
+															if($product->product_variant_name != ''){
+																$variant_name = $product->product_variant_name;
+																$variantUrls = explode(",", $variant_name);
+																foreach ($variantUrls as $variantUrl) {
+																	echo '<th scope="col">'.$variantUrl.'</th>';
+																}
+															}
+															?>
+															<!-- <th scope="col">Variant Color</th>
+															<th scope="col">Quantity</th>
+															<th scope="col"></th> -->
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td><input class="form-control" type="text"
+																	placeholder="0"
+																	name="variant_color[]"></td>
+															<td>
+																<input class="form-control" type="number"
+																	 placeholder="0"
+																	name="variant_qty[]">
+															</td>
+															<td>
+																<ul class="order-option">
+																	<li><a href="javascript:void(0)" data-toggle="modal"
+																			data-target="#deleteModal"><i
+																				class="ri-delete-bin-line"></i></a>
+																	</li>
+																</ul>
+															</td>
+														</tr>
 
-													<div class="row align-items-center">
-														<label class="col-sm-3 col-form-label form-label-title">Option
-															Value</label>
-														<div class="col-sm-9">
-															<div class="bs-example">
-															<select class="selectpicker attribute_values_select" id="attribute_values_select" name="product_variant_value[]" multiple aria-label="Default select example" data-live-search="true"></select>
-															</div>
-														</div>
-													</div>
-												</div>
+														<tr>
+															<td><input class="form-control" type="text"
+																	placeholder="0"
+																	name="variant_color[]"></td>
+															<td>
+																<input class="form-control" type="number"
+																	 placeholder="0"
+																	name="variant_qty[]">
+															</td>
+															<td>
+																<ul class="order-option">
+																	<li><a href="javascript:void(0)" data-toggle="modal"
+																			data-target="#deleteModal"><i
+																				class="ri-delete-bin-line"></i></a>
+																	</li>
+																</ul>
+															</td>
+														</tr>
 
-												<a href="#" class="add-option add_another_option"><i class="ri-add-line me-2"></i> Add
-													Another
-													Option</a>
+
+													</tbody>
+												</table>
+
+                                                
+                                                <?php
+                                                if($product->product_variant_name == ''){
+                                                ?>
+                                                    <div class="theme-form theme-form-2 mega-form attrform">
+                                                        <div class="mb-4 row align-items-center">
+                                                            <label class="form-label-title col-sm-3 mb-0">Option
+                                                                Name</label>
+                                                            <div class="col-sm-9">
+                                                                <select class="js-example-basic-single w-100 attrname"
+                                                                    name="product_variant_name[]">
+                                                                    <option value="">Select Attributes</option>
+                                                                    <?php foreach ($attributes as $attribute) { ?>
+                                                                    <option><?= $attribute['name']; ?></option>
+                                                                    <?php } ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row align-items-center">
+                                                            <label class="col-sm-3 col-form-label form-label-title">Option
+                                                                Value</label>
+                                                            <div class="col-sm-9">
+                                                                <div class="bs-example">
+                                                                    <select class="selectpicker attribute_values_select"
+                                                                        id="attribute_values_select"
+                                                                        name="product_variant_value[]" multiple
+                                                                        aria-label="Default select example"
+                                                                        data-live-search="true"></select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <a href="#" class="add-option add_another_option"><i
+                                                            class="ri-add-line me-2"></i> Add
+                                                        Another
+                                                        Option</a>
+                                                <?php }else{ ?>
+                                                    <input type="hidden" name="product_variant_name" value="<?= $product->product_variant_name ?>">
+                                                    <input type="hidden" name="product_variant_value" value="<?= $product->product_variant_name ?>">
+                                                <?php } ?>
 											</div>
 										</div>
 
@@ -240,11 +332,22 @@
 													<div class="mb-4 row align-items-center">
 														<label class="col-sm-3 form-label-title">Shipping </label>
 														<div class="col-sm-9">
-														<select class="js-example-basic-single w-100 shipping" name="shipping" >
+															<select class="js-example-basic-single w-100 shipping"
+																name="shipping">
 																<option disabled="">Select Shipping</option>
-																<option>Free Delivery</option>
-																<option>Shipping Charges</option>
+																<option
+																	<?php echo ($product->shipping == 'Free Delivery') ? 'selected' : ''; ?>>
+																	Free Delivery</option>
+																<option
+																	<?php echo ($product->shipping == 'Shipping Charges') ? 'selected' : ''; ?>>
+																	Shipping Charges</option>
 															</select>
+
+															<?php
+														if($product->shipping == 'Shipping Charges'){
+															echo '<div class="mt-2"><input class="form-contro shippinginputl" type="number" value="'.$product->shippingcharge.'" name="shippingcharge" placeholder="20" ></div>';
+														}
+														?>
 														</div>
 													</div>
 
@@ -275,14 +378,16 @@
 													<div class="mb-4 row align-items-center">
 														<label class="col-sm-3 form-label-title">price</label>
 														<div class="col-sm-9">
-															<input class="form-control priceamt" type="number" name="price"
+															<input class="form-control priceamt" type="number"
+																value="<?= $product->price ?>" name="price"
 																placeholder="0">
 														</div>
 													</div>
 													<div class="mb-4 row align-items-center">
 														<label class="col-sm-3 form-label-title">Discount Price</label>
 														<div class="col-sm-5">
-															<input class="form-control" type="number" name="dis_price"
+															<input class="form-control" type="number"
+																value="<?= $product->dis_price ?>" name="dis_price"
 																placeholder="0">
 														</div>
 													</div>
@@ -300,7 +405,8 @@
 													<div class="mb-4 row align-items-center">
 														<label class="form-label-title col-sm-3 mb-0">SKU</label>
 														<div class="col-sm-9">
-															<input class="form-control" type="text" name="sku">
+															<input class="form-control" type="text" name="sku"
+																value="<?= $product->sku ?>">
 														</div>
 													</div>
 													<div class="mb-4 row align-items-center">
@@ -309,9 +415,15 @@
 														<div class="col-sm-9">
 															<select class="js-example-basic-single w-100"
 																name="stock_status">
-																<option>In Stock</option>
-																<option>Out Of Stock</option>
-																<option>On Backorder</option>
+																<option
+																	<?php echo ($product->stock_status == 'In Stock') ? 'selected' : ''; ?>>
+																	In Stock</option>
+																<option
+																	<?php echo ($product->stock_status == 'Out Of Stock') ? 'selected' : ''; ?>>
+																	Out Of Stock</option>
+																<option
+																	<?php echo ($product->stock_status == 'On Backorder') ? 'selected' : ''; ?>>
+																	On Backorder</option>
 															</select>
 														</div>
 													</div>
@@ -368,6 +480,7 @@
 												</table> -->
 											</div>
 										</div>
+
 										<div class="card">
 											<div class="card-body">
 												<div class="card-header-2">
@@ -378,13 +491,15 @@
 													<div class="mb-4 row align-items-center">
 														<label class="col-sm-3 form-label-title">PV</label>
 														<div class="col-sm-9">
-															<input class="form-control" type="number" name="pv" placeholder="0" data-bs-original-title="" title="">
+															<input class="form-control" type="number" name="pv"
+																placeholder="0" data-bs-original-title="" title="">
 														</div>
 													</div>
 													<div class="mb-4 row align-items-center">
 														<label class="col-sm-3 form-label-title">BV</label>
 														<div class="col-sm-9">
-															<input class="form-control" type="number" name="bv" placeholder="0" data-bs-original-title="" title="">
+															<input class="form-control" type="number" name="bv"
+																placeholder="0" data-bs-original-title="" title="">
 														</div>
 													</div>
 													<table class="table variation-table table-responsive-sm">
@@ -400,11 +515,10 @@
 																<td>CGST</td>
 																<td>
 																	<input class="form-control cgstdis" type="number"
-																		placeholder="0"
-																		name="cgstdis">
+																		placeholder="0" name="cgstdis">
 																</td>
-																<td><input class="form-control cgstamt" type="number" placeholder="0"
-																		name="cgstamt" readonly>
+																<td><input class="form-control cgstamt" type="number"
+																		placeholder="0" name="cgstamt" readonly>
 																</td>
 															</tr>
 
@@ -412,11 +526,10 @@
 																<td>SGST</td>
 																<td>
 																	<input class="form-control sgstdis" type="number"
-																		placeholder="0"
-																		name="sgstdis">
+																		placeholder="0" name="sgstdis">
 																</td>
-																<td><input class="form-control sgstamt" type="text" placeholder="0"
-																		name="sgstamt" readonly>
+																<td><input class="form-control sgstamt" type="text"
+																		placeholder="0" name="sgstamt" readonly>
 																</td>
 															</tr>
 
@@ -428,53 +541,59 @@
 										</div>
 
 										<div class="card">
-												<div class="theme-form theme-form-2 mega-form">
+											<div class="theme-form theme-form-2 mega-form">
 												<div class="mb-4 row align-items-center">
-														<label class="form-label-title col-sm-3 mb-0">Status</label>
-														<div class="col-sm-9">
-														<select class="js-example-basic-single w-100"
-																name="status">
-																<option>Approved</option>
-																<option>Pending</option>
-															</select>
-														</div>
+													<label class="form-label-title col-sm-3 mb-0">Status</label>
+													<div class="col-sm-9">
+														<select class="js-example-basic-single w-100" name="status">
+															<option value="">Select status</option>
+															<option
+																<?php echo ($product->status == 'Approved') ? 'selected' : ''; ?>>
+																Approved</option>
+															<option
+																<?php echo ($product->status == 'Pending') ? 'selected' : ''; ?>>
+																Pending</option>
+														</select>
 													</div>
-													<div class="mb-4 row align-items-center">
-														<label class="form-label-title col-sm-3 mb-0">Page title</label>
-														<div class="col-sm-9">
-															<input class="form-control" type="search"
-																placeholder="Fresh Fruits" name="page_title">
-														</div>
-													</div>
-
-													<div class="mb-4 row">
-														<label class="form-label-title col-sm-3 mb-0">Meta
-															description</label>
-														<div class="col-sm-9">
-															<textarea class="form-control" rows="3"
-																name="meta_description"></textarea>
-														</div>
-													</div>
-													<button type="submit" class="btn ms-auto theme-bg-color text-white"
-														fdprocessedid="ss6ao">Add Product</button>
 												</div>
+												<div class="mb-4 row align-items-center">
+													<label class="form-label-title col-sm-3 mb-0">Page title</label>
+													<div class="col-sm-9">
+														<input class="form-control" type="search"
+															placeholder="Fresh Fruits" name="page_title"
+															value="<?= $product->page_title ?>">
+													</div>
+												</div>
+
+												<div class="mb-4 row">
+													<label class="form-label-title col-sm-3 mb-0">Meta
+														description</label>
+													<div class="col-sm-9">
+														<textarea class="form-control" rows="3"
+															name="meta_description"><?= $product->meta_description ?></textarea>
+													</div>
+												</div>
+												<button type="submit" class="btn ms-auto theme-bg-color text-white"
+													fdprocessedid="ss6ao">Add Product</button>
 											</div>
 										</div>
-							</form>
+									</div>
+
+								</div>
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>
-		</div>
-		<!-- New Product Add End -->
+			<!-- New Product Add End -->
 
-		<!-- footer Start -->
-		<div class="container-fluid">
-			<?php require_once 'include/footer.php' ?>
+			<!-- footer Start -->
+			<div class="container-fluid">
+				<?php require_once 'include/footer.php' ?>
+			</div>
+			<!-- footer En -->
 		</div>
-		<!-- footer En -->
-	</div>
-	<!-- Container-fluid End -->
+		<!-- Container-fluid End -->
 	</div>
 	<!-- Page Body End -->
 	</div>
@@ -498,10 +617,8 @@
 						// Append the new options based on the response
 						$.each(response, function (index, option) {
 							$('#subcate').append($('<option>', {
-								value: option
-								.id, // Adjust property name based on your response
-								text: option
-									.subcategory_name // Adjust property name based on your response
+								value: option.id, // Adjust property name based on your response
+								text: option.subcategory_name // Adjust property name based on your response
 							}));
 						});
 
@@ -526,10 +643,8 @@
 						// Append the new options based on the response
 						$.each(response, function (index, option) {
 							$('#brands').append($('<option>', {
-								value: option
-								.id, // Adjust property name based on your response
-								text: option
-									.brand_name // Adjust property name based on your response
+								value: option.id, // Adjust property name based on your response
+								text: option.brand_name // Adjust property name based on your response
 							}));
 						});
 

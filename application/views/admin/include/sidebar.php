@@ -146,6 +146,21 @@
                                     </ul>
                                 </li>
 
+                                <li class="sidebar-list">
+                                    <a class="sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-user-3-line"></i>
+                                        <span>Banner</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="<?= base_url() ?>admin/homebanner">Home Banner</a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= base_url() ?>admin/categorybanner">Category Banner</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
                                 <!-- <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-settings-line"></i>

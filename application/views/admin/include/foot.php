@@ -73,32 +73,32 @@
     		});
     		$(document).ready(function () {
     			$('.add_another_option').on('click', function (e) {
-    				e.preventDefault();
-					var newDiv = $('<div class="theme-form theme-form-2 mega-form mt-2 attrform">\
-                <div class="mb-4 row align-items-center">\
-                    <label class="form-label-title col-sm-3 mb-0">Option Name</label>\
-                    <div class="col-sm-9">\
-                        <select class="js-example-basic-single w-100 attrname"\
-                            name="product_variant_name[]">\
-                            <option value="">Select Attributes</option>\
-                            <?php foreach ($attributes as $attribute) { ?>\
-                                <option><?= $attribute['name']; ?></option>\
-                            <?php } ?>\
-                        </select>\
+        e.preventDefault();
+        var newDiv = $('<div class="theme-form theme-form-2 mega-form mt-2 attrform">\
+            <div class="mb-4 row align-items-center">\
+                <label class="form-label-title col-sm-3 mb-0">Option Name</label>\
+                <div class="col-sm-9">\
+                    <select class="js-example-basic-single w-100 attrname"\
+                        name="product_variant_name[]">\
+                        <option value="">Select Attributes</option>\
+                        <?php foreach ($attributes as $attribute) { ?>\
+                            <option><?= $attribute['name']; ?></option>\
+                        <?php } ?>\
+                    </select>\
+                </div>\
+            </div>\
+            <div class="row align-items-center">\
+                <label class="col-sm-3 col-form-label form-label-title">Option Value</label>\
+                <div class="col-sm-9">\
+                    <div class="bs-example">\
+                        <select class="selectpicker attribute_values_select" name="product_variant_value[]" multiple aria-label="Default select example" data-live-search="true"></select>\
                     </div>\
                 </div>\
-                <div class="row align-items-center">\
-                    <label class="col-sm-3 col-form-label form-label-title">Option Value</label>\
-                    <div class="col-sm-9">\
-                        <div class="bs-example">\
-                            <select class="selectpicker attribute_values_select" name="product_variant_value[]" multiple aria-label="Default select example" data-live-search="true"></select>\
-                        </div>\
-                    </div>\
-                </div>\
-            </div>');
+            </div>\
+        </div>');
 
-    				$('.attrform').append(newDiv);
-    			});
+        $('.attrform').append(newDiv);
+    });
 
     			$(document).on('click', '.delete-option', function (e) {
     				e.preventDefault();
@@ -135,34 +135,39 @@
     				e.preventDefault();
     				$(this).closest('.attribute-value').remove();
     			});
-    		});
 
-			// function fetchAttributeValues(attributeName) {
-			// 	$.ajax({
-			// 		url: '<?= base_url() ?>admin/fetch_attribute_values', // Replace with your PHP file to fetch attribute values
-			// 		method: 'POST',
-			// 		data: {attribute_name: attributeName},
-			// 		success: function(response) {
-			// 			$('#attribute_values_select').html(response);
-			// 		}
-			// 	});
-			// }
+				$('.cgstdis, .priceamt').keyup(function() {
+					let cgst = $('.cgstdis').val();
+					let price = $('.priceamt').val();
+					let total_amt = price * (cgst / 100);
+					$('.cgstamt').val(total_amt);
+				});
+
+				$('.sgstdis, .priceamt').keyup(function() {
+					let cgst = $('.sgstdis').val();
+					let price = $('.priceamt').val();
+					let total_amt = price * (cgst / 100);
+					$('.sgstamt').val(total_amt);
+				});
+			});
+
 
 			$(document).on('change', '.attrname', function () {
-            var attributeName = $(this).val();
-            var attributeValuesSelect = $(this).closest('.attrform').find('.attribute_values_select');
+				var attributeName = $(this).val();
+				var attributeValuesSelect = $(this).closest('.attrform').find('.attribute_values_select');
 
-            // Perform AJAX request to fetch attribute values based on the attribute name
-            $.ajax({
-                url: '<?= base_url('admin/fetch_attribute_values') ?>',
-                method: 'POST',
-                data: {attribute_name: attributeName},
-                success: function (response) {
-                    attributeValuesSelect.html(response);
-                    // attributeValuesSelect.selectpicker('refresh'); 
-                }
-            });
-        });
+				// Perform AJAX request to fetch attribute values based on the attribute name
+				$.ajax({
+					url: '<?= base_url('admin/fetch_attribute_values') ?>',
+					method: 'POST',
+					data: {attribute_name: attributeName},
+					success: function (response) {
+						attributeValuesSelect.html(response);
+						// attributeValuesSelect.selectpicker('refresh'); 
+					}
+				});
+       		});
+		
 
     	</script>
 

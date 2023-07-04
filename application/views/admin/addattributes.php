@@ -57,7 +57,7 @@
 
 
                                                             <div class="col-xxl-4">
-                                                                <button class="btn text-white theme-bg-color addattrvalue">Add
+                                                                <button type="button" class="btn text-white theme-bg-color addattrvalue">Add
                                                                     Value</button>
                                                             </div>
                                                         </div>
