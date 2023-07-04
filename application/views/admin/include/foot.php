@@ -10,7 +10,8 @@
 
     					<div class="button-box">
     						<button type="button" class="btn btn--no" data-bs-dismiss="modal">No</button>
-    						<a href="<?= base_url('admin/logout') ?>" type="button" class="btn  btn--yes btn-primary confirmLogout">Yes</a>
+    						<a href="<?= base_url('admin/logout') ?>" type="button"
+    							class="btn  btn--yes btn-primary confirmLogout">Yes</a>
     					</div>
     				</div>
     			</div>
@@ -65,13 +66,107 @@
 
     	<!-- Theme js -->
     	<script src="<?= base_url() ?>assets/admin/js/script.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-		<script>
-			 $(document).ready(function() {
-				$('#editor').summernote();
-			});
-		</script>
-<!-- 
+    	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    	<script>
+    		$(document).ready(function () {
+    			$('#editor').summernote();
+    		});
+    		$(document).ready(function () {
+    			$('.add_another_option').on('click', function (e) {
+    				e.preventDefault();
+					var newDiv = $('<div class="theme-form theme-form-2 mega-form mt-2 attrform">\
+                <div class="mb-4 row align-items-center">\
+                    <label class="form-label-title col-sm-3 mb-0">Option Name</label>\
+                    <div class="col-sm-9">\
+                        <select class="js-example-basic-single w-100 attrname"\
+                            name="product_variant_name[]">\
+                            <option value="">Select Attributes</option>\
+                            <?php foreach ($attributes as $attribute) { ?>\
+                                <option><?= $attribute['name']; ?></option>\
+                            <?php } ?>\
+                        </select>\
+                    </div>\
+                </div>\
+                <div class="row align-items-center">\
+                    <label class="col-sm-3 col-form-label form-label-title">Option Value</label>\
+                    <div class="col-sm-9">\
+                        <div class="bs-example">\
+                            <select class="selectpicker attribute_values_select" name="product_variant_value[]" multiple aria-label="Default select example" data-live-search="true"></select>\
+                        </div>\
+                    </div>\
+                </div>\
+            </div>');
+
+    				$('.attrform').append(newDiv);
+    			});
+
+    			$(document).on('click', '.delete-option', function (e) {
+    				e.preventDefault();
+    				$(this).closest('.attrform').remove();
+    			});
+
+    			$(document).on('change', '.shipping', function () {
+    				let shipping = $(this).val();
+    				let newshipdiv = $(
+    					'<div class="mt-2"><input class="form-contro shippinginputl" type="number" name="shippingcharge" placeholder="20" ></div>'
+    					);
+    				if (shipping == 'Shipping Charges') {
+    					$('.shipping').parent().append(newshipdiv);
+    				} else {
+    					$('.shippinginputl').remove();
+    				}
+    			});
+
+    			$('.addattrvalue').on('click', function (e) {
+    				e.preventDefault();
+    				var newInput = $('<div class="row align-items-center attribute-value mt-2">' +
+    					'<div class="col-sm-10 col-9">' +
+    					'<input class="form-control" type="text" placeholder="Attribute Value" name="attrivalue[]">' +
+    					'</div>' +
+    					'<div class="col-sm-2 col-3">' +
+    					'<button class="btn text-danger h-100 w-100 remove-value">Remove</button>' +
+    					'</div>' +
+    					'</div>');
+
+    				$('.addattrvalue').closest('.col-xxl-4').before(newInput);
+    			});
+
+    			$(document).on('click', '.remove-value', function (e) {
+    				e.preventDefault();
+    				$(this).closest('.attribute-value').remove();
+    			});
+    		});
+
+			// function fetchAttributeValues(attributeName) {
+			// 	$.ajax({
+			// 		url: '<?= base_url() ?>admin/fetch_attribute_values', // Replace with your PHP file to fetch attribute values
+			// 		method: 'POST',
+			// 		data: {attribute_name: attributeName},
+			// 		success: function(response) {
+			// 			$('#attribute_values_select').html(response);
+			// 		}
+			// 	});
+			// }
+
+			$(document).on('change', '.attrname', function () {
+            var attributeName = $(this).val();
+            var attributeValuesSelect = $(this).closest('.attrform').find('.attribute_values_select');
+
+            // Perform AJAX request to fetch attribute values based on the attribute name
+            $.ajax({
+                url: '<?= base_url('admin/fetch_attribute_values') ?>',
+                method: 'POST',
+                data: {attribute_name: attributeName},
+                success: function (response) {
+                    attributeValuesSelect.html(response);
+                    // attributeValuesSelect.selectpicker('refresh'); 
+                }
+            });
+        });
+
+    	</script>
+
+    	<!-- 
     	<script>
     		document.addEventListener('DOMContentLoaded', function () {
     			let logoutButton = document.getElementsByClassName('logout-button');

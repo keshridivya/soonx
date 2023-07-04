@@ -72,13 +72,24 @@ $route['admin/addCategory'] = 'admin/addCategory';
 $route['admin/editCategory'] = 'admin/editCategory';
 $route['admin/categorydelete'] = 'admin/categorydelete';
 
+$route['admin/attributes'] = 'admin/attributes';
+$route['admin/addattributes'] = 'admin/addattributes';
+$route['admin/addattributes'] = 'admin/addattributes';
+$route['admin/attributesdelete'] = 'admin/attributesdelete';
+
+$route['admin/title'] = 'admin/title';
+$route['admin/addtitle'] = 'admin/addtitle';
+$route['admin/addtitle'] = 'admin/addtitle';
+$route['admin/titledelete'] = 'admin/titledelete';
+
 $route['admin/subcategory'] = 'admin/subcategory';
 $route['admin/addsubcategory'] = 'admin/addSubCategory';
 $route['admin/editsubcategory/(:any)'] = 'admin/editsubcategory/$1';
 $route['admin/subcategorydelete'] = 'admin/subcategorydelete';
 
 $route['admin/product'] = 'admin/product';
-$route['admin/addproduct'] = 'admin/addproduct';
+$route['admin/addproducts'] = 'admin/addproducts';
+$route['admin/editproduct/(:any)'] = 'admin/editproduct/$1';
 $route['admin/productdelete'] = 'admin/productdelete';
 
 $route['admin/brand'] = 'admin/brand';

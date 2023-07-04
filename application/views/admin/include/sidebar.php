@@ -68,6 +68,22 @@
 
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-settings-line"></i>
+                                        <span>Attributes</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="<?= base_url('admin/attributes') ?>">Attributes</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="<?= base_url('admin/addattributes') ?>">Add Attributes</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
                                         <span>Brand</span>
                                     </a>
@@ -84,6 +100,22 @@
 
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-check-2"></i>
+                                        <span>Front Title</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="<?= base_url('admin/title') ?>">Title List</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="<?= base_url('admin/addtitle') ?>">Add New Title</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-store-3-line"></i>
                                         <span>Product</span>
                                     </a>
@@ -93,7 +125,7 @@
                                         </li>
 
                                         <li>
-                                            <a href="<?= base_url('admin/addproduct') ?>">Add New Products</a>
+                                            <a href="<?= base_url('admin/addproducts') ?>">Add New Products</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -114,7 +146,7 @@
                                     </ul>
                                 </li>
 
-                                <li class="sidebar-list">
+                                <!-- <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-settings-line"></i>
                                         <span>Attributes</span>
@@ -128,7 +160,7 @@
                                             <a href="add-new-attributes.html">Add Attributes</a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li> -->
 
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title" href="javascript:void(0)">

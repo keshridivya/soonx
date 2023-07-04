@@ -40,7 +40,7 @@
                                                     <a href="javascript:void(0)">Export</a>
                                                 </li>
                                                 <li>
-                                                    <a class="btn btn-solid" href="<?php base_url('admin/addproduct'); ?>">Add Product</a>
+                                                    <a class="btn btn-solid"  href="<?php base_url() ?>addproducts">Add Product</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -92,13 +92,13 @@
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="javascript:void(0)">
+                                                                    <a href="<?= base_url()?>admin/editproduct/<?= $product['pid'] ?>">
                                                                         <i class="ri-pencil-line"></i>
                                                                     </a>
                                                                 </li>
 
                                                                 <li>
-                                                                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModalToggle">
+                                                                    <a href="javascript:void(0)" id="delete" class="delete-button" data-row="<?= $product['pid'] ?>">
                                                                         <i class="ri-delete-bin-line"></i>
                                                                     </a>
                                                                 </li>
@@ -145,7 +145,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-dismiss="modal">No</button>
-                    <button type="button" class="btn btn-animation btn-md fw-bold" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" data-bs-dismiss="modal">Yes</button>
+                    <button type="button" class="btn btn-animation btn-md fw-bold confirmDelete" >Yes</button>
                 </div>
             </div>
         </div>
@@ -156,9 +156,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title text-center" id="exampleModalLabel12">Done!</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                         <i class="fas fa-times"></i>
-                    </button>
+                    </button> -->
                 </div>
                 <div class="modal-body">
                     <div class="remove-box text-center">
@@ -172,7 +172,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-primary load" data-bs-toggle="modal" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -180,6 +180,56 @@
     <!-- Delete Modal Box End -->
 
     <?php require_once 'include/foot.php' ?>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    var deleteButtons = document.getElementsByClassName('delete-button');
+
+    for (var i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener('click', function() {
+            var rowId = this.getAttribute('data-row');
+            showConfirmationModal(rowId);
+        });
+    }
+
+    function showConfirmationModal(rowId) {
+        $('#exampleModalToggle').modal('show');
+
+        $('.confirmDelete').click(function() {
+            deleteTableRow(rowId);
+            $('#exampleModalToggle').modal('hide');
+        });
+    }
+
+    function deleteTableRow(rowId) {
+        $.ajax({
+            url: "<?php echo base_url('admin/productdelete'); ?>",
+            type: "POST",
+            data: {row_id: rowId},
+            success: function(response) {
+                if (response == "success") {
+                    // Delete the table row from the DOM
+                    $('#exampleModalToggle2').modal('show');
+                    var row = document.getElementById("row" + rowId);
+                    if (row) {
+                        row.parentNode.removeChild(row);
+                    }
+                    
+                } else {
+                    // Handle the deletion error
+                    console.log(response);
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle the AJAX error
+                console.log(error);
+            }
+        });
+    }
+});
+$('.load').click(function(){
+    location.reload();
+})
+</script>
 </body>
 
 </html>

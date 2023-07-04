@@ -43,7 +43,7 @@
 															Name</label>
 														<div class="col-sm-9">
 															<input class="form-control" name="product_name" type="text"
-																placeholder="Product Name">
+																placeholder="Product Name" value="<?= $product[''] ?>">
 														</div>
 													</div>
 
@@ -65,11 +65,11 @@
 														<div class="col-sm-9">
 															<select class="js-example-basic-single w-100" name="category"
 																id="cateegory">
-																<option disabled="">Category Menu</option>
+																<option >Category Menu</option>
 																<?php 
                                                             foreach($category as $category){
                                                             ?>
-																<option value="<?= $category['id'] ?>">
+																<option value="<?= $category['id'] ?>" <?php echo ($product[''] == $category['id']) ? 'selected' : ''; ?>>
 																	<?= $category['category_name'] ?></option>
 																<?php } ?>
 															</select>
@@ -92,6 +92,22 @@
 														</div>
 													</div>
 
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-3 mb-0">Product
+															Title</label>
+														<div class="col-sm-9">
+														<select class="js-example-basic-single w-100" name="titlename"
+																id="titlename">
+																<option selected>Select Title</option>
+																<?php 
+                                                            foreach($titles as $title){
+                                                            ?>
+                                                            <option value="<?= $title['id'] ?>" <?php echo ($product[''] == $title['id']) ? 'selected' : ''; ?>><?= $title['title_name'] ?></option>
+                                                            <?php } ?>
+															</select>
+														</div>
+													</div>
+
 													<!-- <div class="mb-4 row align-items-center">
 													<label
 														class="col-sm-3 col-form-label form-label-title">Brand</label>
@@ -101,7 +117,7 @@
 													</div>
 												    </div> -->
 
-													<div class="mb-4 row align-items-center">
+													<!-- <div class="mb-4 row align-items-center">
 														<label
 															class="col-sm-3 col-form-label form-label-title">Unit</label>
 														<div class="col-sm-9">
@@ -111,7 +127,7 @@
 																<option>Pieces</option>
 															</select>
 														</div>
-													</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -129,7 +145,7 @@
 																<label class="form-label-title col-sm-12 mb-0">Product
 																	Description</label>
 																<div class="col-sm-12">
-																	<textarea name="product_desc" id="editor" cols="30" rows="10"></textarea>
+																	<textarea name="product_desc" id="editor" cols="30" rows="10"><?= $product[''] ?></textarea>
 																</div>
 															</div>
 														</div>
@@ -149,6 +165,15 @@
 														<label
 															class="col-sm-3 col-form-label form-label-title">Images</label>
 														<div class="col-sm-9">
+															<?php
+															if($product[''] != ''){
+																$imageString = $product[''];
+																$imageUrls = explode(",", $imageString);
+																foreach ($imageUrls as $imageUrl) {
+																	echo '<img src="' . $imageUrl . '" alt="Image" class="img-fluid" width="50">';
+																}
+															}
+															?>
 															<input class="form-control form-choose"
 																name="multiple_images[]" type="file" id="formFile"
 																multiple="">
@@ -160,6 +185,11 @@
 															class="col-sm-3 col-form-label form-label-title">Thumbnail
 															Image</label>
 														<div class="col-sm-9">
+															<?php 
+															if($product[''] != ''){
+																echo '<img src="'.$product[''].'" class="img-fluid" width="50">';
+															}
+															?>
 															<input class="form-control form-choose"
 																name="thumbnail_image" type="file"
 																id="formFileMultiple1">
@@ -176,18 +206,18 @@
 													<h5>Product variations</h5>
 												</div>
 
-												<div class="theme-form theme-form-2 mega-form">
+												<div class="theme-form theme-form-2 mega-form attrform">
 													<div class="mb-4 row align-items-center">
 														<label class="form-label-title col-sm-3 mb-0">Option
 															Name</label>
 														<div class="col-sm-9">
-															<select class="js-example-basic-single w-100"
-																name="product_variant_name">
-																<option>Color</option>
-																<option>Size</option>
-																<option>Material</option>
-																<option>Style</option>
-															</select>
+														<select class="js-example-basic-single w-100 attrname" 
+															name="product_variant_name[]">
+															<option value="">Select Attributes</option>
+															<?php foreach ($attributes as $attribute) { ?>
+																<option><?= $attribute['name']; ?></option>
+															<?php } ?>
+														</select>
 														</div>
 													</div>
 
@@ -196,15 +226,13 @@
 															Value</label>
 														<div class="col-sm-9">
 															<div class="bs-example">
-																<input type="text" class="form-control"
-																	placeholder="Type tag & hit enter" id="#inputTag"
-																	data-role="tagsinput" name="product_variant_value">
+															<select class="selectpicker attribute_values_select" id="attribute_values_select" name="product_variant_value[]" multiple aria-label="Default select example" data-live-search="true"></select>
 															</div>
 														</div>
 													</div>
 												</div>
 
-												<a href="#" class="add-option"><i class="ri-add-line me-2"></i> Add
+												<a href="#" class="add-option add_another_option"><i class="ri-add-line me-2"></i> Add
 													Another
 													Option</a>
 											</div>
@@ -218,15 +246,17 @@
 
 												<div class="theme-form theme-form-2 mega-form">
 													<div class="mb-4 row align-items-center">
-														<label class="form-label-title col-sm-3 mb-0">Weight
-															(kg)</label>
+														<label class="col-sm-3 form-label-title">Shipping </label>
 														<div class="col-sm-9">
-															<input class="form-control" type="number" name="weight"
-																placeholder="Weight">
+														<select class="js-example-basic-single w-100 shipping" name="shipping" >
+																<option disabled="">Select Shipping</option>
+																<option>Free Delivery</option>
+																<option>Shipping Charges</option>
+															</select>
 														</div>
 													</div>
 
-													<div class="row align-items-center">
+													<!-- <div class="row align-items-center">
 														<label
 															class="col-sm-3 col-form-label form-label-title">Dimensions
 															(cm)</label>
@@ -238,7 +268,7 @@
 																<option>Height</option>
 															</select>
 														</div>
-													</div>
+													</div> -->
 												</div>
 											</div>
 										</div>
@@ -294,7 +324,7 @@
 														</div>
 													</div>
 												</div>
-												<table class="table variation-table table-responsive-sm">
+												<!-- <table class="table variation-table table-responsive-sm">
 													<thead>
 														<tr>
 															<th scope="col">Variant Color</th>
@@ -343,7 +373,7 @@
 
 
 													</tbody>
-												</table>
+												</table> -->
 											</div>
 										</div>
 

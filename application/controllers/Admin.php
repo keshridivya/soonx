@@ -120,12 +120,20 @@ class Admin extends CI_Controller {
 
 	}
 
-	public function addproduct()
+	public function addproducts()
 	{
 		if ($this->session->userdata('username')) {
 			if ($this->input->post()) {
-				$variant_color = implode(',', $this->input->post('variant_color'));
-				$variant_qty = implode(',', $this->input->post('variant_qty'));
+				$product_variant_name = '';
+				$product_variant_value = '';
+			
+				if (is_array($this->input->post('product_variant_name')) && !empty($this->input->post('product_variant_name'))) {
+					$product_variant_name = implode(',', $this->input->post('product_variant_name'));
+				}
+			
+				if (is_array($this->input->post('product_variant_value')) && !empty($this->input->post('product_variant_value'))) {
+					$product_variant_value = implode(',', $this->input->post('product_variant_value'));
+				}
 	
 				// Upload thumbnail image
 				if($_FILES['thumbnail_image']['name'] != ""){
@@ -139,17 +147,17 @@ class Admin extends CI_Controller {
 					'subCategory' => $this->input->post('subCategory'),
 					'unit' => $this->input->post('unit'),
 					'product_desc' => $this->input->post('product_desc'),
-					'thumbnail_image' => $this->input->post('thumbnail_image'),
-					'product_variant_name' => $this->input->post('product_variant_name'),
-					'product_variant_value' => $this->input->post('product_variant_value'),
-					'weight' => $this->input->post('weight'),
-					'dimension' => $this->input->post('dimension'),
+					// 'thumbnail_image' => $this->input->post('thumbnail_image'),
+					'product_variant_name' => $product_variant_name,
+					'product_variant_value' => $product_variant_value,
+					'shipping' => $this->input->post('shipping'),
+					'shippingcharge' => $this->input->post('shippingcharge'),
 					'price' => $this->input->post('price'),
 					'dis_price' => $this->input->post('dis_price'),
 					'sku' => $this->input->post('sku'),
 					'stock_status' => $this->input->post('stock_status'),
-					'variant_color' => $variant_color,
-					'variant_qty' => $variant_qty,
+					// 'variant_color' => $variant_color,
+					// 'variant_qty' => $variant_qty,
 					'status' => $this->input->post('status'),
 					'page_title' => $this->input->post('page_title'),
 					'meta_description' => $this->input->post('meta_description'),
@@ -184,7 +192,9 @@ class Admin extends CI_Controller {
 			// Prepare data for the view
 			$page_data['category'] = $this->db->get('category')->result_array();
 			$page_data['subcategory'] = $this->db->get('subcategory')->result_array();
+			$page_data['attributes'] = $this->db->group_by('name')->get('attributes')->result_array();
 			$page_data['brand'] = $this->db->get('brand')->result_array();
+			$page_data['titles'] = $this->db->get('title')->result_array();
 			$page_data['title'] = 'Add Product';
 	
 			// Load the view
@@ -193,7 +203,122 @@ class Admin extends CI_Controller {
 			redirect('admin');
 		}
 	}
+
+	public function editproduct()
+	{
+		if ($this->session->userdata('username')) {
+			if ($this->input->post()) {
+				$product_variant_name = '';
+				$product_variant_value = '';
+			
+				if (is_array($this->input->post('product_variant_name')) && !empty($this->input->post('product_variant_name'))) {
+					$product_variant_name = implode(',', $this->input->post('product_variant_name'));
+				}
+			
+				if (is_array($this->input->post('product_variant_value')) && !empty($this->input->post('product_variant_value'))) {
+					$product_variant_value = implode(',', $this->input->post('product_variant_value'));
+				}
 	
+				// Upload thumbnail image
+				if($_FILES['thumbnail_image']['name'] != ""){
+					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/product_thumb_image/','name'=>'thumbnail_image'));
+				}
+		
+				// Prepare data for database insertion
+				$data = [
+					'product_name' => $this->input->post('product_name'),
+					'category' => $this->input->post('category'),
+					'subCategory' => $this->input->post('subCategory'),
+					'unit' => $this->input->post('unit'),
+					'product_desc' => $this->input->post('product_desc'),
+					// 'thumbnail_image' => $this->input->post('thumbnail_image'),
+					'product_variant_name' => $product_variant_name,
+					'product_variant_value' => $product_variant_value,
+					'shipping' => $this->input->post('shipping'),
+					'shippingcharge' => $this->input->post('shippingcharge'),
+					'price' => $this->input->post('price'),
+					'dis_price' => $this->input->post('dis_price'),
+					'sku' => $this->input->post('sku'),
+					'stock_status' => $this->input->post('stock_status'),
+					// 'variant_color' => $variant_color,
+					// 'variant_qty' => $variant_qty,
+					'status' => $this->input->post('status'),
+					'page_title' => $this->input->post('page_title'),
+					'meta_description' => $this->input->post('meta_description'),
+					// Add other fields as needed
+				];
+				if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+					$data['thumbnail_image']=$uploaded_data['file_name'];
+				}
+
+				if ($_FILES['multiple_images']['name'][0] != "") {
+					$uploaded_data = $this->uploadmutipleimg(array('upload_path' => './uploads/product_img/', 'name' => 'multiple_images'));
+					if (!empty($uploaded_data)) {
+						$imagePaths = array();
+						foreach ($uploaded_data as $image) {
+							$imagePaths[] = $image['file_name'];
+						}
+						$data['multiple_images'] = implode(',', $imagePaths);
+					} else {
+						$page_data['message'] = 'Error uploading images.';
+					}
+					
+				}
+
+				// Insert data into the database
+				if ($this->db->insert('product', $data)) {
+					echo 'success';
+				} else {
+					echo 'error';
+				}
+			}
+	
+			// Prepare data for the view
+			$page_data['category'] = $this->db->get('category')->result_array();
+			$page_data['subcategory'] = $this->db->get('subcategory')->result_array();
+			$page_data['attributes'] = $this->db->group_by('name')->get('attributes')->result_array();
+			$page_data['brand'] = $this->db->get('brand')->result_array();
+			$page_data['titles'] = $this->db->get('title')->result_array();
+			$page_data['products'] = $this->db->get('product')->result_array();
+			$page_data['title'] = 'Add Product';
+	
+			// Load the view
+			$this->load->view('admin/addproduct', $page_data);
+		} else {
+			redirect('admin');
+		}
+	}
+
+	public function productdelete(){
+		if($this->session->userdata['username']){
+			$id = $this->input->post('row_id');
+			if($this->db->where('id',$id)->delete('product')){
+				echo 'success';
+			}else{
+				echo 'error';
+			}
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function fetch_attribute_values()
+	{
+		$attributeName = $this->input->post('attribute_name');
+
+		// Perform database query to fetch the attribute values based on the attribute name
+		$attributeValues = $this->db->get_where('attributes', array('name' => $attributeName))->result_array();
+
+		// Generate HTML options for the attribute values
+		$options = '';
+		foreach ($attributeValues as $value) {
+			$options .= "<option value=\"{$value['id']}\">{$value['value']}</option>";
+		}
+
+		echo $options;
+	}
+
 	
 
 	//category start
@@ -437,6 +562,98 @@ class Admin extends CI_Controller {
 		echo json_encode($options);
 	}
 	//subcategory end
+
+	//attributes start
+	public function attributes(){
+		if($this->session->userdata['username']){
+			$this->db->select('*,GROUP_CONCAT(value) as att_value');
+			$this->db->from('attributes');
+			$this->db->group_by('name');
+			$page_data['attributes'] = $this->db->get()->result_array();
+			$page_data['title'] = 'Attributes';
+			$this->load->view('admin/attributes',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function addattributes(){
+		if($this->session->userdata['username']){
+			if ($this->input->server('REQUEST_METHOD') === 'POST') {
+				$attriname = $this->input->post('attriname');
+				$attributeValues = $this->input->post('attrivalue');
+				if (!empty($attributeValues)) {
+					foreach ($attributeValues as $value) {
+						$data = array(
+							'value' => $value,
+							'name' =>  $attriname,
+							'created_on' => date('y-m-d')
+						);
+	
+						$inserted_id = $this->db->insert('attributes',$data);
+						if (!$inserted_id) {
+							$page_data['message']= "Error occurred while inserting data.";
+							return;
+						}
+					}
+					$page_data['message'] = "Data inserted successfully.";
+				} else {
+					$page_data['message'] =  "No attribute values provided.";
+				}
+			}
+			$page_data['subcategories'] = $this->db->get('subcategory')->result_array();
+			$page_data['title'] = 'Add Attribute';
+				$this->load->view('admin/addattributes',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+	//attributes end
+
+	//title start
+	public function title(){
+		if($this->session->userdata['username']){
+			$page_data['titles'] = $this->db->get('title')->result_array();
+			$page_data['title'] = 'Title';
+			$this->load->view('admin/features',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function addtitle(){
+		if($this->session->userdata['username']){
+			if ($this->input->server('REQUEST_METHOD') === 'POST') {
+				$titlename = $this->input->post('titlename');
+				if (!empty($titlename)) {
+						$data = array(
+							'title_name' => $titlename,
+							'created_on' => date('y-m-d')
+						);
+	
+						$inserted_id = $this->db->insert('title',$data);
+						if (!$inserted_id) {
+							$page_data['message']= "Error occurred while inserting data.";
+							return;
+						}else{
+							$page_data['message'] = "Data inserted successfully.";
+						}
+				} else {
+					$page_data['message'] =  "No attribute values provided.";
+				}
+			}
+			$page_data['titles'] = $this->db->get('title')->result_array();
+			$page_data['title'] = 'Add title';
+				$this->load->view('admin/addfeatures',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+	//attributes end
 
 	//brand start
 	public function brand(){
