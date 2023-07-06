@@ -235,6 +235,9 @@
                                         </div>
 
                                         <div class="checkout-detail">
+                                            <div class="card">
+                                                <input type="checkbox" value="" >
+                                            </div>
                                             <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
                                                 <div class="accordion-item">
                                                     <div class="accordion-header" id="flush-headingFour">
