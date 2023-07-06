@@ -127,7 +127,7 @@
 											<h5><i class="fa fa-inr"></i><span
 													class="pricejs"><?= $product['rate'] ?></span>
 												<del class="text-content"><i
-														class="fa fa-inr"></i><?= $product['price'] ?></del></h5>
+														class="fa fa-inr"></i><?= $product['pricegst'] ?></del></h5>
 											<h6 class="theme-color">You Save : <i
 													class="fa fa-inr"></i><?= $product['disPrice'] ?></h6>
 										</td>
@@ -199,10 +199,12 @@
 							<div class="coupon-cart">
 								<h6 class="text-content mb-2">Coupon Apply</h6>
 								<div class="mb-3 coupon-box input-group">
-									<input type="email" class="form-control" id="exampleFormControlInput1"
+									<input type="text" class="form-control" id="couponcode"
 										placeholder="Enter Coupon Code Here...">
-									<button class="btn-apply">Apply</button>
+									<button class="btn-apply" id="applycoupon">Apply</button>
 								</div>
+								<span id="spancouponmsg"></span>
+								<div id="loader"></div>
 							</div>
 							<ul>
 								<li>
@@ -212,7 +214,7 @@
 
 								<li>
 									<h4>Coupon Discount</h4>
-									<h4 class="price">(-) <span class="coupondis">0.00</span></h4>
+									<h4 class="price">(-) <span class="coupondis"id="finalAmountElement">0.00</span></h4>
 								</li>
 
 								<li>
@@ -243,7 +245,7 @@
 							<ul>
 								<li>
 									<button onclick="location.href = '<?= base_url('checkout') ?>';"
-										class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
+										class="btn btn-animation proceed-btn fw-bold processpay" data-couponcode="">Process To Checkout</button>
 								</li>
 
 								<li>
@@ -501,120 +503,7 @@
 	<!-- Tap to top end -->
 
 	<?php include_once('include/foot.php'); ?>
-	<script>
-		
-		function fulltotal(){
-			let subtotalElement = $('.result.totamtpay');
-			let couponDiscountElement = $('.coupondis');
-			let shippingChargeElement = $('.totalship.totamtpay');
 
-			// Get the values from the elements and convert them to numbers
-			let subtotal = parseFloat(subtotalElement.text());
-			let couponDiscount = parseFloat(couponDiscountElement.text());
-			let shippingCharge = parseFloat(shippingChargeElement.text());
-
-			// Calculate the new total by subtracting the coupon discount and adding the shipping charge
-			let total = subtotal - couponDiscount + shippingCharge;
-
-			// Display the new total in the appropriate element
-			$('.totalsubtoatl').text(total.toFixed(2));
-
-		}
-        let sum = 0, sumship = 0, sumpv = 0, sumbv = 0;
-
-        $(window).on("load", function () {
-			$('.subtotaljs').each(function () {
-				let amt = $(this).text();
-				sum += parseInt(amt);
-			});
-			$('.result').text(sum);
-
-			$('.shipingcharge').each(function(){
-				let shipcharg = $(this).text();
-				sumship += parseInt(shipcharg);
-			});
-			$('.totalship').text(sumship);
-
-			$('.prpv').each(function(){
-				let amt = $(this).text();
-				sumpv += parseInt(amt);
-			});
-			$('.tpv').text(sumpv);
-
-			$('.prbv').each(function(){
-				let amt = $(this).text();
-				sumbv += parseInt(amt);
-			});
-			$('.tbv').text(sumbv);
-
-			fulltotal();
-			
-        });
-
-        $(document).ready(function () {
-        $('.plus').click(function (e) {
-            e.preventDefault();
-            var $input = $(this).siblings(':text');
-            var currentValue = parseInt($input.val());
-            var newValue = currentValue + 1;
-            $input.val(newValue).change();
-        });
-
-        $('.minus').click(function (e) {
-            e.preventDefault();
-            var $input = $(this).siblings(':text');
-            var currentValue = parseInt($input.val());
-            var newValue = currentValue - 1 >= 1 ? currentValue - 1 : 1;
-            $input.val(newValue).change();
-        });
-
-        $(document).on('change', '.qtyvalue', function () {
-            let $tr = $(this).closest('tr');
-            let pricejs = $tr.find('.pricejs').text();
-            let total = pricejs * $(this).val();
-            $tr.find('.subtotaljs').text(total);
-            var quantity = $(this).val();
-            var cartId = $(this).data('cart-id');
-
-            if ($(this).val() != '0') {
-            updateSubtotal(cartId, quantity);
-            updateTotal();
-            }
-			fulltotal();
-        });
-
-        function updateTotal() {
-            sum = 0;
-            $('.subtotaljs').each(function () {
-            let amt = $(this).text();
-            sum += parseInt(amt);
-            });
-            $('.result').text(sum);
-        }
-
-        function updateSubtotal(cartId, quantity) {
-            $.ajax({
-            url: '<?php echo base_url('ajax/updateSubtotal '); ?>',
-            method: 'POST',
-            data: {
-                cart: cartId,
-                quantity: quantity
-            },
-            dataType: 'json',
-            success: function (response) {
-                if (response.success) {
-                console.log('success');
-                }
-            },
-            error: function () {
-                console.log('An error occurred during the AJAX request.');
-            }
-            });
-        }
-
-        });
-
-	</script>
 </body>
 
 </html>

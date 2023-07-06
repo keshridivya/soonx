@@ -1,15 +1,15 @@
 .theme-color-1 {
-    --theme-color: #d99f46;
+    --theme-color: #b47e11;
     --theme-color-rgb: 217, 159, 70
 }
 
 .theme-color-2 {
-    --theme-color: #0baf9a;
+    --theme-color: #b47e11;
     --theme-color-rgb: 11, 175, 154
 }
 
 .theme-color-3 {
-    --theme-color: #239698;
+    --theme-color: #b47e11;
     --theme-color-rgb: 35, 150, 152
 }
 
@@ -19,14 +19,14 @@
 }
 
 .theme-color-5 {
-    --theme-color: #417394;
+    --theme-color: #b47e11;
     --theme-color-rgb: 65, 115, 148
 }
 
 :root {
-    --theme-color: #0da487;
+    --theme-color: #b47e11;
     --theme-color-rgb: 13, 164, 135;
-    --theme-color1: #0e947a;
+    --theme-color1: #b47e11;
     --theme-color1-rgb: 14, 148, 122;
     --theme-color2: linear-gradient(90.56deg, var(--theme-color1) 8.46%, var(--theme-color) 62.97%)
 }
@@ -29790,12 +29790,49 @@ header .offcanvas-backdrop {
     bottom: 20px
 }
 
-.heartspan{
+.heartspan {
     position: absolute;
     z-index: 1;
     font-size: 21px;
     top: -8px;
     right: 0;
-    border-color:#000;
+    border-color: #000;
     background-color: #fff;
+}
+
+@media (max-width: 575.98px) {
+    .modal-fullscreen-sm-down {
+        height: auto !important;
+    }
+}
+
+.dropaddress {
+    min-width: 6rem !important;
+    padding: 0.5rem 10px !important;
+}
+
+.dropaddress>li {
+    display: block !important;
+}
+
+#loader {
+    border: 6px solid #b9b1b1;
+    border-top: 6px solid #fff;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+    position: absolute;
+    top: 90px;
+    right: 38px;
+    display: none;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

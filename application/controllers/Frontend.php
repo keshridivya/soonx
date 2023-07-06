@@ -71,7 +71,7 @@ class Frontend extends CI_Controller {
 	}
 
 	public function cart(){
-		$this->db->select('*, product.id as pid,addtocart.id as aid,price-(price*dis_price/100) as rate,(price*dis_price/100) as disPrice');
+		$this->db->select('*, product.id as pid,addtocart.id as aid,(price+(cgst_amt+sgst_amt)) as pricegst, price+(cgst_amt+sgst_amt)-(price*(dis_price/100)+(cgst_amt+sgst_amt)) as rate, (price*dis_price/100+(cgst_amt+sgst_amt)) as disPrice');
 		$this->db->from('category');
 		$this->db->join('product', 'category.id = product.category', 'right');
 		$this->db->join('addtocart', 'addtocart.product_id = product.id', 'inner');
@@ -83,20 +83,20 @@ class Frontend extends CI_Controller {
 	}
 
 	public function checkout(){
-		// $this->db->select('*, product.id as pid');
-		// $this->db->from('category');
-		// $this->db->join('product', 'category.id = product.category', 'right');
-		// $this->db->join('addtocart', 'addtocart.product_id = product.id', 'inner');
-		// $this->db->where('product.whislist','1');
-		// $this->db->order_by('product.id', 'desc');
+		$user_id = '123';
+		$this->db->select('*,product.id as pid,(price+(cgst_amt+sgst_amt)) as pricegst, price+(cgst_amt+sgst_amt)-(price*(dis_price/100)+(cgst_amt+sgst_amt)) as rate, (price*dis_price/100+(cgst_amt+sgst_amt)) as disPrice');
+		$this->db->from('product');
+		$this->db->join('addtocart','addtocart.product_id=product.id','inner');
+		$this->db->where('addtocart.user_id',$user_id);
+		$page_data['cart_item'] = $this->db->get()->result_array();
 		$page_data['delivery_address'] = $this->db->get_where('delivery_address',array('user_id'=>'123'))->result_array();
-		// $page_data['product'] = $this->db->get()->result_array();
 		$page_data['total_count'] = $this->total_count;
 		$this->load->view('front/checkout',$page_data);
 	}
 
 	public function shipaddress(){
 		if($this->input->post()){
+			$aid = $this->input->post('address_id');
 			$data = [
 				'name' => $this->input->post('name'),
 				'emailid' => $this->input->post('emailid'),
@@ -108,14 +108,72 @@ class Frontend extends CI_Controller {
 				'created_on' => date('y-m-d'),
 				'status' => '1',
 			];
-
-			if($this->db->insert('delivery_address',$data)){
-				redirect('checkout');
-			}
-			else{
-				echo 'error';
+			if($aid == ''){
+				if($this->db->insert('delivery_address',$data)){
+					redirect('checkout');
+				}
+				else{
+					echo 'error';
+				}
+			}else{
+				$this->db->where('id',$aid);
+				$this->db->update('delivery_address',$data);
 			}
 		}
 	}
+
+	public function addressdelete(){
+		$id = $this->input->post('row_id');
+		$this->db->where('id', $id);
+		if ($this->db->delete('delivery_address')) {
+			echo 'success';
+		} else {
+			echo 'error';
+		}
+	}
+
+	public function applyCoupon() {
+		$couponCode = $this->input->post('couponcode');
+		// Query the database to check if the coupon code exists
+		$this->db->where('couponcode', $couponCode);
+		$coupon = $this->db->get('coupon')->row();
+	
+		if ($coupon) {
+			// Check if the coupon is not expired
+			if (strtotime($coupon->expiry_date) >= time()) {
+				// $discountedAmount = $cartTotal * ($coupon->discount / 100);
+				$finalAmount = $coupon->amt;
+	
+				// Update the cart or order with the discounted amount
+				$this->session->set_userdata('cart_total', $finalAmount);
+	
+				// Return a success response with the final amount
+				$response = [
+					'success' => true,
+					'message' => 'Coupon applied successfully',
+					'finalAmount' => $finalAmount
+				];
+			} else {
+				// Coupon code is expired
+				$response = [
+					'success' => false,
+					'message' => 'Coupon code has expired'
+				];
+			}
+		} else {
+			// Coupon code is not valid
+			$response = [
+				'success' => false,
+				'message' => 'Invalid coupon code'
+			];
+		}
+	
+		// Return the response in JSON format
+		$this->output
+			 ->set_content_type('application/json')
+			 ->set_output(json_encode($response));
+	}
+	
+	
 }
 ?>
