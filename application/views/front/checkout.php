@@ -236,7 +236,7 @@
 
                                         <div class="checkout-detail">
                                             <div class="card">
-                                                <input type="checkbox" value="" >
+                                                <input type="checkbox" value="" > Purchase through wallet
                                             </div>
                                             <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
                                                 <div class="accordion-item">
@@ -541,7 +541,7 @@
                                 </li>
                             </ul>
                         </div>
-
+            
                         <div class="checkout-offer">
                             <div class="offer-title">
                                 <div class="offer-icon">
