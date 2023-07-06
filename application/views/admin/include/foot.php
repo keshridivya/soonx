@@ -72,33 +72,6 @@
     			$('#editor').summernote();
     		});
     		$(document).ready(function () {
-    			$('.add_another_option').on('click', function (e) {
-        e.preventDefault();
-        var newDiv = $('<div class="theme-form theme-form-2 mega-form mt-2 attrform">\
-            <div class="mb-4 row align-items-center">\
-                <label class="form-label-title col-sm-3 mb-0">Option Name</label>\
-                <div class="col-sm-9">\
-                    <select class="js-example-basic-single w-100 attrname"\
-                        name="product_variant_name[]">\
-                        <option value="">Select Attributes</option>\
-                        <?php foreach ($attributes as $attribute) { ?>\
-                            <option><?= $attribute['name']; ?></option>\
-                        <?php } ?>\
-                    </select>\
-                </div>\
-            </div>\
-            <div class="row align-items-center">\
-                <label class="col-sm-3 col-form-label form-label-title">Option Value</label>\
-                <div class="col-sm-9">\
-                    <div class="bs-example">\
-                        <select class="selectpicker attribute_values_select" name="product_variant_value[]" multiple aria-label="Default select example" data-live-search="true"></select>\
-                    </div>\
-                </div>\
-            </div>\
-        </div>');
-
-        $('.attrform').append(newDiv);
-    });
 
     			$(document).on('click', '.delete-option', function (e) {
     				e.preventDefault();
@@ -167,6 +140,31 @@
 					}
 				});
        		});
+
+			$(document).ready(function() {
+				$('.attribute-checkbox').change(function() {
+					var attributeId = $(this).attr('id').split('_')[1]; // Extract the attribute ID from the checkbox ID
+					var value = $(this).val();
+					var isChecked = $(this).is(':checked') ? 1 : 0;
+					var product_id = $(this).data('id');
+
+					// Make an AJAX request to update the database
+					$.ajax({
+					url: '<?php echo base_url('admin/updateattribute'); ?>', // Replace with the appropriate PHP script URL
+					method: 'POST',
+					data: { attributeId: attributeId, value: value, isChecked: isChecked, product_id:product_id },
+					success: function(response) {
+						// Handle the response if needed
+						console.log(response);
+					},
+					error: function(xhr, status, error) {
+						// Handle any errors if necessary
+						console.error(error);
+					}
+					});
+				});
+			});
+
 		
 
     	</script>

@@ -130,6 +130,7 @@
 					success: function (response) {
 						console.log('Item removed from cart successfully');
                         $row.remove();
+						location.reload();
 					},
 					error: function () {
 						console.log('Failed to remove item from cart');

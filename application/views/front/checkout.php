@@ -61,47 +61,56 @@
                                     <div class="checkout-box">
                                         <div class="checkout-title">
                                             <h4>Delivery Address</h4>
+                                            <div class="" ><button class="btn theme-bg-color btn-md text-white"data-bs-toggle="modal" data-bs-target="#add-address" >Add Address</button></div>
                                         </div>
 
                                         <div class="checkout-detail">
                                             <div class="row g-4">
+                                                <?php
+                                                foreach($delivery_address as $da){
+                                                ?>
                                                 <div class="col-xxl-6 col-lg-12 col-md-6">
                                                     <div class="delivery-address-box">
                                                         <div>
                                                             <div class="form-check">
-                                                                <input class="form-check-input" type="radio" name="jack" id="flexRadioDefault1">
+                                                                <input class="form-check-input" type="radio" name="jack" id="<?= $da['id'] ?>" checked="checked">
                                                             </div>
 
-                                                            <div class="label">
+                                                            <!-- <div class="label">
                                                                 <label>Home</label>
-                                                            </div>
+                                                            </div> -->
 
                                                             <ul class="delivery-address-detail">
                                                                 <li>
-                                                                    <h4 class="fw-500">Jack Jennas</h4>
+                                                                    <h4 class="fw-500"><?= $da['name'] ?></h4>
                                                                 </li>
 
                                                                 <li>
                                                                     <p class="text-content"><span class="text-title">Address
-                                                                            : </span>8424 James Lane South San
-                                                                        Francisco, CA 94080</p>
+                                                                            : </span><?= $da['address'] ?></p>
+                                                                </li>
+
+                                                                <li>
+                                                                    <p class="text-content"><span class="text-title">Landmark
+                                                                            : </span><?= $da['landmark'] ?></p>
                                                                 </li>
 
                                                                 <li>
                                                                     <h6 class="text-content"><span class="text-title">Pin Code
-                                                                            :</span> +380</h6>
+                                                                            :</span> <?= $da['pincode'] ?></h6>
                                                                 </li>
 
                                                                 <li>
                                                                     <h6 class="text-content mb-0"><span class="text-title">Phone
-                                                                            :</span> + 380 (0564) 53 - 29 - 68</h6>
+                                                                            :</span> <?= $da['mobile'] ?></h6>
                                                                 </li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <?php } ?>
 
-                                                <div class="col-xxl-6 col-lg-12 col-md-6">
+                                                <!-- <div class="col-xxl-6 col-lg-12 col-md-6">
                                                     <div class="delivery-address-box">
                                                         <div>
                                                             <div class="form-check">
@@ -136,7 +145,7 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -389,7 +398,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="accordion-item">
+                                                <!-- <div class="accordion-item">
                                                     <div class="accordion-header" id="flush-headingThree">
                                                         <div class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree">
                                                             <div class="custom-form-check form-check mb-0">
@@ -447,7 +456,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </div>
                                         </div>
                                     </div>
@@ -466,37 +475,37 @@
 
                             <ul class="summery-contain">
                                 <li>
-                                    <img src="../assets/images/vegetable/product/1.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <img src="<?= base_url() ?>assets/images/vegetable/product/1.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Bell pepper <span>X 1</span></h4>
                                     <h4 class="price">$32.34</h4>
                                 </li>
 
                                 <li>
-                                    <img src="../assets/images/vegetable/product/2.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <img src="<?= base_url() ?>assets/images/vegetable/product/2.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Eggplant <span>X 3</span></h4>
                                     <h4 class="price">$12.23</h4>
                                 </li>
 
                                 <li>
-                                    <img src="../assets/images/vegetable/product/3.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <img src="<?= base_url() ?>assets/images/vegetable/product/3.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Onion <span>X 2</span></h4>
                                     <h4 class="price">$18.27</h4>
                                 </li>
 
                                 <li>
-                                    <img src="../assets/images/vegetable/product/4.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <img src="<?= base_url() ?>assets/images/vegetable/product/4.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Potato <span>X 1</span></h4>
                                     <h4 class="price">$26.90</h4>
                                 </li>
 
                                 <li>
-                                    <img src="../assets/images/vegetable/product/5.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <img src="<?= base_url() ?>assets/images/vegetable/product/5.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Baby Chili <span>X 1</span></h4>
                                     <h4 class="price">$19.28</h4>
                                 </li>
 
                                 <li>
-                                    <img src="../assets/images/vegetable/product/6.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                    <img src="<?= base_url() ?>assets/images/vegetable/product/6.png" class="img-fluid blur-up lazyloaded checkout-image" alt="">
                                     <h4>Broccoli <span>X 2</span></h4>
                                     <h4 class="price">$29.69</h4>
                                 </li>
@@ -533,7 +542,7 @@
                         <div class="checkout-offer">
                             <div class="offer-title">
                                 <div class="offer-icon">
-                                    <img src="../assets/images/inner-page/offer.svg" class="img-fluid" alt="">
+                                    <img src="<?= base_url() ?>assets/images/inner-page/offer.svg" class="img-fluid" alt="">
                                 </div>
                                 <div class="offer-name">
                                     <h6>Available Offers</h6>
@@ -672,47 +681,45 @@
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <form>
+                <form action="<?= base_url('shipaddress') ?>" method="post">
+                    <div class="modal-body">
                         <div class="form-floating mb-4 theme-form-floating">
-                            <input type="text" class="form-control" id="fname" placeholder="Enter First Name">
+                            <input type="hidden" name="userid" value="123">
+                            <input type="text" class="form-control" id="fname" placeholder="Enter Full Name" name="name">
                             <label for="fname">First Name</label>
                         </div>
-                    </form>
 
-                    <form>
                         <div class="form-floating mb-4 theme-form-floating">
-                            <input type="text" class="form-control" id="lname" placeholder="Enter Last Name">
-                            <label for="lname">Last Name</label>
-                        </div>
-                    </form>
-
-                    <form>
-                        <div class="form-floating mb-4 theme-form-floating">
-                            <input type="email" class="form-control" id="email" placeholder="Enter Email Address">
+                            <input type="email" class="form-control" id="email" placeholder="Enter Email Address" name="emailid">
                             <label for="email">Email Address</label>
                         </div>
-                    </form>
 
-                    <form>
                         <div class="form-floating mb-4 theme-form-floating">
-                            <textarea class="form-control" placeholder="Leave a comment here" id="address" style="height: 100px"></textarea>
+                            <input type="text" class="form-control" id="mobile" placeholder="Enter Mobile Number" name="mobnum">
+                            <label for="mobile">Mobile Number</label>
+                        </div>
+
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <textarea class="form-control" placeholder="Leave a comment here" id="address" style="height: 100px" name="address"></textarea>
                             <label for="address">Enter Address</label>
                         </div>
-                    </form>
 
-                    <form>
                         <div class="form-floating mb-4 theme-form-floating">
-                            <input type="email" class="form-control" id="pin" placeholder="Enter Pin Code">
+                            <textarea class="form-control" placeholder="Near by" id="landmark" style="height: 100px" name="landmark"></textarea>
+                            <label for="landmark">Landmark</label>
+                        </div>
+
+                        <div class="form-floating mb-4 theme-form-floating">
+                            <input type="text" class="form-control" id="pin" placeholder="Enter Pin Code" name="pin">
                             <label for="pin">Pin Code</label>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">Save
-                        changes</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-md" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn theme-bg-color btn-md text-white" data-bs-dismiss="modal">Save
+                            changes</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -737,7 +744,7 @@
                             <li class="list-1">
                                 <div class="deal-offer-contain">
                                     <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/10.png" class="blur-up lazyload" alt="">
+                                        <img src="<?= base_url() ?>assets/images/vegetable/product/10.png" class="blur-up lazyload" alt="">
                                     </a>
 
                                     <a href="shop-left-sidebar.html" class="deal-contain">
@@ -750,7 +757,7 @@
                             <li class="list-2">
                                 <div class="deal-offer-contain">
                                     <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/11.png" class="blur-up lazyload" alt="">
+                                        <img src="<?= base_url() ?>assets/images/vegetable/product/11.png" class="blur-up lazyload" alt="">
                                     </a>
 
                                     <a href="shop-left-sidebar.html" class="deal-contain">
@@ -763,7 +770,7 @@
                             <li class="list-3">
                                 <div class="deal-offer-contain">
                                     <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/12.png" class="blur-up lazyload" alt="">
+                                        <img src="<?= base_url() ?>assets/images/vegetable/product/12.png" class="blur-up lazyload" alt="">
                                     </a>
 
                                     <a href="shop-left-sidebar.html" class="deal-contain">
@@ -776,7 +783,7 @@
                             <li class="list-1">
                                 <div class="deal-offer-contain">
                                     <a href="shop-left-sidebar.html" class="deal-image">
-                                        <img src="../assets/images/vegetable/product/13.png" class="blur-up lazyload" alt="">
+                                        <img src="<?= base_url() ?>assets/images/vegetable/product/13.png" class="blur-up lazyload" alt="">
                                     </a>
 
                                     <a href="shop-left-sidebar.html" class="deal-contain">
@@ -848,5 +855,168 @@
     <!-- Tap to top end -->
 
     <?php include_once('include/foot.php'); ?></body>
+<script>
+    $(document).ready(function(){
+    $('#spancustomer_name').hide();
+    $('#spancustomer_contact').hide();
+    $('#spancustomer_email').hide();
+    $('#spancustomer_city').hide();
+    $('#spancustomer_address').hide();
+    $('#spancustomer_pincode').hide();
+    let name_error2 = true;
+    let contact_error2 = true;
+    let email_error2 = true;
+    let city_error2 = true;
+    let address_error2 = true;
+    let pin_error2 = true;
 
+    $('#customer_name').keyup(function(){
+        validatebookname2();
+    });
+    function validatebookname2(){
+        let bookname=$('#customer_name').val();
+        let booktext=/^[A-Za-z ]+$/;
+        if(bookname.length == ''){
+            $('#spancustomer_name').show().css('color','red');
+            name_error2 = false;
+            return false;
+        }else if(!booktext.test(bookname)){
+                $('#spancustomer_name').show().html('** Enter Alphabets only').css('color','red');
+                name_error2 = false;
+                return false;
+        }else{
+            $('#spancustomer_name').hide();
+        }
+    }
+
+    //contact
+    $('#customer_contact').keyup(function(){
+        validatebookcontact2();
+    });
+    function validatebookcontact2(){
+        let bookcontact=$('#customer_contact').val();
+        let booknumber= /^[6,7,8,9][0-9]{0,9}$/;
+
+        if(bookcontact.length==''){
+            $('#spancustomer_contact').show().css('color','red');
+            contact_error2 = false;
+            return false;
+        }else if(!booknumber.test(bookcontact)){
+            $('#spancustomer_contact').show().css('color','red').html('** please enter 10 digit mobile number withou space and  starting with 6,7,8,9');
+            contact_error2 = false;
+            return false;
+        }else if(bookcontact.length != '10'){
+            $('#spancustomer_contact').show().css('color','red').html('** Enter Only 10 digit number');
+            contact_error2 = false;
+            return false;
+        } else{
+            $('#spancustomer_contact').hide();
+        }
+    }
+
+    //email
+    $('#customer_email').keyup(function(){
+        validatebookemail2();
+    });
+    function validatebookemail2(){
+        let bookemail=$('#customer_email').val();
+        let bookregex = /^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
+        if(bookemail.length==''){
+            $('#spancustomer_email').show().css('color','red');
+            email_error2 = false;
+            return false;
+        }else if(!bookregex.test(bookemail)){
+            $('#spancustomer_email').show().css('color','red');
+            email_error2 = false;
+            return false;
+        }
+        else{
+            $('#spancustomer_email').hide();
+        }
+    }
+    
+    //city
+    $('#customer_city').keyup(function(){
+        validatebookcity2();
+    });
+    function validatebookcity2(){
+        let bookcity =$('#customer_city').val();
+        let cityregrex=/^[A-za-z ]+$/;
+        if(bookcity.length==''){
+            $('#spancustomer_city').show().css('color','red');
+            city_error2 = false;
+            return false;
+        }
+        else if(!cityregrex.test(bookcity)){
+            $('#spancustomer_city').show().css('color','red').html('** Please enter correct city');
+            city_error2 = false;
+            return false;
+        }
+        else{
+            $('#spancustomer_city').hide();
+        }
+    }
+        
+    //address
+    $('#customer_address').keyup(function(){
+        validatebookaddress2();
+    });
+    function validatebookaddress2(){
+        let bookaddress=$('#customer_address').val();
+        if(bookaddress.length==''){
+            $('#spancustomer_address').show().css('color','red');
+            address_error2 = false;
+            return false;
+        }
+        else{
+            $('#spancustomer_address').hide();
+        }
+    }
+
+    //pincode
+    $('#customer_pincode').keyup(function(){
+        validatebookpin3();
+    });
+    function validatebookpin3(){
+        let bookpin=$('#customer_pincode').val();
+        let zipRegex = /^\d{6}$/;
+        if(bookpin.length==''){
+            $('#spancustomer_pincode').show().css('color','red');
+            pin_error3 = false;
+            return false;
+        }
+        else if(!zipRegex.test(bookpin)){
+            $('#spancustomer_pincode').show().css('color','red').html('** zipcode should only be 6 digits');
+            pin_error3 = false;
+            return false;
+        }
+        else{
+            $('#spancustomer_pincode').hide();
+        }
+    }
+
+
+    // Submit button
+    $("#submit-btn").click(function () {
+        name_error3 = true;
+        contact_error3 = true;
+         email_error3 = true;
+        city_error3 = true;
+         address_error3 = true;
+         pin_error3= true;
+         state_error3 = true;
+         validatebookname3();
+         validatebookcontact3();
+         validatebookemail3();
+         validatebookcity3();
+         validatebookaddress3();
+         validatebookpin3();
+          if (name_error3 == true && contact_error3 == true && email_error3 == true && city_error3 == true && address_error3 == true && pin_error3==true ) {
+            return true;
+          } else {
+                      return false;
+          }
+      });
+});
+</script>
 </html>

@@ -71,7 +71,14 @@
 																href="<?= base_url() ?>product-thumbnail/<?= $product['pid'] ?>"><?= $product['product_name'] ?></a>
 														</li>
 
-														<li class="text-content"><span class="text-title">
+														<li class="text-content"><span class="text-title" style="font-size:12px"><?php
+														if($product['shipping'] == 'Shipping Charges'){
+															echo '<i class="fa fa-inr"></i>';
+															echo '<span class="shipingcharge">'.$product['shippingcharge'].'</span>';
+														}else{
+															echo 'Free Delivery';
+														}
+														?>
 															</span> </li>
 
 														<li class="text-content"><span class="text-title"></span> </li>
@@ -154,101 +161,28 @@
 											</h5>
 										</td>
 
+										<td class="subtotal">
+											<h4 class="table-title text-content">Total PV</h4>
+											<h5 id="subtotal"><span
+													class="prpv"><?= $product['pv'] ?? 0; ?></span>
+											</h5>
+										</td>
+
+										<td class="subtotal">
+											<h4 class="table-title text-content">Total BV</h4>
+											<h5 id="subtotal"><span
+													class="prbv"><?= $product['bv'] ?? 0;?></span>
+											</h5>
+										</td>
+
 										<td class="save-remove">
 											<h4 class="table-title text-content">Action</h4>
-											<a class="save notifi-wishlist" href="javascript:void(0)">Save for later</a>
 											<a class="remove close_button remove-from-cart-button"
 												href="javascript:void(0)" data-cart-id="<?= $product['aid'] ?>"
-												data-userid="123">Remove</a>
+												data-userid="123"><i class="fa fa-trash"></i></a>
 										</td>
 									</tr>
 									<?php } ?>
-									<!-- <tr class="product-box-contain">
-                                        <td class="product-detail">
-                                            <div class="product border-0">
-                                                <a href="product-left-thumbnail.html" class="product-image">
-                                                    <img src="../assets/images/vegetable/product/2.png" class="img-fluid blur-up lazyload" alt="">
-                                                </a>
-                                                <div class="product-detail">
-                                                    <ul>
-                                                        <li class="name">
-                                                            <a href="product-left-thumbnail.html">Eggplant</a>
-                                                        </li>
-
-                                                        <li class="text-content"><span class="text-title">Sold
-                                                                By:</span> Nesto
-                                                        </li>
-
-                                                        <li class="text-content"><span class="text-title">Quantity</span> - 250 g</li>
-
-                                                        <li>
-                                                            <h5 class="text-content d-inline-block">Price :</h5>
-                                                            <span>$35.10</span>
-                                                            <span class="text-content">$45.68</span>
-                                                        </li>
-
-                                                        <li>
-                                                            <h5 class="saving theme-color">Saving : $20.68</h5>
-                                                        </li>
-
-                                                        <li class="quantity">
-                                                            <div class="quantity-price">
-                                                                <div class="cart_qty">
-                                                                    <div class="input-group">
-                                                                        <button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
-                                                                            <i class="fa fa-minus ms-0" aria-hidden="true"></i>
-                                                                        </button>
-                                                                        <input class="form-control input-number qty-input" type="text" name="quantity" value="0">
-                                                                        <button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
-                                                                            <i class="fa fa-plus ms-0" aria-hidden="true"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-
-                                                        <li>
-                                                            <h5>Total: $52.95</h5>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td class="price">
-                                            <h4 class="table-title text-content">Price</h4>
-                                            <h5>$52.95 <del class="text-content">$68.49</del></h5>
-                                            <h6 class="theme-color">You Save : $15.14</h6>
-                                        </td>
-
-                                        <td class="quantity">
-                                            <h4 class="table-title text-content">Qty</h4>
-                                            <div class="quantity-price">
-                                                <div class="cart_qty">
-                                                    <div class="input-group">
-                                                        <button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
-                                                            <i class="fa fa-minus ms-0" aria-hidden="true"></i>
-                                                        </button>
-                                                        <input class="form-control input-number qty-input" type="text" name="quantity" value="0">
-                                                        <button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
-                                                            <i class="fa fa-plus ms-0" aria-hidden="true"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </td>
-
-                                        <td class="subtotal">
-                                            <h4 class="table-title text-content">Total</h4>
-                                            <h5>$52.95</h5>
-                                        </td>
-
-                                        <td class="save-remove">
-                                            <h4 class="table-title text-content">Action</h4>
-                                            <a class="save notifi-wishlist" href="javascript:void(0)">Save for later</a>
-                                            <a class="remove close_button" href="javascript:void(0)">Remove</a>
-                                        </td>
-                                    </tr> -->
 								</tbody>
 							</table>
 						</div>
@@ -273,17 +207,27 @@
 							<ul>
 								<li>
 									<h4>Subtotal</h4>
-									<h4 class="price"><i class="fa fa-inr"></i><span class="result"></span></h4>
+									<h4 class="price"><i class="fa fa-inr"></i><span class="result totamtpay"></span></h4>
 								</li>
 
 								<li>
 									<h4>Coupon Discount</h4>
-									<h4 class="price">(-) 0.00</h4>
+									<h4 class="price">(-) <span class="coupondis">0.00</span></h4>
+								</li>
+
+								<li>
+									<h4>Total PV</h4>
+									<h4 class="price"> <span class="tpv">0.00</span></h4>
+								</li>
+
+								<li>
+									<h4>Total BV</h4>
+									<h4 class="price"> <span class="tbv">0.00</span></h4>
 								</li>
 
 								<li class="align-items-start">
 									<h4>Shipping</h4>
-									<h4 class="price text-end">$6.90</h4>
+									<h4 class="price text-end"><i class="fa fa-inr"></i><span class="totalship totamtpay"></span></h4>
 								</li>
 							</ul>
 						</div>
@@ -291,14 +235,14 @@
 						<ul class="summery-total">
 							<li class="list-total border-top-0">
 								<h4>Total (USD)</h4>
-								<h4 class="price theme-color">$132.58</h4>
+								<h4 class="price theme-color"><i class="fa fa-inr"></i> <span class="totalsubtoatl"></span></h4>
 							</li>
 						</ul>
 
 						<div class="button-group cart-button">
 							<ul>
 								<li>
-									<button onclick="location.href = 'checkout.html';"
+									<button onclick="location.href = '<?= base_url('checkout') ?>';"
 										class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
 								</li>
 
@@ -558,14 +502,53 @@
 
 	<?php include_once('include/foot.php'); ?>
 	<script>
-        let sum = 0;
+		
+		function fulltotal(){
+			let subtotalElement = $('.result.totamtpay');
+			let couponDiscountElement = $('.coupondis');
+			let shippingChargeElement = $('.totalship.totamtpay');
+
+			// Get the values from the elements and convert them to numbers
+			let subtotal = parseFloat(subtotalElement.text());
+			let couponDiscount = parseFloat(couponDiscountElement.text());
+			let shippingCharge = parseFloat(shippingChargeElement.text());
+
+			// Calculate the new total by subtracting the coupon discount and adding the shipping charge
+			let total = subtotal - couponDiscount + shippingCharge;
+
+			// Display the new total in the appropriate element
+			$('.totalsubtoatl').text(total.toFixed(2));
+
+		}
+        let sum = 0, sumship = 0, sumpv = 0, sumbv = 0;
 
         $(window).on("load", function () {
-        $('.subtotaljs').each(function () {
-            let amt = $(this).text();
-            sum += parseInt(amt);
-        });
-        $('.result').text(sum);
+			$('.subtotaljs').each(function () {
+				let amt = $(this).text();
+				sum += parseInt(amt);
+			});
+			$('.result').text(sum);
+
+			$('.shipingcharge').each(function(){
+				let shipcharg = $(this).text();
+				sumship += parseInt(shipcharg);
+			});
+			$('.totalship').text(sumship);
+
+			$('.prpv').each(function(){
+				let amt = $(this).text();
+				sumpv += parseInt(amt);
+			});
+			$('.tpv').text(sumpv);
+
+			$('.prbv').each(function(){
+				let amt = $(this).text();
+				sumbv += parseInt(amt);
+			});
+			$('.tbv').text(sumbv);
+
+			fulltotal();
+			
         });
 
         $(document).ready(function () {
@@ -597,6 +580,7 @@
             updateSubtotal(cartId, quantity);
             updateTotal();
             }
+			fulltotal();
         });
 
         function updateTotal() {
@@ -627,6 +611,7 @@
             }
             });
         }
+
         });
 
 	</script>

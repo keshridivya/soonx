@@ -185,7 +185,9 @@
 															<input class="form-control form-choose"
 																name="thumbnail_image" type="file"
 																id="formFileMultiple1">
+																<span>Width: 106px, height: 82px</span>
 														</div>
+														
 													</div>
 												</div>
 											</div>
@@ -204,7 +206,7 @@
 															Name</label>
 														<div class="col-sm-9">
 														<select class="js-example-basic-single w-100 attrname" 
-															name="product_variant_name[]">
+															name="product_variant_name">
 															<option value="">Select Attributes</option>
 															<?php foreach ($attributes as $attribute) { ?>
 																<option><?= $attribute['name']; ?></option>
@@ -429,7 +431,14 @@
 
 										<div class="card">
 												<div class="theme-form theme-form-2 mega-form">
-												<div class="mb-4 row align-items-center">
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-3 mb-0">Product Rating</label>
+														<div class="col-sm-9">
+															<input class="form-control" type="search"
+																placeholder="5" name="rating" value="5">
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
 														<label class="form-label-title col-sm-3 mb-0">Status</label>
 														<div class="col-sm-9">
 														<select class="js-example-basic-single w-100"
@@ -539,6 +548,34 @@
 					}
 				});
 			});
+
+			$('.add_another_option').on('click', function (e) {
+					e.preventDefault();
+					var newDiv = $('<div class="theme-form theme-form-2 mega-form mt-2 attrform">\
+						<div class="mb-4 row align-items-center">\
+							<label class="form-label-title col-sm-3 mb-0">Option Name</label>\
+							<div class="col-sm-9">\
+								<select class="js-example-basic-single w-100 attrname"\
+									name="product_variant_name">\
+									<option value="">Select Attributes</option>\
+									<?php foreach ($attributes as $attribute) { ?>\
+										<option><?= $attribute['name'] ?? ''; ?></option>\
+									<?php } ?>\
+								</select>\
+							</div>\
+						</div>\
+						<div class="row align-items-center">\
+							<label class="col-sm-3 col-form-label form-label-title">Option Value</label>\
+							<div class="col-sm-9">\
+								<div class="bs-example">\
+									<select class="selectpicker attribute_values_select" name="product_variant_value[]" multiple aria-label="Default select example" data-live-search="true"></select>\
+								</div>\
+							</div>\
+						</div>\
+					</div>');
+
+					$('.attrform').append(newDiv);
+				});
 		})
 
 	</script>

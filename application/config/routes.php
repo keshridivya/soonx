@@ -55,6 +55,7 @@ $route['wishlist'] = 'frontend/wishlist';
 $route['shop/(:any)/(:any)'] = 'frontend/shop/$1/$2';
 $route['cart'] = 'frontend/cart';
 $route['checkout'] = 'frontend/checkout';
+$route['shipaddress'] = 'frontend/shipaddress';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 

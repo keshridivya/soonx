@@ -125,23 +125,11 @@ class Admin extends CI_Controller {
 	{
 		if ($this->session->userdata('username')) {
 			if ($this->input->post()) {
-				$product_variant_name = '';
-				$product_variant_value = '';
-			
-				if (is_array($this->input->post('product_variant_name')) && !empty($this->input->post('product_variant_name'))) {
-					$product_variant_name = implode(',', $this->input->post('product_variant_name'));
-				}
-			
-				if (is_array($this->input->post('product_variant_value')) && !empty($this->input->post('product_variant_value'))) {
-					$product_variant_value = implode(',', $this->input->post('product_variant_value'));
-				}
 	
-				// Upload thumbnail image
 				if($_FILES['thumbnail_image']['name'] != ""){
 					$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/product_thumb_image/','name'=>'thumbnail_image'));
 				}
 		
-				// Prepare data for database insertion
 				$data = [
 					'product_name' => $this->input->post('product_name'),
 					'category' => $this->input->post('category'),
@@ -149,8 +137,6 @@ class Admin extends CI_Controller {
 					'unit' => $this->input->post('unit'),
 					'product_desc' => $this->input->post('product_desc'),
 					// 'thumbnail_image' => $this->input->post('thumbnail_image'),
-					'product_variant_name' => $product_variant_name,
-					'product_variant_value' => $product_variant_value,
 					'shipping' => $this->input->post('shipping'),
 					'shippingcharge' => $this->input->post('shippingcharge'),
 					'price' => $this->input->post('price'),
@@ -163,12 +149,13 @@ class Admin extends CI_Controller {
 					'page_title' => $this->input->post('page_title'),
 					'meta_description' => $this->input->post('meta_description'),
 					'product_title'=> $this->input->post('titlename'),
-					'pv'=> $this->input->post('titlename'),
-					'bv'=> $this->input->post('titlename'),
+					'pv'=> $this->input->post('pv'),
+					'bv'=> $this->input->post('bv'),
 					'cgst_dis'=> $this->input->post('cgstdis'),
 					'sgst_dis'=> $this->input->post('sgstdis'),
 					'cgst_amt'=> $this->input->post('cgstamt'),
 					'sgst_amt'=> $this->input->post('sgstamt'),
+					'rating' => $this->input->post('rating'),
 					'created_on' => date('y-m-d'),
 					// Add other fields as needed
 				];
@@ -192,10 +179,54 @@ class Admin extends CI_Controller {
 
 				// Insert data into the database
 				if ($this->db->insert('product', $data)) {
-					echo 'success';
+					$lastInsertId = $this->db->insert_id(); // Get the last insert ID
+					$page_data['message'] = 'Inserted Sucessfully';
+
+					$product_variant_value = $this->input->post('product_variant_value');
+				
+					// Retrieve existing product IDs from the attributes table
+					$this->db->select('product_id');
+					$this->db->from('attributes');
+					$this->db->where_in('id', $product_variant_value);
+					$query = $this->db->get();
+					$existingProductIDs = $query->result_array();
+				
+					$newProductIDs = array();
+				
+					// Collect existing product IDs
+					foreach ($existingProductIDs as $row) {
+						$existingIDs = explode(',', $row['product_id']);
+						$newProductIDs = array_merge($newProductIDs, $existingIDs);
+					}
+				
+					// Append new product IDs
+					$newProductIDs[] = $lastInsertId;
+				
+					// Remove duplicates and convert to string
+					$uniqueProductIDs = implode(',', array_unique($newProductIDs));
+				
+					// Update the attributes table with the combined product IDs
+					$data1 = array('product_id' => $uniqueProductIDs);
+					$this->db->where_in('id', $product_variant_value);
+					$this->db->update('attributes', $data1);
+				
+					// Retrieve updated data from the attributes table
+					$this->db->select('*');
+					$this->db->from('attributes');
+					$query = $this->db->get();
+					$result = $query->result_array();
+				
+					// Access the retrieved data
+					foreach ($result as $row) {
+						// Access each row's data
+						echo $row['id'];
+						echo $row['product_id'];
+						// ...
+					}
 				} else {
-					echo 'error';
+					$page_data['message'] = 'Somthing Wrong';
 				}
+				
 			}
 	
 			// Prepare data for the view
@@ -244,12 +275,13 @@ class Admin extends CI_Controller {
 					'page_title' => $this->input->post('page_title'),
 					'meta_description' => $this->input->post('meta_description'),
 					'product_title'=> $this->input->post('titlename'),
-					'pv'=> $this->input->post('titlename'),
-					'bv'=> $this->input->post('titlename'),
+					'pv'=> $this->input->post('bv'),
+					'bv'=> $this->input->post('bv'),
 					'cgst_dis'=> $this->input->post('cgstdis'),
 					'sgst_dis'=> $this->input->post('sgstdis'),
 					'cgst_amt'=> $this->input->post('cgstamt'),
 					'sgst_amt'=> $this->input->post('sgstamt'),
+					'rating' => $this->input->post('rating'),
 					'modified_on' => date('y-m-d'),
 					// Add other fields as needed
 				];
@@ -274,9 +306,9 @@ class Admin extends CI_Controller {
 				// Insert data into the database
 				$this->db->where('id',$id);
 				if ($this->db->update('product', $data)) {
-					echo 'success';
+					$page_data['message'] = 'Data Update Succussfully';
 				} else {
-					echo 'error';
+					$page_data['message'] = 'Something Wrong ';
 				}
 			}
 	
@@ -295,6 +327,35 @@ class Admin extends CI_Controller {
 			redirect('admin');
 		}
 	}
+
+	public function updateAttribute()
+	{
+		// Retrieve the attribute data from the AJAX request
+		$attributeId = $this->input->post('attributeId');
+		$product_id = $this->input->post('product_id');
+		$isChecked = $this->input->post('isChecked');
+
+		// Perform the database update
+		
+
+		if ($isChecked) {
+			// Add the ID to the product_id column
+			$this->db->set('product_id', "CONCAT(product_id, ',$product_id')", false);
+		} else {
+			// Remove the ID from the product_id column
+			$this->db->set('product_id', "REPLACE(REPLACE(product_id, ',$product_id', ''), ',,', '')", false);
+		}
+		$this->db->where('id', $attributeId);
+		$result = $this->db->update('attributes');
+
+		// Return a response message
+		if ($result) {
+			echo 'Attribute updated successfully.';
+		} else {
+			echo 'Error updating attribute.';
+		}
+	}
+
 
 	public function productdelete(){
 		if($this->session->userdata['username']){
@@ -596,6 +657,7 @@ class Admin extends CI_Controller {
 						$data = array(
 							'value' => $value,
 							'name' =>  $attriname,
+							'product_id' => '0',
 							'created_on' => date('y-m-d')
 						);
 	

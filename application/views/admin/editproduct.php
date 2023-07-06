@@ -90,11 +90,12 @@
 															<select class="js-example-basic-single w-100"
 																name="subCategory" id="subcate">
 																<option selected>Select Subcategory</option>
-																<!-- <?php 
+																<?php 
                                                             foreach($subcategory as $subcategory){
+                                                                if($product->subCategory == $subcategory['id']){
                                                             ?>
-                                                            <option><?= $subcategory['subcategory_name'] ?></option>
-                                                            <?php } ?> -->
+                                                            <option <?php echo ($product->subCategory == $subcategory['id']) ? 'selected' : ''; ?>><?= $subcategory['subcategory_name'] ?></option>
+                                                            <?php }else{} } ?>
 															</select>
 														</div>
 													</div>
@@ -159,7 +160,7 @@
 																</div>
 
 															</div>
-															<div><?= $product->product_desc; ?></div>
+															
 														</div>
 													</div>
 												</div>
@@ -218,107 +219,54 @@
 												</div>
 
                                                 <table class="table variation-table table-responsive-sm">
-													<thead>
-														<tr>
-                                                        <?php
-															if($product->product_variant_name != ''){
-																$variant_name = $product->product_variant_name;
-																$variantUrls = explode(",", $variant_name);
-																foreach ($variantUrls as $variantUrl) {
-																	echo '<th scope="col">'.$variantUrl.'</th>';
-																}
-															}
-															?>
-															<!-- <th scope="col">Variant Color</th>
-															<th scope="col">Quantity</th>
-															<th scope="col"></th> -->
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td><input class="form-control" type="text"
-																	placeholder="0"
-																	name="variant_color[]"></td>
-															<td>
-																<input class="form-control" type="number"
-																	 placeholder="0"
-																	name="variant_qty[]">
-															</td>
-															<td>
-																<ul class="order-option">
-																	<li><a href="javascript:void(0)" data-toggle="modal"
-																			data-target="#deleteModal"><i
-																				class="ri-delete-bin-line"></i></a>
-																	</li>
-																</ul>
-															</td>
-														</tr>
+                                                    <?php
+                                                    $url = $_SERVER['REQUEST_URI'];
+                                                    $parts = explode('/', $url);
+                                                    $id = end($parts);
 
-														<tr>
-															<td><input class="form-control" type="text"
-																	placeholder="0"
-																	name="variant_color[]"></td>
-															<td>
-																<input class="form-control" type="number"
-																	 placeholder="0"
-																	name="variant_qty[]">
-															</td>
-															<td>
-																<ul class="order-option">
-																	<li><a href="javascript:void(0)" data-toggle="modal"
-																			data-target="#deleteModal"><i
-																				class="ri-delete-bin-line"></i></a>
-																	</li>
-																</ul>
-															</td>
-														</tr>
+                                                    $query = $this->db->query("SELECT * FROM attributes")->result_array();
 
+                                                    // Retrieve the product's attribute values
+                                                    $productAttributes = $this->db->query("SELECT * FROM attributes WHERE FIND_IN_SET('$id', product_id) > 0")->result_array();
+                                                    $productAttributeValues = array_column($productAttributes, 'value');
 
-													</tbody>
-												</table>
+                                                    // Assuming you have the result array stored in a variable called $data
+                                                    $attributeNames = array();
+                                                    foreach ($query as $row) {
+                                                        $name = $row['name'];
+                                                        $value = $row['value'];
+                                                        $product_id = $row['product_id'];
+                                                        $attr_id = $row['id'];
 
+                                                        // Store the unique attribute names in an array
+                                                        if (!in_array($name, $attributeNames)) {
+                                                            $attributeNames[] = $name;
+                                                        }
+                                                    }
+
+                                                    // Generate the table rows for each attribute name and values
+                                                    foreach ($attributeNames as $attributeName) {
+                                                        echo '<tr>';
+                                                        echo '<th>' . $attributeName . '</th>';
+                                                        foreach ($query as $row) {
+                                                            $name = $row['name'];
+                                                            $value = $row['value'];
+                                                            $product_id = $row['product_id'];
+                                                            $attr_id = $row['id'];
+
+                                                            if ($name === $attributeName) {
+                                                                // Check if the attribute value is associated with the product ID
+                                                                $isChecked = in_array($value, $productAttributeValues);
+                                                                $checkbox = '<input type="checkbox" class="attribute-checkbox" id="attribute_' . $attr_id . '" value="' . $value . '" data-id="' . $id . '"';
+                                                                $checkbox .= $isChecked ? ' checked>' : '>';
+                                                                echo '<td>' . $checkbox . '</td>';
+                                                            }
+                                                        }
+                                                        echo '</tr>';
+                                                    }
+                                                    ?>
+                                                </table>
                                                 
-                                                <?php
-                                                if($product->product_variant_name == ''){
-                                                ?>
-                                                    <div class="theme-form theme-form-2 mega-form attrform">
-                                                        <div class="mb-4 row align-items-center">
-                                                            <label class="form-label-title col-sm-3 mb-0">Option
-                                                                Name</label>
-                                                            <div class="col-sm-9">
-                                                                <select class="js-example-basic-single w-100 attrname"
-                                                                    name="product_variant_name[]">
-                                                                    <option value="">Select Attributes</option>
-                                                                    <?php foreach ($attributes as $attribute) { ?>
-                                                                    <option><?= $attribute['name']; ?></option>
-                                                                    <?php } ?>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row align-items-center">
-                                                            <label class="col-sm-3 col-form-label form-label-title">Option
-                                                                Value</label>
-                                                            <div class="col-sm-9">
-                                                                <div class="bs-example">
-                                                                    <select class="selectpicker attribute_values_select"
-                                                                        id="attribute_values_select"
-                                                                        name="product_variant_value[]" multiple
-                                                                        aria-label="Default select example"
-                                                                        data-live-search="true"></select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <a href="#" class="add-option add_another_option"><i
-                                                            class="ri-add-line me-2"></i> Add
-                                                        Another
-                                                        Option</a>
-                                                <?php }else{ ?>
-                                                    <input type="hidden" name="product_variant_name" value="<?= $product->product_variant_name ?>">
-                                                    <input type="hidden" name="product_variant_value" value="<?= $product->product_variant_name ?>">
-                                                <?php } ?>
 											</div>
 										</div>
 
@@ -542,6 +490,13 @@
 
 										<div class="card">
 											<div class="theme-form theme-form-2 mega-form">
+                                                <div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-3 mb-0">Product Rating</label>
+														<div class="col-sm-9">
+															<input class="form-control" type="search"
+																placeholder="5" name="rating" value="5">
+														</div>
+													</div>
 												<div class="mb-4 row align-items-center">
 													<label class="form-label-title col-sm-3 mb-0">Status</label>
 													<div class="col-sm-9">
