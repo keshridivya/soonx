@@ -236,7 +236,7 @@
 
                                         <div class="checkout-detail">
                                             <div class="card">
-                                                <input type="checkbox" value="" > Purchase through wallet
+                                                <input type="checkbox" value="" > Purchase through wallet. 
                                             </div>
                                             <div class="accordion accordion-flush custom-accordion" id="accordionFlushExample">
                                                 <div class="accordion-item">
@@ -860,7 +860,7 @@
     <?php include_once('include/foot.php'); ?></body>
 <script>
     $(document).ready(function(){
-    $('#spancustomer_name').hide();
+    $('#spanclient_name').hide();
     $('#spancustomer_contact').hide();
     $('#spancustomer_email').hide();
     $('#spancustomer_city').hide();
@@ -873,22 +873,22 @@
     let address_error2 = true;
     let pin_error2 = true;
 
-    $('#customer_name').keyup(function(){
+    $('#client_name').keyup(function(){
         validatebookname2();
     });
     function validatebookname2(){
-        let bookname=$('#customer_name').val();
+        let bookname=$('#client_name').val();
         let booktext=/^[A-Za-z ]+$/;
         if(bookname.length == ''){
-            $('#spancustomer_name').show().css('color','red');
+            $('#spanclient_name').show().css('color','red');
             name_error2 = false;
             return false;
         }else if(!booktext.test(bookname)){
-                $('#spancustomer_name').show().html('** Enter Alphabets only').css('color','red');
+                $('#spanclient_name').show().html('** Enter Alphabets only').css('color','red');
                 name_error2 = false;
                 return false;
         }else{
-            $('#spancustomer_name').hide();
+            $('#spanclient_name').hide();
         }
     }
 
