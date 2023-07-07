@@ -8,6 +8,7 @@ class Frontend extends CI_Controller {
 		$this->db->select('COUNT(*) as total_count');
         $this->db->from('addtocart');
         $this->total_count = $this->db->get()->row()->total_count;
+		$this->category = $this->db->get('category')->result_array();
 	}
 
 	public function index()
@@ -17,7 +18,7 @@ class Frontend extends CI_Controller {
 		$this->db->join('product', 'category.id = product.category', 'right');
 		$page_data['product'] = $this->db->get()->result_array();
 		$page_data['banner'] = $this->db->get_where('banner',array('banner_name'=>'home_banner'))->result_array();
-		$page_data['category'] = $this->db->get('category')->result_array();
+		$page_data['category'] = $this->category;
 		$page_data['offerslider'] = $page_data['offerslider'] = $this->db->join('category', 'offerslider.button = category.id')->get('offerslider')->result_array();
 
 		$page_data['total_count'] = $this->total_count;
@@ -34,6 +35,7 @@ class Frontend extends CI_Controller {
 		$page_data['product'] = $this->db->get()->row();
 		// $page_data['product_img'] = $this->db->get_where('product',array('id'=>$id))->result_array();
 		$page_data['total_count'] = $this->total_count;
+		$page_data['category'] = $this->category;
 		$this->load->view('front/product-thumbnail',$page_data);
 	}
 
@@ -45,6 +47,7 @@ class Frontend extends CI_Controller {
 		$this->db->order_by('product.id', 'desc');
 		$page_data['product'] = $this->db->get()->result_array();
 		$page_data['total_count'] = $this->total_count;
+		$page_data['category'] = $this->category;
 
 		$this->load->view('front/wishlist',$page_data);
 
@@ -56,16 +59,20 @@ class Frontend extends CI_Controller {
 			$this->db->from('category');
 			$this->db->join('product', 'category.id = product.category', 'right');
 			$this->db->where('product.category',$id);
-			$page_data['product'] = $this->db->get()->result_array();
-		}else{
+			$page_data['products'] = $this->db->get()->result_array();
+		}else if($filterval){
+			
+		}
+		else{
 			$this->db->select('*, product.id as pid,category.id as cid, price-(price*dis_price/100) as rate');
 			$this->db->from('category');
 			$this->db->join('product', 'category.id = product.category', 'right');
-			$page_data['product'] = $this->db->get()->result_array();
+			$page_data['products'] = $this->db->get()->result_array();
 		}
 
 
 		$page_data['total_count'] = $this->total_count;
+		$page_data['category'] = $this->category;
 		$page_data['category_banner'] = $this->db->get_where('banner',array('banner_name'=>'category_banner'))->result_array();
 		$this->load->view('front/shop-right-sidebar',$page_data);
 	}
@@ -79,6 +86,7 @@ class Frontend extends CI_Controller {
 		$page_data['product'] = $this->db->get()->result_array();
 
 		$page_data['total_count'] = $this->total_count;
+		$page_data['category'] = $this->category;
 		$this->load->view('front/cart',$page_data);
 	}
 
@@ -91,6 +99,7 @@ class Frontend extends CI_Controller {
 		$page_data['cart_item'] = $this->db->get()->result_array();
 		$page_data['delivery_address'] = $this->db->get_where('delivery_address',array('user_id'=>'123'))->result_array();
 		$page_data['total_count'] = $this->total_count;
+		$page_data['category'] = $this->category;
 		$this->load->view('front/checkout',$page_data);
 	}
 
@@ -136,6 +145,7 @@ class Frontend extends CI_Controller {
 		$couponCode = $this->input->post('couponcode');
 		// Query the database to check if the coupon code exists
 		$this->db->where('couponcode', $couponCode);
+		$this->db->where('status','Active');
 		$coupon = $this->db->get('coupon')->row();
 	
 		if ($coupon) {
@@ -173,6 +183,24 @@ class Frontend extends CI_Controller {
 			 ->set_content_type('application/json')
 			 ->set_output(json_encode($response));
 	}
+	
+		public function fetchResults() {
+			$keyword = $this->input->get('keyword');
+	
+			// Perform the search logic based on the keyword
+			// Query the database or perform any necessary operations
+			// Return the search results as JSON
+	
+			$results = [
+				['title' => 'Result 1', 'url' => 'result1_url'],
+				['title' => 'Result 2', 'url' => 'result2_url'],
+				// Add more results as needed
+			];
+	
+			// Return the search results as JSON
+			header('Content-Type: application/json');
+			echo json_encode($results);
+		}
 	
 	
 }

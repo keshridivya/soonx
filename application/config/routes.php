@@ -73,6 +73,11 @@ $route['admin/addCategory'] = 'admin/addCategory';
 $route['admin/editCategory'] = 'admin/editCategory';
 $route['admin/categorydelete'] = 'admin/categorydelete';
 
+$route['admin/coupon'] = 'admin/coupon';
+$route['admin/addcoupon'] = 'admin/addcoupon';
+$route['admin/editcoupon/(:any)'] = 'admin/editcoupon/$1';
+$route['admin/coupondelete'] = 'admin/coupondelete';
+
 $route['admin/attributes'] = 'admin/attributes';
 $route['admin/addattributes'] = 'admin/addattributes';
 $route['admin/addattributes'] = 'admin/addattributes';

@@ -435,7 +435,7 @@
 														<label class="form-label-title col-sm-3 mb-0">Product Rating</label>
 														<div class="col-sm-9">
 															<input class="form-control" type="search"
-																placeholder="5" name="rating" value="5">
+																placeholder="5" name="rating" value="5" min>
 														</div>
 													</div>
 													<div class="mb-4 row align-items-center">

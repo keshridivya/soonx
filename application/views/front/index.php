@@ -266,29 +266,30 @@ $product = $product;
 								</div>
 
 								<div class="product-detail">
-									<ul class="rating">
-										<li>
-											<i data-feather="star" class="fill"></i>
-										</li>
-										<li>
-											<i data-feather="star" class="fill"></i>
-										</li>
-										<li>
-											<i data-feather="star" class="fill"></i>
-										</li>
-										<li>
-											<i data-feather="star" class="fill"></i>
-										</li>
-										<li>
-											<i data-feather="star"></i>
-										</li>
-									</ul>
+								<ul class="rating">
+									<li>
+										<i data-feather="star" class="<?php echo ($product['rating'] >= 1) ? 'fill' : ''; ?>"></i>
+									</li>
+									<li>
+										<i data-feather="star" class="<?php echo ($product['rating'] >= 2) ? 'fill' : ''; ?>"></i>
+									</li>
+									<li>
+										<i data-feather="star" class="<?php echo ($product['rating'] >= 3) ? 'fill' : ''; ?>"></i>
+									</li>
+									<li>
+										<i data-feather="star" class="<?php echo ($product['rating'] >= 4) ? 'fill' : ''; ?>"></i>
+									</li>
+									<li>
+										<i data-feather="star" class="<?php echo ($product['rating'] >= 5) ? 'fill' : ''; ?>"></i>
+									</li>
+								</ul>
+
 									<a href="<?= base_url() ?>product-thumbnail/<?= $product['pid'] ?>">
 										<h5 class="name text-title"><?= $product['product_name'] ?></h5>
 									</a>
 									<h5 class="price theme-color"><i
-											class="fa fa-inr"></i><?= $product['rate'] ?><del><i
-												class="fa fa-inr"></i><?= $product['price'] ?></del></h5>
+											class="fa fa-inr"></i><?= intval($product['rate']) ?><del><i
+												class="fa fa-inr"></i><?= intval($product['price']) ?></del></h5>
 
 									<div class="addtocart_btn">
 										<a href="<?= base_url() ?>product-thumbnail/<?= $product['pid'] ?>"
@@ -455,7 +456,7 @@ $product = $product;
 	<!-- Banner Section End -->
 
 	<!-- Deal Section Start -->
-	<section class="product-section product-section-3">
+	<!-- <section class="product-section product-section-3">
 		<div class="container-fluid-lg">
 			<div class="title">
 				<h2>Top Selling Items</h2>
@@ -675,7 +676,7 @@ $product = $product;
 					</div>
 				</div>
 
-				<div class="col-xxl-8 col-lg-7 order-lg-1">
+				<div class="col-xxl-12 col-lg-12 order-lg-1">
 					<div class="slider-5_2 img-slider">
 						<div>
 							<div class="product-box-4 wow fadeInUp">
@@ -1390,7 +1391,7 @@ $product = $product;
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- Deal Section End -->
 
 	<!-- Offer Section Start -->
@@ -2590,7 +2591,7 @@ $product = $product;
 	<!-- Product Chemist Store Section End -->
 
 	<!-- Banner Section Start -->
-	<section class="banner-section">
+	<!-- <section class="banner-section">
 		<div class="container-fluid-lg">
 			<div class="row gy-lg-0 gy-3">
 				<div class="col-lg-6">
@@ -2632,7 +2633,7 @@ $product = $product;
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- Banner Section End -->
 
 	<!-- Product Drinks Section Start -->
@@ -5454,61 +5455,6 @@ $product = $product;
 		</div>
 	</div>
 	<!-- Location Modal End -->
-
-	<!-- Tap to top start -->
-	<div class="theme-option">
-		<div class="setting-box">
-			<button class="btn setting-button">
-				<i class="fa-solid fa-gear"></i>
-			</button>
-
-			<div class="theme-setting-2">
-				<div class="theme-box">
-					<ul>
-						<li>
-							<div class="setting-name">
-								<h4>Color</h4>
-							</div>
-							<div class="theme-setting-button color-picker">
-								<form class="form-control">
-									<label for="colorPick" class="form-label mb-0">Theme Color</label>
-									<input type="color" class="form-control form-control-color" id="colorPick"
-										value="#239698" title="Choose your color">
-								</form>
-							</div>
-						</li>
-
-						<li>
-							<div class="setting-name">
-								<h4>Dark</h4>
-							</div>
-							<div class="theme-setting-button">
-								<button class="btn btn-2 outline" id="darkButton">Dark</button>
-								<button class="btn btn-2 unline" id="lightButton">Light</button>
-							</div>
-						</li>
-
-						<li>
-							<div class="setting-name">
-								<h4>RTL</h4>
-							</div>
-							<div class="theme-setting-button rtl">
-								<button class="btn btn-2 rtl-unline">LTR</button>
-								<button class="btn btn-2 rtl-outline">RTL</button>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<div class="back-to-top">
-			<a id="back-to-top" href="#">
-				<i class="fas fa-chevron-up"></i>
-			</a>
-		</div>
-	</div>
-	<!-- Tap to top end -->
 
 	<?php include_once('include/foot.php'); ?>
 

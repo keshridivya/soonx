@@ -1111,6 +1111,107 @@ class Admin extends CI_Controller {
 	}
 	//banner end
 
+	//offerslider start
+	public function coupon(){
+		if($this->session->userdata['username']){
+			$page_data['coupon'] = $this->db->get_where('coupon',array('status'=>'active'))->result_array();
+			$page_data['title'] = 'Coupon';
+			$this->load->view('admin/couponlist',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function addcoupon(){
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('couponcode', 'Couponcode', 'required');
+				$this->form_validation->set_rules('enddate', 'Enddate', 'required');
+				$this->form_validation->set_rules('discount', 'Discount', 'required');
+				$this->form_validation->set_rules('status', 'Status', 'required');
+
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					$data = [
+						'couponcode' => $this->input->post('couponcode'),
+						'expiry_date' => $this->input->post('enddate'),
+						'amt' => $this->input->post('discount'),
+						'status' => $this->input->post('status'),
+						'created_on' => date('y-m-d'),
+					];
+
+					if($this->db->insert('coupon',$data)){
+						$page_data['message'] = 'Insert Successfully';
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
+				}
+			}
+			$page_data['title'] = 'Add Coupon';
+			$this->load->view('admin/create-coupon',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function editcoupon($id=false){
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('couponcode', 'Couponcode', 'required');
+				$this->form_validation->set_rules('enddate', 'Enddate', 'required');
+				$this->form_validation->set_rules('discount', 'Discount', 'required');
+				$this->form_validation->set_rules('status', 'Status', 'required');
+
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					$data = [
+						'couponcode' => $this->input->post('couponcode'),
+						'expiry_date' => $this->input->post('enddate'),
+						'amt' => $this->input->post('discount'),
+						'status' => $this->input->post('status'),
+					];
+
+					$this->db->where('id',$id);
+					if($this->db->update('coupon',$data)){
+						$page_data['message'] = 'Update Successfully';
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
+				}
+			}
+			$page_data['coupon'] = $this->db->get_where('coupon',array('id'=>$id))->row();
+			$page_data['title'] = 'Edit Coupon';
+			$this->load->view('admin/create-coupon',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function coupondelete(){
+		if($this->session->userdata['username']){
+			$id = $this->input->post('row_id');
+			if($this->db->where('id',$id)->delete('coupon')){
+				echo 'success';
+			}else{
+				echo 'error';
+			}
+		}
+		else{
+			redirect('admin');
+		}
+
+	}
+	//offerslider end
+
 
 	public function uploadimg($data)
     {

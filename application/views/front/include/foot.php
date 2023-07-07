@@ -1,3 +1,37 @@
+	<!-- Tap to top start -->
+	<div class="theme-option">
+		<div class="setting-box">
+			<button class="btn setting-button">
+				<i class="fa-solid fa-gear"></i>
+			</button>
+
+			<div class="theme-setting-2">
+				<div class="theme-box">
+					<ul>
+						<li>
+							<div class="setting-name">
+								<h4>Color</h4>
+							</div>
+							<div class="theme-setting-button color-picker">
+								<form class="form-control">
+									<label for="colorPick" class="form-label mb-0">Theme Color</label>
+									<input type="color" class="form-control form-control-color" id="colorPick"
+										value="#0da487" title="Choose your color">
+								</form>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="back-to-top">
+			<a id="back-to-top" href="#">
+				<i class="fas fa-chevron-up"></i>
+			</a>
+		</div>
+	</div>
+	<!-- Tap to top end -->
 <!-- Bg overlay Start -->
 <div class="bg-overlay"></div>
 <!-- Bg overlay End -->
@@ -471,3 +505,61 @@
         });
 
 </script>
+
+<script>
+	$('.filter-button').click(function(){
+		$('.left-box').addClass('show');
+	});
+	$('.back-button').click(function(){
+		$('.left-box').removeClass('show');
+	})
+</script>
+<script>
+	$(document).ready(function() {
+		// Function to sort the product list based on the selected option
+		function sortProducts(option) {
+			var productList = $(".product-list-section");
+			var products = productList.children();
+			products.sort(function(a, b) {
+				var aPrice = parseFloat($(a).find(".price").text().trim().replace(/[^0-9.]/g, ''));
+				var bPrice = parseFloat($(b).find(".price").text().trim().replace(/[^0-9.]/g, ''));
+				if (option === "high") {
+					return bPrice - aPrice;
+				} else {
+					return aPrice - bPrice;
+				}
+			});
+			productList.empty().append(products);
+		}
+
+		// Handle the dropdown selection change event
+		$(".dropdown-item").on("click", function(e) {
+			e.preventDefault();
+			var option = $(this).attr("id");
+			sortProducts(option);
+		});
+	});
+
+	$(document).ready(function(){
+		$('.filteroption').on('change', function() {
+			let filterval = $(this).val();
+			alert(filterval);
+			$.ajax({
+				url: "<?= base_url('frontend/shop'); ?>",
+				type: "POST",
+				data: {
+					filterval : filterval,
+				},
+				success: function(response){
+					console.log(response);
+				},
+				failure: function(response){
+					console.log(response);
+				}
+			})
+		})
+	})
+
+</script>
+
+

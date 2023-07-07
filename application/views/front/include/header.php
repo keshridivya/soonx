@@ -9,7 +9,7 @@
                                     <i class="iconly-Category icli"></i>
                                 </span>
                             </button>
-                            <a href="index.html" class="web-logo nav-logo">
+                            <a href="<?= base_url() ?>" class="web-logo nav-logo">
                                 <img src="<?= base_url() ?>assets/images/logo/4.png" class="img-fluid blur-up lazyload" alt="">
                             </a>
 
@@ -27,15 +27,15 @@
 
                             <div class="middle-box">
                                 <div class="center-box">
-                                    <div class="location-box-2">
+                                    <!-- <div class="location-box-2">
                                         <button class="btn location-button" data-bs-toggle="modal" data-bs-target="#locationModal">
                                             <i class="iconly-Location icli"></i>
                                         </button>
-                                    </div>
+                                    </div> -->
 
                                     <div class="searchbar-box-2 input-group d-xl-flex d-none">
                                         <button class="btn search-icon" type="button">
-                                            <i class="iconly-Search icli"></i>
+                                            <i class="fa fa-search"></i>
                                         </button>
                                         <input type="text" class="form-control" placeholder="Search for products, styles,brands...">
                                         <button class="btn search-button" type="button">Search</button>
@@ -191,43 +191,15 @@
                                 </div>
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav">
-                                        <!-- <li class="nav-item dropdown dropdown-mega">
-                                            <a class="nav-link dropdown-toggle ps-0" href="javascript:void(0)" data-bs-toggle="dropdown">Home</a>
+                                        <?php
+                                        foreach($category as $categories){
+                                        ?>
+                                            <li class="nav-item">
+                                                <a href="<?= base_url('shop/'.$categories['category_slug'].'/'.$categories['id']) ?>" class="nav-link"><?= $categories['category_name'] ?></a>
+                                            </li>
+                                        <?php } ?>
 
-                                            <div class="dropdown-menu dropdown-menu-2 dropdown-menu-left dropdown-image">
-                                                <div class="dropdown-column">
-                                                    <a class="dropdown-item" href="index.html">
-                                                        <img src="<?= base_url() ?>assets/images/theme/1.jpg" class="img-fluid blur-up lazyload" alt="">
-                                                        <span>Kartshop</span>
-                                                    </a>
-
-                                                    <a class="dropdown-item" href="index-2.html">
-                                                        <img src="<?= base_url() ?>assets/images/theme/2.jpg" class="img-fluid blur-up lazyload" alt="">
-                                                        <span>Sweetshop</span>
-                                                    </a>
-
-                                                    <a class="dropdown-item" href="index-3.html">
-                                                        <img src="<?= base_url() ?>assets/images/theme/3.jpg" class="img-fluid blur-up lazyload" alt="">
-                                                        <span>Organic</span>
-                                                    </a>
-
-                                                    <a class="dropdown-item" href="index-4.html">
-                                                        <img src="<?= base_url() ?>assets/images/theme/4.jpg" class="img-fluid blur-up lazyload" alt="">
-                                                        <span>Supershop</span>
-                                                    </a>
-
-                                                    <a class="dropdown-item" href="index-5.html">
-                                                        <img src="<?= base_url() ?>assets/images/theme/5.jpg" class="img-fluid blur-up lazyload" alt="">
-                                                        <span>Slicktech</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </li> -->
-                                        <li class="nav-item">
-                                            <a href="<?= base_url('/') ?>" class="nav-link">Home</a>
-                                        </li>
-
-                                        <li class="nav-item dropdown">
+                                        <!-- <li class="nav-item dropdown">
                                             <a class="nav-link dropdown-toggle dropdown-anc" href="javascript:void(0)" data-bs-toggle="dropdown">Shop</a>
 
                                             <ul class="dropdown-menu">
@@ -259,56 +231,6 @@
                                                 </li>
                                             </ul>
                                         </li>
-
-                                        <!-- <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">Product</a>
-
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="product-4-image.html">Product
-                                                        4 Image</a>
-                                                </li>
-                                                <li class="sub-dropdown-hover">
-                                                    <a href="javascript:void(0)" class="dropdown-item">Product
-                                                        Thumbnail</a>
-                                                    <ul class="sub-menu">
-                                                        <li>
-                                                            <a href="product-left-thumbnail.html">Left Thumbnail</a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="product-right-thumbnail.html">Right
-                                                                Thumbnail</a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="product-bottom-thumbnail.html">Bottom
-                                                                Thumbnail</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a href="product-bundle.html" class="dropdown-item">Product
-                                                        Bottom Thumbnail</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-left-thumbnail.html" class="dropdown-item">Product
-                                                        Left Thumbnail</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-right-thumbnail.html" class="dropdown-item">Product
-                                                        Right Thumbnail</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-slider.html" class="dropdown-item">Product
-                                                        Slider</a>
-                                                </li>
-                                                <li>
-                                                    <a href="product-sticky.html" class="dropdown-item">Product
-                                                        Sticky</a>
-                                                </li>
-                                            </ul>
-                                        </li> -->
 
                                         <li class="nav-item dropdown dropdown-mega">
                                             <a class="nav-link dropdown-toggle ps-xl-2 ps-0" href="javascript:void(0)" data-bs-toggle="dropdown">Mega Menu</a>
@@ -384,143 +306,8 @@
                                                     <div class="dropdown-column dropdown-column-img col-3"></div>
                                                 </div>
                                             </div>
-                                        </li>
-
-                                        <!-- <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">Blog</a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="blog-detail.html">Blog Detail</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="blog-grid.html">Blog Grid</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="blog-list.html">Blog List</a>
-                                                </li>
-                                            </ul>
                                         </li> -->
 
-                                        <!-- <li class="nav-item dropdown new-nav-item">
-                                            <label class="new-dropdown">New</label>
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">Pages</a>
-                                            <ul class="dropdown-menu">
-                                                <li class="sub-dropdown-hover">
-                                                    <a class="dropdown-item" href="javascript:void(0)">Email
-                                                        Template <span class="new-text"><i class="fa-solid fa-bolt-lightning"></i></span></a>
-                                                    <ul class="sub-menu">
-                                                        <li>
-                                                            <a href="<?= base_url() ?>email-templete/abandonment-email.html">Abandonment</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="<?= base_url() ?>email-templete/offer-template.html">Offer
-                                                                Template</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="<?= base_url() ?>email-templete/order-success.html">Order
-                                                                Success</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="<?= base_url() ?>email-templete/reset-password.html">Reset
-                                                                Password</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="<?= base_url() ?>email-templete/welcome.html">Welcome
-                                                                template</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li class="sub-dropdown-hover">
-                                                    <a class="dropdown-item" href="javascript:void(0)">Invoice
-                                                        Template <span class="new-text"><i class="fa-solid fa-bolt-lightning"></i></span></a>
-                                                    <ul class="sub-menu">
-                                                        <li>
-                                                            <a href="<?= base_url() ?>invoice/invoice-1.html">Invoice 1</a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="<?= base_url() ?>invoice/invoice-2.html">Invoice 2</a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="<?= base_url() ?>invoice/invoice-3.html">Invoice 3</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="404.html">404</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="about-us.html">About Us</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="cart.html">Cart</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="contact-us.html">Contact</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="checkout.html">Checkout</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="coming-soon.html">Coming Soon</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="compare.html">Compare</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="faq.html">Faq</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="order-success.html">Order
-                                                        Success</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="order-tracking.html">Order
-                                                        Tracking</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="otp.html">OTP</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="search.html">Search</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="user-dashboard.html">User
-                                                        Dashboard</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="wishlist.html">Wishlist</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="nav-item dropdown">
-                                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-bs-toggle="dropdown">Seller</a>
-                                            <ul class="dropdown-menu">
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-become.html">Become a
-                                                        Seller</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-dashboard.html">Seller
-                                                        Dashboard</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-detail.html">Seller Detail</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-detail-2.html">Seller Detail
-                                                        2</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-grid.html">Seller Grid</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="seller-grid-2.html">Seller Grid 2</a>
-                                                </li>
-                                            </ul>
-                                        </li> -->
                                     </ul>
                                 </div>
                             </div>
