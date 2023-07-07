@@ -245,7 +245,7 @@
 							<ul>
 								<li>
 									<button onclick="location.href = '<?= base_url('checkout') ?>';"
-										class="btn btn-animation proceed-btn fw-bold processpay" data-couponcode="">Process To Checkout</button>
+										class="btn btn-animation proceed-btn fw-bold processpay" data-couponcode="0">Process To Checkout</button>
 								</li>
 
 								<li>
