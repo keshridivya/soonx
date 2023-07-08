@@ -110,15 +110,15 @@
 								<i class="fa fa-bars"></i>
 							</span>
 						</button>
-						<a href="<?= base_url() ?>" class="web-logo nav-logo desktopview">
+						<a href="<?= base_url() ?>" class="web-logo nav-logo ">
 							<img src="<?= base_url() ?>assets/images/logo/keysmart-guru-white.png" class="img-fluid blur-up lazyload"
 								alt="">
 						</a>
 
-						<a href="<?= base_url() ?>" class="web-logo nav-logo mobileview">
+						<!-- <a href="<?= base_url() ?>" class="web-logo nav-logo mobileview">
 							<img src="<?= base_url() ?>assets/images/logo/keysmart-guru.png" class="img-fluid blur-up lazyload"
 								alt="">
-						</a>
+						</a> -->
 
 						<div class="search-full">
 							<div class="input-group">

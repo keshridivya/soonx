@@ -7,7 +7,7 @@
     <meta name="author" content="Fastkart">
 
     
-    <link rel="icon" href="<?= base_url(); ?>assets/images/favicon/5.png" type="image/x-icon">
+    <link rel="icon" href="<?= base_url(); ?>assets/images/favicon/keysmarticon.png" type="image/x-icon">
     <title>On-demand last-mile delivery</title>
 
     <!-- Google font -->
