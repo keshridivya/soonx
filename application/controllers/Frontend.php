@@ -8,6 +8,7 @@ class Frontend extends CI_Controller {
 		$this->db->select('COUNT(*) as total_count');
         $this->db->from('addtocart');
         $this->total_count = $this->db->get()->row()->total_count;
+		$this->currency = $this->db->get_where('currency',array('status','1'));
 		$this->category = $this->db->get('category')->result_array();
 	}
 
@@ -19,6 +20,7 @@ class Frontend extends CI_Controller {
 		$page_data['product'] = $this->db->get()->result_array();
 		$page_data['banner'] = $this->db->get_where('banner',array('banner_name'=>'home_banner'))->result_array();
 		$page_data['category'] = $this->category;
+		$page_data['currency'] = $this->currency;
 		$page_data['offerslider'] = $page_data['offerslider'] = $this->db->join('category', 'offerslider.button = category.id')->get('offerslider')->result_array();
 
 		$page_data['total_count'] = $this->total_count;
@@ -36,6 +38,7 @@ class Frontend extends CI_Controller {
 		// $page_data['product_img'] = $this->db->get_where('product',array('id'=>$id))->result_array();
 		$page_data['total_count'] = $this->total_count;
 		$page_data['category'] = $this->category;
+		$page_data['currency'] = $this->currency;
 		$this->load->view('front/product-thumbnail',$page_data);
 	}
 
@@ -48,6 +51,7 @@ class Frontend extends CI_Controller {
 		$page_data['product'] = $this->db->get()->result_array();
 		$page_data['total_count'] = $this->total_count;
 		$page_data['category'] = $this->category;
+		$page_data['currency'] = $this->currency;
 
 		$this->load->view('front/wishlist',$page_data);
 
@@ -59,6 +63,7 @@ class Frontend extends CI_Controller {
 			$this->db->from('category');
 			$this->db->join('product', 'category.id = product.category', 'right');
 			$this->db->where('product.category',$id);
+			$page_data['currency'] = $this->currency;
 			$page_data['products'] = $this->db->get()->result_array();
 		}else if($filterval){
 			
@@ -84,9 +89,9 @@ class Frontend extends CI_Controller {
 		$this->db->join('addtocart', 'addtocart.product_id = product.id', 'inner');
 		$this->db->order_by('product.id', 'desc');
 		$page_data['product'] = $this->db->get()->result_array();
-
 		$page_data['total_count'] = $this->total_count;
 		$page_data['category'] = $this->category;
+		$page_data['currency'] = $this->currency;
 		$this->load->view('front/cart',$page_data);
 	}
 
@@ -100,6 +105,7 @@ class Frontend extends CI_Controller {
 		$page_data['delivery_address'] = $this->db->get_where('delivery_address',array('user_id'=>'123'))->result_array();
 		$page_data['total_count'] = $this->total_count;
 		$page_data['category'] = $this->category;
+		$page_data['currency'] = $this->currency;
 		$this->load->view('front/checkout',$page_data);
 	}
 
@@ -184,7 +190,7 @@ class Frontend extends CI_Controller {
 			 ->set_output(json_encode($response));
 	}
 	
-		public function fetchResults() {
+	public function fetchResults() {
 			$keyword = $this->input->get('keyword');
 	
 			// Perform the search logic based on the keyword
@@ -200,8 +206,30 @@ class Frontend extends CI_Controller {
 			// Return the search results as JSON
 			header('Content-Type: application/json');
 			echo json_encode($results);
-		}
+	}
+
+	public function currencysession(){
+		$currencycode = $this->input->post('currencycode');
+		$this->db->set('status', '0');
+		$this->db->update('currency');
+		$data = [
+			'status' => '1',
+		];
+		$this->db->where('currency_name', $currencycode);
+		$this->db->update('currency', $data);
+	}
 	
+	//   <li class="col-6 col-sm-6 col-md-4 col-lg-4 item " data-price="<?php
+// 	if(isset($_SESSION['USD'])){
+// 		echo number_format($arr['price'] * $_SESSION['USD']).'';
+// 	}else{//echo $arr['price']; }?
+
+
+// <span class="price"> <?php
+//                                                             if(isset($_SESSION['USD'])){
+//                                                                 echo '<i class="'.$_SESSION['icon'].'"></i>'.number_format($arr['price'] * $_SESSION['USD']).'';
+//                                                             }else{ <i class="fa fa-inr"></i> <?php echo $arr['price'];
+//                                                     <?php } 
 	
 }
 ?>

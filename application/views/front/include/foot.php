@@ -230,6 +230,21 @@
 
 	});
 
+	$('.currencycode').click(function(){
+		let currencycode = $(this).text();
+		$.ajax({
+			url: "<?= base_url('frontend/currencysession') ?>",
+			type: "post",
+			data: {
+				currencycode : currencycode,
+			},
+			success: function(response){
+				alert(response);
+			},failure: function(){
+				alert('fail to load');
+			}
+		})
+	})
 
 
 </script>
