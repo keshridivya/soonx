@@ -107,7 +107,7 @@
 						<button class="navbar-toggler d-xl-none d-block p-0 me-3" type="button"
 							data-bs-toggle="offcanvas" data-bs-target="#primaryMenu">
 							<span class="navbar-toggler-icon">
-								<i class="iconly-Category icli"></i>
+								<i class="fa fa-bars"></i>
 							</span>
 						</button>
 						<a href="<?= base_url() ?>" class="web-logo nav-logo desktopview">
