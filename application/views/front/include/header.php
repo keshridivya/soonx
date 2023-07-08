@@ -111,7 +111,7 @@
 							</span>
 						</button>
 						<a href="<?= base_url() ?>" class="web-logo nav-logo desktopview">
-							<img src="<?= base_url() ?>assets/images/logo/keysmart-guru_RW.png" class="img-fluid blur-up lazyload"
+							<img src="<?= base_url() ?>assets/images/logo/keysmart-guru-white.png" class="img-fluid blur-up lazyload"
 								alt="">
 						</a>
 
