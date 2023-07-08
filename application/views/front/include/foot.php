@@ -184,41 +184,50 @@
 			$('#add-address').modal('show');
 		});
 
-		$('#applycoupon').click(function(){
-			let couponcode = $('#couponcode').val();
-			$.ajax({
-				url: '<?= base_url('frontend/applyCoupon') ?>',
-				type: 'post',
-				data: {
-					couponcode: couponcode,
-				},
-				beforeSend : function(){
-					$('#loader').show();
-				},
-				success: function(response){
-					if (response.success) {
-						$('#spancouponmsg').text(response.message).css('color', 'green');
-						// Update the UI with the final amount
-						var finalAmount = response.finalAmount;
-						// Update the UI element to display the final amount
-						$('#finalAmountElement').text(finalAmount);
-						let totalsubtoatl = $('.totalsubtoatl').text();
-						$('.processpay').attr('data-couponcode', finalAmount);
-						$('.totalsubtoatl').text(totalsubtoatl-(finalAmount));
-						
-					} else {
-						$('#spancouponmsg').text(response.message).css('color', 'red');
-					}
-				},
-				error: function(xhr, status, error) {
-					// Handle the AJAX error
-					console.log(error);
-				},
-				complete: function() {
-					$('#loader').hide();
-				}
-			});
+		// Function to apply the coupon code
+		function applyCouponCode(currency) {
+		let couponcode = $('#couponcode').val();
+		$.ajax({
+			url: '<?= base_url('frontend/applyCoupon') ?>',
+			type: 'post',
+			data: {
+			couponcode: couponcode,
+			currency: currency,
+			},
+			beforeSend: function() {
+			$('#loader').show();
+			},
+			success: function(response) {
+			if (response.success) {
+				$('#spancouponmsg').text(response.message).css('color', 'green');
+				// Update the UI with the final amount
+				var finalAmount = response.finalAmount * currency;
+				// Update the UI element to display the final amount
+				$('#finalAmountElement').text(finalAmount);
+				let totalsubtoatl = parseFloat($('.totalsubtoatl').text());
+				$('.processpay').attr('data-couponcode', finalAmount);
+				$('.totalsubtoatl').text(totalsubtoatl - finalAmount);
+			} else {
+				$('#spancouponmsg').text(response.message).css('color', 'red');
+			}
+			},
+			error: function(xhr, status, error) {
+			// Handle the AJAX error
+			console.log(error);
+			},
+			complete: function() {
+			$('#loader').hide();
+			}
 		});
+		}
+
+		// Apply coupon code on button click
+		$('#applycoupon').click(function() {
+		var selectedCurrency = $('#currencySelect').val();
+		applyCouponCode(selectedCurrency);
+		});
+
+
 
 		$('.processpay').click(function(){
 			let couponcode = $(this).data('couponcode');

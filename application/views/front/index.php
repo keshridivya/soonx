@@ -288,8 +288,8 @@ $product = $product;
 										<h5 class="name text-title"><?= $product['product_name'] ?></h5>
 									</a>
 									<h5 class="price theme-color"><i
-											class="fa fa-inr"></i><?= intval($product['rate']) ?><del><i
-												class="fa fa-inr"></i><?= intval($product['price']) ?></del></h5>
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product['rate'] * $currency->currency_rate) ?><del><i
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product['price'] * $currency->currency_rate) ?></del></h5>
 
 									<div class="addtocart_btn">
 										<a href="<?= base_url() ?>product-thumbnail/<?= $product['pid'] ?>"

@@ -106,23 +106,25 @@
                                 <!-- <h6 class="offer-top"><?= $product->dis_price; ?>% Off</h6> -->
                                 <h2 class="name"><?= $product->product_name; ?></h2>
                                 <div class="price-rating">
-                                    <h3 class="theme-color price"><i class="fa fa-inr"></i><?= intval($product->rate); ?> <del class="text-content"><i class="fa fa-inr"></i><?= intval($product->price); ?></del> <span class="offer theme-color">(<?= $product->dis_price; ?>% off)</span></h3>
+                                    <h3 class="theme-color price"><i
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product->rate * $currency->currency_rate) ?> <del class="text-content"><i
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product->price * $currency->currency_rate) ?></del> <span class="offer theme-color">(<?= $product->dis_price; ?>% off)</span></h3>
                                     <div class="product-rating custom-rate">
                                     <ul class="rating">
                                         <li>
-                                            <i data-feather="star" class="<?php echo ($product['rating'] >= 1) ? 'fill' : ''; ?>"></i>
+                                            <i data-feather="star" class="<?php echo ($product->rating >= 1) ? 'fill' : ''; ?>"></i>
                                         </li>
                                         <li>
-                                            <i data-feather="star" class="<?php echo ($product['rating'] >= 2) ? 'fill' : ''; ?>"></i>
+                                            <i data-feather="star" class="<?php echo ($product->rating >= 2) ? 'fill' : ''; ?>"></i>
                                         </li>
                                         <li>
-                                            <i data-feather="star" class="<?php echo ($product['rating'] >= 3) ? 'fill' : ''; ?>"></i>
+                                            <i data-feather="star" class="<?php echo ($product->rating >= 3) ? 'fill' : ''; ?>"></i>
                                         </li>
                                         <li>
-                                            <i data-feather="star" class="<?php echo ($product['rating'] >= 4) ? 'fill' : ''; ?>"></i>
+                                            <i data-feather="star" class="<?php echo ($product->rating >= 4) ? 'fill' : ''; ?>"></i>
                                         </li>
                                         <li>
-                                            <i data-feather="star" class="<?php echo ($product['rating'] >= 5) ? 'fill' : ''; ?>"></i>
+                                            <i data-feather="star" class="<?php echo ($product->rating >= 5) ? 'fill' : ''; ?>"></i>
                                         </li>
                                     </ul>
 

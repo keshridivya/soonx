@@ -5,7 +5,7 @@
 				<div class="col-xxl-3 d-xxl-block d-none">
 					<div class="top-left-header">
 						<!-- <i class="iconly-Location icli text-black"></i> -->
-						<span class="text-black">Welcome to Keysmart</span>
+						<span class="text-black">Welcome to KeysmartGuru</span>
 					</div>
 				</div>
 				<div class="col-xxl-6 col-lg-9 d-lg-block d-none">
@@ -110,8 +110,13 @@
 								<i class="iconly-Category icli"></i>
 							</span>
 						</button>
-						<a href="<?= base_url() ?>" class="web-logo nav-logo">
-							<img src="<?= base_url() ?>assets/images/logo/4.png" class="img-fluid blur-up lazyload"
+						<a href="<?= base_url() ?>" class="web-logo nav-logo desktopview">
+							<img src="<?= base_url() ?>assets/images/logo/keysmart-guru_RW.png" class="img-fluid blur-up lazyload"
+								alt="">
+						</a>
+
+						<a href="<?= base_url() ?>" class="web-logo nav-logo mobileview">
+							<img src="<?= base_url() ?>assets/images/logo/keysmart-guru.png" class="img-fluid blur-up lazyload"
 								alt="">
 						</a>
 
@@ -575,7 +580,7 @@
 </header>
 
 <!-- mobile fix menu start -->
-<div class="mobile-menu d-md-none d-block mobile-cart">
+<!-- <div class="mobile-menu d-md-none d-block mobile-cart">
 	<ul>
 		<li class="active">
 			<a href="index.html">
@@ -612,5 +617,5 @@
 			</a>
 		</li>
 	</ul>
-</div>
+</div> -->
 <!-- mobile fix menu end -->

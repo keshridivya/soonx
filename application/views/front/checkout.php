@@ -558,8 +558,7 @@
 										class="img-fluid blur-up lazyloaded checkout-image" alt="">
 									<h4><?= $cart_item['product_name'] ?> <span>X <?= $cart_item['quantity'] ?></span>
 									</h4>
-									<h4 class="price"><i class="fa fa-inr"></i><span
-											class="subtotaljs"><?= $cart_item['rate'] * $cart_item['quantity'] ?></span>
+									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i><span class="subtotaljs"><?= number_format($cart_item['rate'] * $cart_item['quantity']* $currency->currency_rate) ?></span>
 									</h4>
 									<?php
 														if($cart_item['shipping'] == 'Shipping Charges'){

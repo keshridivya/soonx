@@ -73,8 +73,9 @@
 
 														<li class="text-content"><span class="text-title" style="font-size:12px"><?php
 														if($product['shipping'] == 'Shipping Charges'){
-															echo '<i class="fa fa-inr"></i>';
-															echo '<span class="shipingcharge">'.$product['shippingcharge'].'</span>';
+															echo '<i
+															class="'. $currency->currency_icon .'"></i>';
+															echo '<span class="shipingcharge">'.number_format($product['shippingcharge'] * $currency->currency_rate).'</span>';
 														}else{
 															echo 'Free Delivery';
 														}
@@ -124,12 +125,12 @@
 
 										<td class="price">
 											<h4 class="table-title text-content">Price</h4>
-											<h5><i class="fa fa-inr"></i><span
-													class="pricejs"><?= $product['rate'] ?></span>
+											<h5><i class="<?= $currency->currency_icon ?>"></i></i><span
+													class="pricejs"><?= number_format($product['rate'] * $currency->currency_rate) ?></span>
 												<del class="text-content"><i
-														class="fa fa-inr"></i><?= $product['pricegst'] ?></del></h5>
+														class="<?= $currency->currency_icon ?>"></i></i><?= number_format($product['pricegst'] * $currency->currency_rate) ?></del></h5>
 											<h6 class="theme-color">You Save : <i
-													class="fa fa-inr"></i><?= $product['disPrice'] ?></h6>
+													class="<?= $currency->currency_icon ?>"></i></i><?= number_format($product['disPrice'] * $currency->currency_rate) ?></h6>
 										</td>
 
 										<td class="quantity">
@@ -156,8 +157,8 @@
 
 										<td class="subtotal">
 											<h4 class="table-title text-content">Total</h4>
-											<h5 id="subtotal"><i class="fa fa-inr"></i><span
-													class="subtotaljs"><?= $product['rate'] * $product['quantity'] ?></span>
+											<h5 id="subtotal"><i class="<?= $currency->currency_icon ?>"></i><span
+													class="subtotaljs"><?= number_format($product['rate'] * $product['quantity']* $currency->currency_rate) ?></span>
 											</h5>
 										</td>
 
@@ -201,6 +202,7 @@
 								<div class="mb-3 coupon-box input-group">
 									<input type="text" class="form-control" id="couponcode"
 										placeholder="Enter Coupon Code Here...">
+									<input type="hidden" value="<?= $currency->currency_rate ?>" id="currencySelect">
 									<button class="btn-apply" id="applycoupon">Apply</button>
 								</div>
 								<span id="spancouponmsg"></span>
@@ -209,7 +211,7 @@
 							<ul>
 								<li>
 									<h4>Subtotal</h4>
-									<h4 class="price"><i class="fa fa-inr"></i><span class="result totamtpay"></span></h4>
+									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i><span class="result totamtpay"></span></h4>
 								</li>
 
 								<li>
@@ -229,7 +231,7 @@
 
 								<li class="align-items-start">
 									<h4>Shipping</h4>
-									<h4 class="price text-end"><i class="fa fa-inr"></i><span class="totalship totamtpay"></span></h4>
+									<h4 class="price text-end"><i class="<?= $currency->currency_icon ?>"></i><span class="totalship totamtpay"></span></h4>
 								</li>
 							</ul>
 						</div>

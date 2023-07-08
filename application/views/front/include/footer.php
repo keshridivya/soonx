@@ -4,7 +4,7 @@
                 <div class="row g-md-4 gy-sm-5">
                     <div class="col-xxl-3 col-xl-4 col-sm-6">
                         <a href="index.html" class="foot-logo theme-logo">
-                            <img src="../assets/images/logo/4.png" class="img-fluid blur-up lazyload" alt="">
+                            <img src="<?= base_url() ?>assets/images/logo/keysmart-guru.png" class="img-fluid blur-up lazyload" alt="">
                         </a>
                         <p class="information-text information-text-2">it is a long established fact that a reader will be distracted by the readable content.</p>
                         <ul class="social-icon">

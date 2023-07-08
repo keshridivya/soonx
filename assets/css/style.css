@@ -29800,9 +29800,19 @@ header .offcanvas-backdrop {
     background-color: #fff;
 }
 
+.mobileview {
+    display: none !important;
+}
+
 @media (max-width: 575.98px) {
     .modal-fullscreen-sm-down {
         height: auto !important;
+    }
+    .mobileview {
+        display: block !important;
+    }
+    .desktopview {
+        display: none !important;
     }
 }
 

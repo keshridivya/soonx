@@ -73,8 +73,8 @@
                                 <!-- <h6 class="unit mt-1">250 ml</h6> -->
                                 <h5 class="price">
                                     <span class="theme-color"><i
-											class="fa fa-inr"></i><?= $product['rate'] ?></span><del><i
-												class="fa fa-inr"></i><?= $product['price'] ?></del>
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product['rate'] * $currency->currency_rate) ?></span><del><i
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product['price'] * $currency->currency_rate) ?></del>
                                 </h5>
                                 <div class="add-to-cart-box bg-white mt-2">
                                 <input class=" qty-input qtyVal" type="hidden"

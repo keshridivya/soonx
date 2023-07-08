@@ -8,7 +8,7 @@ class Frontend extends CI_Controller {
 		$this->db->select('COUNT(*) as total_count');
         $this->db->from('addtocart');
         $this->total_count = $this->db->get()->row()->total_count;
-		$this->currency = $this->db->get_where('currency',array('status','1'));
+		$this->currency = $this->db->get_where('currency',array('status'=>'1'))->row();
 		$this->category = $this->db->get('category')->result_array();
 	}
 
@@ -63,7 +63,6 @@ class Frontend extends CI_Controller {
 			$this->db->from('category');
 			$this->db->join('product', 'category.id = product.category', 'right');
 			$this->db->where('product.category',$id);
-			$page_data['currency'] = $this->currency;
 			$page_data['products'] = $this->db->get()->result_array();
 		}else if($filterval){
 			
@@ -78,6 +77,7 @@ class Frontend extends CI_Controller {
 
 		$page_data['total_count'] = $this->total_count;
 		$page_data['category'] = $this->category;
+		$page_data['currency'] = $this->currency;
 		$page_data['category_banner'] = $this->db->get_where('banner',array('banner_name'=>'category_banner'))->result_array();
 		$this->load->view('front/shop-right-sidebar',$page_data);
 	}

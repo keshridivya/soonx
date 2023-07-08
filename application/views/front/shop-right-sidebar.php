@@ -196,12 +196,12 @@
                                             </li>
                                         </ul>
 
-                                            <span>(4.0)</span>
+                                            <span>(<?= $product['rating'] ?>.0)</span>
                                         </div>
                                         <!-- <h6 class="unit">250 ml</h6> -->
                                         <h5 class="price"><span class="theme-color"><i
-											class="fa fa-inr"></i><?= intval($product['rate']) ?></span> <del><i
-												class="fa fa-inr"></i><?= intval($product['price']) ?></del>
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product['rate'] * $currency->currency_rate) ?></span> <del><i
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($product['price'] * $currency->currency_rate) ?></del>
                                         </h5>
                                         <div class="add-to-cart-box bg-white">
                                         <input class=" qty-input qtyVal" type="hidden"
