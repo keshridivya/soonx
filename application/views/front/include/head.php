@@ -5,7 +5,7 @@
     <meta name="description" content="Fastkart">
     <meta name="keywords" content="Fastkart">
     <meta name="author" content="Fastkart">
-
+    <meta property="og:image" content="<?= base_url(); ?>assets/images/favicon/keysmarticon.png" />
     
     <link rel="icon" href="<?= base_url(); ?>assets/images/favicon/keysmarticon.png" type="image/x-icon">
     <title>On-demand last-mile delivery</title>

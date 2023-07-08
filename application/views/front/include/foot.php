@@ -247,14 +247,20 @@
 			data: {
 				currencycode : currencycode,
 			},
+			dataType:'json',
 			success: function(response){
-				alert(response);
+				if(response.success){
+					$('#currencyvalue').text(currencycode);
+					location.reload();
+				}
+				else{
+					alert('Some network issue. Please try again');
+				}
 			},failure: function(){
 				alert('fail to load');
 			}
-		})
-	})
-
+		});
+	});
 
 </script>
 
@@ -584,6 +590,26 @@
 		})
 	})
 
+</script>
+
+<script>
+	$('.searchbar').keyup(function(){
+		let searchbutton = $(this).val();
+		$.ajax({
+			url:"<?= base_url('frontend/searchbar') ?>",
+			type: 'post',
+			data: {
+				searchbutton : searchbutton,
+			},
+			dataType: 'json',
+			success: function(response){
+				alert(response);
+			},
+			failure: function(){
+				alert('dfd');
+			}
+		})
+	})
 </script>
 
 

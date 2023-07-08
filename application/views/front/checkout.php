@@ -558,11 +558,11 @@
 										class="img-fluid blur-up lazyloaded checkout-image" alt="">
 									<h4><?= $cart_item['product_name'] ?> <span>X <?= $cart_item['quantity'] ?></span>
 									</h4>
-									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i><span class="subtotaljs"><?= number_format($cart_item['rate'] * $cart_item['quantity']* $currency->currency_rate) ?></span>
+									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i><span class="subtotaljs"><?= intval($cart_item['rate'] * $cart_item['quantity']* $currency->currency_rate) ?></span>
 									</h4>
 									<?php
 														if($cart_item['shipping'] == 'Shipping Charges'){
-															echo '<span class="shipingcharge">'.$cart_item['shippingcharge'].'</span>';
+															echo '<span class="shipingcharge" style="display:none">'.$cart_item['shippingcharge'].'</span>';
 														}
 														?>
 								</li>
@@ -602,13 +602,13 @@
 							<ul class="summery-total">
 								<li>
 									<h4>Subtotal</h4>
-									<h4 class="price"><i class="fa fa-inr"></i><span class="result totamtpay"></span>
+									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i><span class="result totamtpay"></span>
 									</h4>
 								</li>
 
 								<li>
 									<h4>Shipping</h4>
-									<h4 class="price"><i class="fa fa-inr"></i><span class="totalship totamtpay"></span>
+									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i><span class="totalship totamtpay"></span>
 									</h4>
 								</li>
 
@@ -624,7 +624,7 @@
 
 								<li class="list-total">
 									<h4>Total (USD)</h4>
-									<h4 class="price"><i class="fa fa-inr"></i> <span class="totalsubtoatl"></span></h4>
+									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i> <span class="totalsubtoatl"></span></h4>
 								</li>
 							</ul>
 						</div>

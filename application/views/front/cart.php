@@ -126,7 +126,7 @@
 										<td class="price">
 											<h4 class="table-title text-content">Price</h4>
 											<h5><i class="<?= $currency->currency_icon ?>"></i></i><span
-													class="pricejs"><?= number_format($product['rate'] * $currency->currency_rate) ?></span>
+													class="pricejs"><?= intval($product['rate'] * $currency->currency_rate) ?></span>
 												<del class="text-content"><i
 														class="<?= $currency->currency_icon ?>"></i></i><?= number_format($product['pricegst'] * $currency->currency_rate) ?></del></h5>
 											<h6 class="theme-color">You Save : <i
@@ -158,7 +158,7 @@
 										<td class="subtotal">
 											<h4 class="table-title text-content">Total</h4>
 											<h5 id="subtotal"><i class="<?= $currency->currency_icon ?>"></i><span
-													class="subtotaljs"><?= number_format($product['rate'] * $product['quantity']* $currency->currency_rate) ?></span>
+													class="subtotaljs"><?= intval($product['rate'] * $product['quantity']* $currency->currency_rate) ?></span>
 											</h5>
 										</td>
 

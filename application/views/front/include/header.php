@@ -78,7 +78,8 @@
 							<div class="dropdown theme-form-select text-black">
 								<button class="btn dropdown-toggle text-black" type="button" id="select-dollar"
 									data-bs-toggle="dropdown" aria-expanded="false" fdprocessedid="ikonoa">
-									<span>USD</span>
+
+									<span id="currencyvalue"><?= $currency->currency_name ?></span>
 								</button>
 								<ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu"
 									aria-labelledby="select-dollar" style="">
@@ -120,17 +121,17 @@
 								alt="">
 						</a> -->
 
-						<div class="search-full">
+						<!-- <div class="search-full">
 							<div class="input-group">
 								<span class="input-group-text">
 									<i data-feather="search" class="font-light"></i>
 								</span>
-								<input type="text" class="form-control search-type" placeholder="Search here..">
+								<input type="text" class="form-control search-type searchbar" placeholder="Search here.." id="searchbar">
 								<span class="input-group-text close-search">
 									<i data-feather="x" class="font-light"></i>
 								</span>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="middle-box">
 							<div class="center-box">
@@ -144,9 +145,9 @@
 									<button class="btn search-icon" type="button">
 										<i class="fa fa-search"></i>
 									</button>
-									<input type="text" class="form-control"
+									<input type="text" class="form-control searchbar"
 										placeholder="Search for products, styles,brands...">
-									<button class="btn search-button" type="button">Search</button>
+									<!-- <button class="btn search-button" type="button">Search</button> -->
 								</div>
 							</div>
 						</div>

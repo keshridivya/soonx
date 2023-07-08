@@ -216,20 +216,18 @@ class Frontend extends CI_Controller {
 			'status' => '1',
 		];
 		$this->db->where('currency_name', $currencycode);
-		$this->db->update('currency', $data);
+		if($this->db->update('currency', $data)){
+		$data['success'] = 'success';
+		}else{
+			$data['error'] = 'failed';
+		}
+		echo json_encode($data);
 	}
-	
-	//   <li class="col-6 col-sm-6 col-md-4 col-lg-4 item " data-price="<?php
-// 	if(isset($_SESSION['USD'])){
-// 		echo number_format($arr['price'] * $_SESSION['USD']).'';
-// 	}else{//echo $arr['price']; }?
 
-
-// <span class="price"> <?php
-//                                                             if(isset($_SESSION['USD'])){
-//                                                                 echo '<i class="'.$_SESSION['icon'].'"></i>'.number_format($arr['price'] * $_SESSION['USD']).'';
-//                                                             }else{ <i class="fa fa-inr"></i> <?php echo $arr['price'];
-//                                                     <?php } 
+	// public function searchbar(){
+	// 	$searchbutton = $this->input->post('searchbutton');
+	// 	$
+	// }
 	
 }
 ?>

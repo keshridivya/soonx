@@ -825,7 +825,7 @@
                         </div>
 
                         <!-- Trending Product -->
-                        <div class="pt-25">
+                        <!-- <div class="pt-25">
                             <div class="category-menu">
                                 <h3>Trending Products</h3>
 
@@ -903,7 +903,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Banner Section -->
                         <!-- <div class="ratio_156 pt-25">
