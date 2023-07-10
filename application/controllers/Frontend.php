@@ -37,6 +37,7 @@ class Frontend extends CI_Controller {
 		$page_data['product'] = $this->db->get()->row();
 		// $page_data['product_img'] = $this->db->get_where('product',array('id'=>$id))->result_array();
 		$page_data['total_count'] = $this->total_count;
+		$page_data['ads'] = $this->db->get_where('ads',array('status'=>'1'))->result_array();
 		$page_data['category'] = $this->category;
 		$page_data['currency'] = $this->currency;
 		$this->load->view('front/product-thumbnail',$page_data);
@@ -206,22 +207,6 @@ class Frontend extends CI_Controller {
 			// Return the search results as JSON
 			header('Content-Type: application/json');
 			echo json_encode($results);
-	}
-
-	public function currencysession(){
-		$currencycode = $this->input->post('currencycode');
-		$this->db->set('status', '0');
-		$this->db->update('currency');
-		$data = [
-			'status' => '1',
-		];
-		$this->db->where('currency_name', $currencycode);
-		if($this->db->update('currency', $data)){
-		$data['success'] = 'success';
-		}else{
-			$data['error'] = 'failed';
-		}
-		echo json_encode($data);
 	}
 
 	// public function searchbar(){

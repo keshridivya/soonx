@@ -38,29 +38,29 @@
 										<?php } ?>
 										<div class="card-body">
 											<div class="card-header-2">
-												<h5>Offer Slider Information</h5>
+												<h5>Ads Information</h5>
 											</div>
 
 											<form class="theme-form theme-form-2 mega-form"
 												enctype="multipart/form-data" method="post">
 												<div class="mb-4 row align-items-center">
-													<label class="form-label-title col-sm-3 mb-0">Slider Name</label>
+													<label class="form-label-title col-sm-3 mb-0">Ads Name</label>
 													<div class="col-sm-9">
 														<input class="form-control" type="text"
-															placeholder="Category Name" name="slidername" value="<?= $offerslider->slider_name ??'' ?>" required>
-                                                            <?= form_error('slidername') ?>
+															placeholder="Ads Name" name="ads_name" value="<?= $ads->ads_name ?? ''; ?>" required>
+                                                            <?= form_error('ads_name') ?>
 													</div>
 												</div>
 
 												<div class="mb-4 row align-items-center">
-													<label class="col-sm-3 col-form-label form-label-title">Slider
-														Image</label>
+													<label class="col-sm-3 col-form-label form-label-title">Ads
+														Logo</label>
 													<div class="form-group col-sm-9">
 														<?php
-														if($offerslider->slider_image ?? false){
+														if($ads->logo ?? false){
 														?>
-													<img src="<?= base_url() ?>uploads/offer_slider/<?= $offerslider->slider_image; ?>" class="img-fluid" alt="">
-													<?php } ?>
+														 <img src="<?= base_url() ?>uploads/ads/<?= $ads->logo ?? ''; ?>" class="img-fluid" alt="">
+														 <?php } ?>
 														<div class="dropzone-wrapper">
 															<div class="dropzone-desc">
 																<i class="ri-upload-2-line"></i>
@@ -68,36 +68,51 @@
 															</div>
 															<input type="file" class="dropzone" name="mainimage" >
 														</div>
-														<span class="text-danger">Width:375px and height:243px</span>
+														<span class="text-danger">Width:64 and height:34px</span>
 													</div>
 												</div>
 
 												<div class="mb-4 row align-items-center">
-													<label class="form-label-title col-sm-3 mb-0">Slider Title</label>
+													<label class="form-label-title col-sm-3 mb-0">Ads Star</label>
 													<div class="col-sm-9">
-														<input class="form-control" type="text" placeholder="Title" value="<?= $offerslider->for ?? '' ?>"
-															name="title" required>
-                                                            <?= form_error('title') ?> 
+														<input class="form-control" type="text"
+															placeholder="Ads Star" name="star" value="<?= $ads->star ?? ''; ?>" required>
+                                                            <?= form_error('star') ?>
+
+														<input class="form-control mt-2" type="text"
+															placeholder="Ads Review" name="review" value="<?= $ads->review ?? ''; ?>" required>
+                                                            <?= form_error('review') ?>
 													</div>
 												</div>
 
 												<div class="mb-4 row align-items-center">
-                                                    <label class="col-sm-3 col-form-label form-label-title">Redirection</label>
-                                                    <div class="col-sm-9">
-                                                        <select class="js-example-basic-single w-100" name="redirect" required>
-                                                            <option disabled="">Select</option>
-															<?php
-															foreach($category as $category){
-															?>
-                                                            <option <?php echo (($offerslider->button ?? '') == $category['id']) ? 'selected' : '';  ?>><?= $category['category_slug'] ?></option>
-															<?php } ?>
-                                                        </select>
-                                                    </div>
-                                                </div>
+													<label class="form-label-title col-sm-3 mb-0">Description</label>
+													<div class="col-sm-9">
+														<textarea name="desc" class="form-control" id="" cols="30" rows="10" required><?= $ads->desc ?? ''; ?></textarea>
+                                                            <?= form_error('desc') ?> 
+													</div>
+												</div>
+
+												<div class="mb-4 row align-items-center">
+													<label class="form-label-title col-sm-3 mb-0">Address</label>
+													<div class="col-sm-9">
+														<input class="form-control" type="text" placeholder="Address" value="<?= $ads->address ?? ''; ?>"
+															name="address" required>
+                                                            <?= form_error('address') ?> 
+													</div>
+												</div>
+
+												<div class="mb-4 row align-items-center">
+													<label class="form-label-title col-sm-3 mb-0">Contact</label>
+													<div class="col-sm-9">
+														<input class="form-control" type="text" placeholder="Contact" value="<?= $ads->contact ?? ''; ?>"
+															name="contact" required>
+                                                            <?= form_error('contact') ?> 
+													</div>
+												</div>
 
 												<div class="col-xxl-4 align-items-center">
-													<button class="btn text-white theme-bg-color" type="submit">Add
-														Category</button>
+													<button class="btn text-white theme-bg-color" type="submit">Submit</button>
 												</div>
 											</form>
 										</div>

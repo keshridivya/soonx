@@ -769,60 +769,64 @@
 
                 <div class="col-xxl-3 col-xl-4 col-lg-5 d-none d-lg-block wow fadeInUp">
                     <div class="right-sidebar-box">
-                        <div class="vendor-box">
+                        <?php
+                        foreach($ads as $ads){
+                        ?>
+                        <div class="vendor-box mt-3">
                             <div class="verndor-contain">
                                 <div class="vendor-image">
-                                    <img src="../assets/images/product/vendor.png" class="blur-up lazyload" alt="">
+                                    <img src="<?= base_url() ?>uploads/ads/<?= $ads['logo'] ?>" class="blur-up lazyload" alt="">
                                 </div>
 
                                 <div class="vendor-name">
-                                    <h5 class="fw-500">Noodles Co.</h5>
+                                    <h5 class="fw-500"><?= $ads['ads_name'] ?></h5>
 
                                     <div class="product-rating mt-1">
                                         <ul class="rating">
                                             <li>
-                                                <i data-feather="star" class="fill"></i>
+                                                <i data-feather="star" class="<?php echo ($ads['star'] >= 1) ? 'fill' : ''; ?>"></i>
                                             </li>
                                             <li>
-                                                <i data-feather="star" class="fill"></i>
+                                                <i data-feather="star" class="<?php echo ($ads['star'] >= 2) ? 'fill' : ''; ?>"></i>
                                             </li>
                                             <li>
-                                                <i data-feather="star" class="fill"></i>
+                                                <i data-feather="star" class="<?php echo ($ads['star'] >= 3) ? 'fill' : ''; ?>"></i>
                                             </li>
                                             <li>
-                                                <i data-feather="star" class="fill"></i>
+                                                <i data-feather="star" class="<?php echo ($ads['star'] >= 4) ? 'fill' : ''; ?>"></i>
                                             </li>
                                             <li>
-                                                <i data-feather="star"></i>
+                                                <i data-feather="star" class="<?php echo ($ads['star'] >= 5) ? 'fill' : ''; ?>"></i>
                                             </li>
                                         </ul>
-                                        <span>(36 Reviews)</span>
+                                        <span>(<?= $ads['review'] ?> Reviews)</span>
                                     </div>
 
                                 </div>
                             </div>
 
-                            <p class="vendor-detail">Noodles & Company is an American fast-casual
-                                restaurant that offers international and American noodle dishes and pasta.</p>
+                            <p class="vendor-detail"><?= $ads['desc'] ?></p>
 
                             <div class="vendor-list">
                                 <ul>
                                     <li>
                                         <div class="address-contact">
                                             <i data-feather="map-pin"></i>
-                                            <h5>Address: <span class="text-content">1288 Franklin Avenue</span></h5>
+                                            <h5>Address: <span class="text-content"><?= $ads['address'] ?></span></h5>
                                         </div>
                                     </li>
 
                                     <li>
                                         <div class="address-contact">
                                             <i data-feather="headphones"></i>
-                                            <h5>Contact Seller: <span class="text-content">(+1)-123-456-789</span></h5>
+                                            <h5>Contact Seller: <span class="text-content"><?= $ads['contact'] ?></span></h5>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
+                        <?php } ?>
+
 
                         <!-- Trending Product -->
                         <!-- <div class="pt-25">

@@ -68,6 +68,7 @@
 															</div>
 															<input type="file" class="dropzone" name="mainimage" >
 														</div>
+														<span class="text-danger">Width:130px and height:130px</span>
 													</div>
 												</div>
 
@@ -85,7 +86,10 @@
 																<p>Choose an icon or drag it here.</p>
 															</div>
 															<input type="file" class="dropzone" name="icon">
+															
 														</div>
+														<span class="text-danger">Width:100px and height:100px</span>
+														
 
 														<!-- <div class="dropdown icon-dropdown">
                                                             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown">

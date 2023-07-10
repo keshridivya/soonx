@@ -53,6 +53,22 @@
                                 <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-check-2"></i>
+                                        <span>Add Franchise</span>
+                                    </a>
+                                    <ul class="sidebar-submenu">
+                                        <li>
+                                            <a href="<?= base_url('admin/subcategory') ?>">Total Franchise List</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="<?= base_url('admin/addsubCategory') ?>">Add New Sub Category</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
+                                        <i class="ri-list-check-2"></i>
                                         <span>Sub Category</span>
                                     </a>
                                     <ul class="sidebar-submenu">
@@ -177,21 +193,28 @@
                                     </ul>
                                 </li>
 
-                                <!-- <li class="sidebar-list">
+                                <li class="sidebar-list">
+                                    <a class="linear-icon-link " href="<?= base_url('admin/currency') ?>">
+                                        <i class="ri-price-tag-3-line"></i>
+                                        <span>Currency</span>
+                                    </a>
+                                </li>
+
+                                <li class="sidebar-list">
                                     <a class="linear-icon-link sidebar-link sidebar-title" href="javascript:void(0)">
                                         <i class="ri-list-settings-line"></i>
-                                        <span>Attributes</span>
+                                        <span>Product Ads</span>
                                     </a>
                                     <ul class="sidebar-submenu">
                                         <li>
-                                            <a href="attributes.html">Attributes</a>
+                                            <a href="<?= base_url('admin/ads') ?>">Ads</a>
                                         </li>
 
                                         <li>
-                                            <a href="add-new-attributes.html">Add Attributes</a>
+                                            <a href="<?= base_url('admin/addads') ?>">Add Ads</a>
                                         </li>
                                     </ul>
-                                </li> -->
+                                </li>
 
                                 <li class="sidebar-list">
                                     <a class="sidebar-link sidebar-title" href="javascript:void(0)">

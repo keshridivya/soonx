@@ -1111,7 +1111,7 @@ class Admin extends CI_Controller {
 	}
 	//banner end
 
-	//offerslider start
+	//coupon start
 	public function coupon(){
 		if($this->session->userdata['username']){
 			$page_data['coupon'] = $this->db->get_where('coupon',array('status'=>'active'))->result_array();
@@ -1210,7 +1210,200 @@ class Admin extends CI_Controller {
 		}
 
 	}
-	//offerslider end
+	//coupon end
+
+	//currency start
+	public function currency(){
+		if($this->session->userdata['username']){
+			$this->db->limit(2); 
+            $page_data['currency'] = $this->db->get('currency')->result_array();
+			$page_data['title'] = 'Currency';
+			$this->load->view('admin/currency',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function editcurrency($id=false){
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$currencycode = $this->input->post('currencycode');
+				$this->db->set('status', '0');
+				$this->db->update('currency');
+				$data = [
+					'currency_rate' => $this->input->post('rate'),
+					'status' => $this->input->post('status'),
+				];
+				$this->db->where('id', $id);
+				if($this->db->update('currency', $data)){
+				$data['message'] = 'Successfully Update';
+				}else{
+					$data['message'] = 'failed';
+				}
+			}
+			$page_data['currency'] = $this->db->get_where('currency',array('id'=>$id))->row();
+			$page_data['title'] = 'Edit Currency';
+			$this->load->view('admin/editcurrency',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function currencysession(){
+		$currencycode = $this->input->post('currencycode');
+		$this->db->set('status', '0');
+		$this->db->update('currency');
+		$data = [
+			'status' => '1',
+		];
+		$this->db->where('currency_name', $currencycode);
+		if($this->db->update('currency', $data)){
+		$data['success'] = 'success';
+		}else{
+			$data['error'] = 'failed';
+		}
+		echo json_encode($data);
+	}
+
+	//currency end
+
+	//currency start
+	public function ads(){
+		if($this->session->userdata['username']){
+			$this->db->limit(2); 
+            $page_data['ads'] = $this->db->get_where('ads',array('status'=>'1'))->result_array();
+			$page_data['title'] = 'Currency';
+			$this->load->view('admin/adslist',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function addads(){
+		if($this->session->userdata['username']){
+			if($this->input->post()){
+				$this->form_validation->set_error_delimiters('<div class="error"','</div>');
+				$this->form_validation->set_rules('ads_name', 'Ads_name', 'required');
+				$this->form_validation->set_rules('star', 'Star', 'required');
+				$this->form_validation->set_rules('review', 'Review', 'required');
+				$this->form_validation->set_rules('desc', 'Desc', 'required');
+				$this->form_validation->set_rules('address', 'Address', 'required');
+				$this->form_validation->set_rules('contact', 'Contact', 'required');
+
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong ';
+				} else {
+					if($_FILES['mainimage']['name'] != ""){
+						$uploaded_data=$this->uploadimg(array('upload_path'=>'./uploads/ads/','name'=>'mainimage'));
+					}
+					$data = [
+						'ads_name' => $this->input->post('ads_name'),
+						'star' => $this->input->post('star'),
+						'review' => $this->input->post('review'),
+						'desc' => $this->input->post('desc'),
+						'address' => $this->input->post('address'),
+						'contact' => $this->input->post('contact'),
+						'created_on' => date('y-m-d h:i:a'),
+					];
+
+					if(is_countable($uploaded_data) && count($uploaded_data)>=1){
+						$data['logo']=$uploaded_data['file_name'];
+					}
+
+					if($this->db->insert('ads',$data)){
+						$page_data['message'] = 'Insert Successfully';
+					}
+					else{
+						$page_data['message'] = 'Something Wrong';
+					}
+				}
+			}
+			$page_data['title'] = 'Add Ads';
+			$this->load->view('admin/addAds',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function editads($id=false){
+		if($this->session->userdata['username']){
+			if ($this->input->post()) {
+				$this->form_validation->set_error_delimiters('<div class="error"', '</div>');
+				$this->form_validation->set_rules('ads_name', 'Ads_name', 'required');
+				$this->form_validation->set_rules('star', 'Star', 'required');
+				$this->form_validation->set_rules('review', 'Review', 'required');
+				$this->form_validation->set_rules('desc', 'Desc', 'required');
+				$this->form_validation->set_rules('address', 'Address', 'required');
+				$this->form_validation->set_rules('contact', 'Contact', 'required');
+			
+				if ($this->form_validation->run() == FALSE) {
+					$page_data['message'] = 'Something Wrong';
+				} else {
+					$this->db->where('id', $id);
+					$oldImage = $this->db->get('ads')->row()->logo; // Retrieve the old image filename
+			
+					if ($_FILES['mainimage']['name'] != "") {
+						$uploaded_data = $this->uploadimg(array('upload_path' => './uploads/ads/', 'name' => 'mainimage'));
+			
+						if (is_countable($uploaded_data) && count($uploaded_data) >= 1) {
+							$data['logo'] = $uploaded_data['file_name'];
+						}
+			
+						// Delete the old image file
+						if (!empty($oldImage) && file_exists('./uploads/ads/' . $oldImage)) {
+							unlink('./uploads/ads/' . $oldImage);
+						}
+					}
+			
+					$data = [
+						'ads_name' => $this->input->post('ads_name'),
+						'star' => $this->input->post('star'),
+						'review' => $this->input->post('review'),
+						'desc' => $this->input->post('desc'),
+						'address' => $this->input->post('address'),
+						'contact' => $this->input->post('contact'),
+						'created_on' => date('y-m-d h:i:a'),
+					];
+			
+					$this->db->where('id', $id);
+					if ($this->db->update('ads', $data)) {
+						$page_data['message'] = 'Update Successfully';
+					} else {
+						$page_data['message'] = 'Something Wrong';
+					}
+				}
+			}
+			
+			$page_data['ads'] = $this->db->get_where('ads',array('id'=>$id))->row();
+			$page_data['title'] = 'Edit Ads';
+			$this->load->view('admin/addAds',$page_data);
+		}
+		else{
+			redirect('admin');
+		}
+	}
+
+	public function adsdelete(){
+		if($this->session->userdata['username']){
+			$id = $this->input->post('row_id');
+			if($this->db->where('id',$id)->delete('coupon')){
+				echo 'success';
+			}else{
+				echo 'error';
+			}
+		}
+		else{
+			redirect('admin');
+		}
+
+	}
+
+
+	//currency end
 
 
 	public function uploadimg($data)

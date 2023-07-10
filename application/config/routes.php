@@ -113,5 +113,13 @@ $route['admin/addofferslider'] = 'admin/addofferslider';
 $route['admin/offersliderdelete'] = 'admin/offersliderdelete';
 $route['admin/editofferslider/(:any)'] = 'admin/editofferslider/$1';
 
+$route['admin/currency'] = 'admin/currency';
+$route['admin/editcurrency/(:any)'] = 'admin/editcurrency/$1';
+
+$route['admin/ads'] = 'admin/ads';
+$route['admin/addads'] = 'admin/addads';
+$route['admin/editads/(:any)'] = 'admin/editads/$1';
+$route['admin/adsdelete/(:any)'] = 'admin/adsdelete/$1';
+
 /*vendor*/
 $route['backend'] = 'backend/index';

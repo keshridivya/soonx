@@ -173,6 +173,7 @@
 															<input class="form-control form-choose"
 																name="multiple_images[]" type="file" id="formFile"
 																multiple="">
+																<span class="text-danger">Width:106px and height:82px</span>
 														</div>
 													</div>
 
@@ -185,7 +186,7 @@
 															<input class="form-control form-choose"
 																name="thumbnail_image" type="file"
 																id="formFileMultiple1">
-																<span>Width: 106px, height: 82px</span>
+																<span class="text-danger">Width: 106px, height: 82px</span>
 														</div>
 														
 													</div>
