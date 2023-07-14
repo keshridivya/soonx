@@ -1,519 +1,524 @@
 	<!-- Tap to top start -->
 	<div class="theme-option">
-		<div class="setting-box">
-			<button class="btn setting-button">
-				<i class="fa-solid fa-gear"></i>
-			</button>
+	    <div class="setting-box">
+	        <button class="btn setting-button">
+	            <i class="fa-solid fa-gear"></i>
+	        </button>
 
-			<div class="theme-setting-2">
-				<div class="theme-box">
-					<ul>
-						<li>
-							<div class="setting-name">
-								<h4>Color</h4>
-							</div>
-							<div class="theme-setting-button color-picker">
-								<form class="form-control">
-									<label for="colorPick" class="form-label mb-0">Theme Color</label>
-									<input type="color" class="form-control form-control-color" id="colorPick"
-										value="#0da487" title="Choose your color">
-								</form>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+	        <div class="theme-setting-2">
+	            <div class="theme-box">
+	                <ul>
+	                    <li>
+	                        <div class="setting-name">
+	                            <h4>Color</h4>
+	                        </div>
+	                        <div class="theme-setting-button color-picker">
+	                            <form class="form-control">
+	                                <label for="colorPick" class="form-label mb-0">Theme Color</label>
+	                                <input type="color" class="form-control form-control-color" id="colorPick"
+	                                    value="#0da487" title="Choose your color">
+	                            </form>
+	                        </div>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
 
-		<div class="back-to-top">
-			<a id="back-to-top" href="#">
-				<i class="fas fa-chevron-up"></i>
-			</a>
-		</div>
+	    <div class="back-to-top">
+	        <a id="back-to-top" href="#">
+	            <i class="fas fa-chevron-up"></i>
+	        </a>
+	    </div>
 	</div>
 	<!-- Tap to top end -->
-<!-- Bg overlay Start -->
-<div class="bg-overlay"></div>
-<!-- Bg overlay End -->
+	<!-- Bg overlay Start -->
+	<div class="bg-overlay"></div>
+	<!-- Bg overlay End -->
 
-<!-- latest jquery-->
-<script src="<?= base_url() ?>assets/js/jquery-3.6.0.min.js"></script>
+	<!-- latest jquery-->
+	<script src="<?= base_url() ?>assets/js/jquery-3.6.0.min.js"></script>
 
-<!-- jquery ui-->
-<script src="<?= base_url() ?>assets/js/jquery-ui.min.js"></script>
+	<!-- jquery ui-->
+	<script src="<?= base_url() ?>assets/js/jquery-ui.min.js"></script>
 
-<!-- Bootstrap js-->
-<script src="<?= base_url() ?>assets/js/bootstrap/bootstrap.bundle.min.js"></script>
-<script src="<?= base_url() ?>assets/js/bootstrap/bootstrap-notify.min.js"></script>
-<script src="<?= base_url() ?>assets/js/bootstrap/popper.min.js"></script>
+	<!-- Bootstrap js-->
+	<script src="<?= base_url() ?>assets/js/bootstrap/bootstrap.bundle.min.js"></script>
+	<script src="<?= base_url() ?>assets/js/bootstrap/bootstrap-notify.min.js"></script>
+	<script src="<?= base_url() ?>assets/js/bootstrap/popper.min.js"></script>
 
-<!-- feather icon js-->
-<script src="<?= base_url() ?>assets/js/feather/feather.min.js"></script>
-<script src="<?= base_url() ?>assets/js/feather/feather-icon.js"></script>
+	<!-- feather icon js-->
+	<script src="<?= base_url() ?>assets/js/feather/feather.min.js"></script>
+	<script src="<?= base_url() ?>assets/js/feather/feather-icon.js"></script>
 
-<!-- Lazyload Js -->
-<script src="<?= base_url() ?>assets/js/lazysizes.min.js"></script>
+	<!-- Lazyload Js -->
+	<script src="<?= base_url() ?>assets/js/lazysizes.min.js"></script>
 
-<!-- Slick js-->
-<script src="<?= base_url() ?>assets/js/slick/slick.js"></script>
-<script src="<?= base_url() ?>assets/js/slick/slick-animation.min.js"></script>
-<script src="<?= base_url() ?>assets/js/custom-slick-animated.js"></script>
-<script src="<?= base_url() ?>assets/js/slick/custom_slick.js"></script>
+	<!-- Slick js-->
+	<script src="<?= base_url() ?>assets/js/slick/slick.js"></script>
+	<script src="<?= base_url() ?>assets/js/slick/slick-animation.min.js"></script>
+	<script src="<?= base_url() ?>assets/js/custom-slick-animated.js"></script>
+	<script src="<?= base_url() ?>assets/js/slick/custom_slick.js"></script>
 
-<!-- Range slider js -->
-<script src="<?= base_url() ?>assets/js/ion.rangeSlider.min.js"></script>
+	<!-- Range slider js -->
+	<script src="<?= base_url() ?>assets/js/ion.rangeSlider.min.js"></script>
 
-<!-- Auto Height Js -->
-<script src="<?= base_url() ?>assets/js/auto-height.js"></script>
+	<!-- Auto Height Js -->
+	<script src="<?= base_url() ?>assets/js/auto-height.js"></script>
 
-<!-- Lazyload Js -->
-<script src="<?= base_url() ?>assets/js/lazysizes.min.js"></script>
+	<!-- Lazyload Js -->
+	<script src="<?= base_url() ?>assets/js/lazysizes.min.js"></script>
 
-<!-- Quantity js -->
-<script src="<?= base_url() ?>assets/js/quantity-2.js"></script>
+	<!-- Quantity js -->
+	<script src="<?= base_url() ?>assets/js/quantity-2.js"></script>
 
-<!-- Fly Cart Js -->
-<script src="<?= base_url() ?>assets/js/fly-cart.js"></script>
+	<!-- Fly Cart Js -->
+	<script src="<?= base_url() ?>assets/js/fly-cart.js"></script>
 
-<!-- Timer Js -->
-<script src="<?= base_url() ?>assets/js/timer1.js"></script>
-<script src="<?= base_url() ?>assets/js/timer2.js"></script>
+	<!-- Timer Js -->
+	<script src="<?= base_url() ?>assets/js/timer1.js"></script>
+	<script src="<?= base_url() ?>assets/js/timer2.js"></script>
 
-<!-- Copy clipboard Js -->
-<script src="<?= base_url() ?>assets/js/clipboard.min.js"></script>
-<script src="<?= base_url() ?>assets/js/copy-clipboard.js"></script>
+	<!-- Copy clipboard Js -->
+	<script src="<?= base_url() ?>assets/js/clipboard.min.js"></script>
+	<script src="<?= base_url() ?>assets/js/copy-clipboard.js"></script>
 
-<!-- WOW js -->
-<script src="<?= base_url() ?>assets/js/wow.min.js"></script>
-<script src="<?= base_url() ?>assets/js/custom-wow.js"></script>
+	<!-- WOW js -->
+	<script src="<?= base_url() ?>assets/js/wow.min.js"></script>
+	<script src="<?= base_url() ?>assets/js/custom-wow.js"></script>
 
-<!-- script js -->
-<script src="<?= base_url() ?>assets/js/script.js"></script>
+	<!-- script js -->
+	<script src="<?= base_url() ?>assets/js/script.js"></script>
 
-<!-- thme setting js -->
-<script src="<?= base_url() ?>assets/js/theme-setting.js"></script>
+	<!-- thme setting js -->
+	<script src="<?= base_url() ?>assets/js/theme-setting.js"></script>
 
-<script>
-	$(document).ready(function () {
+	<script>
+$(document).ready(function() {
 
-		//add wishlist
-		$('.heartspan,.heartspan1,.wishlistclose').click(function () {
-			let heartid = $(this).data('id');
-			var spanElement = $(this);
+    //add wishlist
+    $('.heartspan,.heartspan1,.wishlistclose').click(function() {
+        let heartid = $(this).data('id');
+        var spanElement = $(this);
 
-			$.ajax({
-				url: "<?= base_url() ?>ajax/whistlist",
-				method: "post",
-				data: {
-					heartid: heartid,
-				},
-				dataType: 'json',
-				success: function (response) {
-					if (response.whislist === 1) {
-						spanElement.children('svg').css('fill', '#239698');
-					} else {
-						spanElement.children('svg').css('fill', 'none');
-					}
-				},
-				error: function () {
-					alert('uu');
-				}
-			});
-		});
+        $.ajax({
+            url: "<?= base_url() ?>ajax/whistlist",
+            method: "post",
+            data: {
+                heartid: heartid,
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response.whislist === 1) {
+                    spanElement.children('svg').css('fill', '#239698');
+                } else {
+                    spanElement.children('svg').css('fill', 'none');
+                }
+            },
+            error: function() {
+                alert('uu');
+            }
+        });
+    });
 
-		//add to cart
-		$(document).ready(function () {
-			// Add to cart function
-			$('.add-to-cart-button').click(function () {
-				let product_id = $(this).data('id');
-				let quantity = $(this).parent('div').find('input').val();
-				let userid = $(this).data('userid');
+    //add to cart
+    $(document).ready(function() {
+        // Add to cart function
+        $('.add-to-cart-button').click(function() {
+            let product_id = $(this).data('id');
+            let quantity = $(this).parent('div').find('input').val();
+            let userid = $(this).data('userid');
 
-				$.ajax({
-					url: "<?php echo base_url('ajax/addToCart'); ?>",
-					method: "POST",
-					data: {
-						product_id: product_id,
-						quantity: quantity,
-						userid: userid,
-					},
-					dataType: "json",
-					success: function (response) {
-						console.log('Item added to cart successfully');
-					},
-					error: function () {
-						console.log('Failed to add item to cart');
-					}
-				});
-			});
+            $.ajax({
+                url: "<?php echo base_url('ajax/addToCart'); ?>",
+                method: "POST",
+                data: {
+                    product_id: product_id,
+                    quantity: quantity,
+                    userid: userid,
+                },
+                dataType: "json",
+                success: function(response) {
+                    console.log('Item added to cart successfully');
+                },
+                error: function() {
+                    console.log('Failed to add item to cart');
+                }
+            });
+        });
 
-			// Remove from cart function
-			$('.remove-from-cart-button').click(function () {
-				let cart_item_id = $(this).data('cart-id');
-                let userid = $(this).data('userid');
-                var $row = $(this).closest('tr');
+        // Remove from cart function
+        $('.remove-from-cart-button').click(function() {
+            let cart_item_id = $(this).data('cart-id');
+            let userid = $(this).data('userid');
+            var $row = $(this).closest('tr');
 
-				$.ajax({
-					url: "<?php echo base_url('ajax/removeFromCart'); ?>",
-					method: "POST",
-					data: {
-						cart_item_id: cart_item_id,
-                        userid: userid,
-					},
-					dataType: "json",
-					success: function (response) {
-						console.log('Item removed from cart successfully');
-                        $row.remove();
-						location.reload();
-					},
-					error: function () {
-						console.log('Failed to remove item from cart');
-					}
-				});
-			});
-		});
+            $.ajax({
+                url: "<?php echo base_url('ajax/removeFromCart'); ?>",
+                method: "POST",
+                data: {
+                    cart_item_id: cart_item_id,
+                    userid: userid,
+                },
+                dataType: "json",
+                success: function(response) {
+                    console.log('Item removed from cart successfully');
+                    $row.remove();
+                    location.reload();
+                },
+                error: function() {
+                    console.log('Failed to remove item from cart');
+                }
+            });
+        });
+    });
 
-		$('.editaddress').click(function(){
-			$('#address_id').val($(this).data('id'));
-			$('#client_name').val($(this).data('name'));
-			$('#client_address').val($(this).data('address'));
-			$('#client_email').val($(this).data('email'));
-			$('#client_contact').val($(this).data('mobile'));
-			$('#client_landmark').val($(this).data('landmark'));
-			$('#client_pincode').val($(this).data('pincode'));
-			$('#add-address').modal('show');
-		});
+    $('.editaddress').click(function() {
+        $('#address_id').val($(this).data('id'));
+        $('#client_name').val($(this).data('name'));
+        $('#client_address').val($(this).data('address'));
+        $('#client_email').val($(this).data('email'));
+        $('#client_contact').val($(this).data('mobile'));
+        $('#client_landmark').val($(this).data('landmark'));
+        $('#client_pincode').val($(this).data('pincode'));
+        $('#add-address').modal('show');
+    });
 
-		// Function to apply the coupon code
-		function applyCouponCode(currency) {
-		let couponcode = $('#couponcode').val();
-		$.ajax({
-			url: '<?= base_url('frontend/applyCoupon') ?>',
-			type: 'post',
-			data: {
-			couponcode: couponcode,
-			currency: currency,
-			},
-			beforeSend: function() {
-			$('#loader').show();
-			},
-			success: function(response) {
-			if (response.success) {
-				$('#spancouponmsg').text(response.message).css('color', 'green');
-				// Update the UI with the final amount
-				var finalAmount = response.finalAmount * currency;
-				// Update the UI element to display the final amount
-				$('#finalAmountElement').text(finalAmount);
-				let totalsubtoatl = parseFloat($('.totalsubtoatl').text());
-				$('.processpay').attr('data-couponcode', finalAmount);
-				$('.totalsubtoatl').text(totalsubtoatl - finalAmount);
-			} else {
-				$('#spancouponmsg').text(response.message).css('color', 'red');
-			}
-			},
-			error: function(xhr, status, error) {
-			// Handle the AJAX error
-			console.log(error);
-			},
-			complete: function() {
-			$('#loader').hide();
-			}
-		});
-		}
+    // Function to apply the coupon code
+    function applyCouponCode(currency) {
+        let couponcode = $('#couponcode').val();
+        $.ajax({
+            url: '<?= base_url('frontend/applyCoupon') ?>',
+            type: 'post',
+            data: {
+                couponcode: couponcode,
+                currency: currency,
+            },
+            beforeSend: function() {
+                $('#loader').show();
+            },
+            success: function(response) {
+                if (response.success) {
+                    $('#spancouponmsg').text(response.message).css('color', 'green');
+                    // Update the UI with the final amount
+                    var finalAmount = response.finalAmount * currency;
+                    // Update the UI element to display the final amount
+                    $('#finalAmountElement').text(finalAmount);
+                    let totalsubtoatl = parseFloat($('.totalsubtoatl').text());
+                    $('.processpay').attr('data-couponcode', finalAmount);
+                    $('.totalsubtoatl').text(totalsubtoatl - finalAmount);
+                } else {
+                    $('#spancouponmsg').text(response.message).css('color', 'red');
+                }
+            },
+            error: function(xhr, status, error) {
+                // Handle the AJAX error
+                console.log(error);
+            },
+            complete: function() {
+                $('#loader').hide();
+            }
+        });
+    }
 
-		// Apply coupon code on button click
-		$('#applycoupon').click(function() {
-		var selectedCurrency = $('#currencySelect').val();
-		applyCouponCode(selectedCurrency);
-		});
-
-
-
-		$('.processpay').click(function(){
-			let couponcode = $(this).data('couponcode');
-			
-			// Redirect to the checkout page with the couponcode parameter
-			window.location.href = '<?= base_url('checkout') ?>?couponcode=' + couponcode;
-		});
+    // Apply coupon code on button click
+    $('#applycoupon').click(function() {
+        var selectedCurrency = $('#currencySelect').val();
+        applyCouponCode(selectedCurrency);
+    });
 
 
-	});
 
-	$('.currencycode').click(function(){
-		let currencycode = $(this).text();
-		$.ajax({
-			url: "<?= base_url('frontend/currencysession') ?>",
-			type: "post",
-			data: {
-				currencycode : currencycode,
-			},
-			dataType:'json',
-			success: function(response){
-				if(response.success){
-					$('#currencyvalue').text(currencycode);
-					location.reload();
-				}
-				else{
-					alert('Some network issue. Please try again');
-				}
-			},failure: function(){
-				alert('fail to load');
-			}
-		});
-	});
+    $('.processpay').click(function() {
+        let couponcode = $(this).data('couponcode');
 
-</script>
+        // Redirect to the checkout page with the couponcode parameter
+        window.location.href = '<?= base_url('checkout') ?>?couponcode=' + couponcode;
+    });
 
-<script>
-    $(document).ready(function(){
-		$('#spanclient_name').hide();
-        $('#spanclient_contact').hide();
-        $('#spanclient_email').hide();
-        $('#spanclient_address').hide();
-        $('#spanclient_pincode').hide();
-        $('#spanclient_landmark').hide();
-        let name_error2 = true;
-        let contact_error2 = true;
-        let email_error2 = true;
-        let address_error2 = true;
-        let pin_error2 = true;
-        let landmark_error2 = true;
 
-		$('#client_name').keyup(function(){
-			validatebookname2();
-		});
-		function validatebookname2(){
-			let bookname=$('#client_name').val();
-			let booktext=/^[A-Za-z ]+$/;
-			if(bookname.length == ''){
-				$('#spanclient_name').show().css('color','red');
-				name_error2 = false;
-				return false;
-			}else if(!booktext.test(bookname)){
-					$('#spanclient_name').show().html('** Enter Alphabets only').css('color','red');
-					name_error2 = false;
-					return false;
-			}else{
-				$('#spanclient_name').hide();
-			}
-		}
+});
 
-		//contact
-		$('#client_contact').keyup(function(){
-			validatebookcontact2();
-		});
-		function validatebookcontact2(){
-			let bookcontact=$('#client_contact').val();
-			let booknumber= /^[6,7,8,9][0-9]{0,9}$/;
+$('.currencycode').click(function() {
+    let currencycode = $(this).text();
+    $.ajax({
+        url: "<?= base_url('frontend/currencysession') ?>",
+        type: "post",
+        data: {
+            currencycode: currencycode,
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                $('#currencyvalue').text(currencycode);
+                location.reload();
+            } else {
+                alert('Some network issue. Please try again');
+            }
+        },
+        failure: function() {
+            alert('fail to load');
+        }
+    });
+});
+	</script>
 
-			if(bookcontact.length==''){
-				$('#spanclient_contact').show().css('color','red');
-				contact_error2 = false;
-				return false;
-			}else if(!booknumber.test(bookcontact)){
-				$('#spanclient_contact').show().css('color','red').html('** please enter 10 digit mobile number withou space and  starting with 6,7,8,9');
-				contact_error2 = false;
-				return false;
-			}else if(bookcontact.length != '10'){
-				$('#spanclient_contact').show().css('color','red').html('** Enter Only 10 digit number');
-				contact_error2 = false;
-				return false;
-			} else{
-				$('#spanclient_contact').hide();
-			}
-		}
+	<script>
+$(document).ready(function() {
+    $('#spanclient_name').hide();
+    $('#spanclient_contact').hide();
+    $('#spanclient_email').hide();
+    $('#spanclient_address').hide();
+    $('#spanclient_pincode').hide();
+    $('#spanclient_landmark').hide();
+    let name_error2 = true;
+    let contact_error2 = true;
+    let email_error2 = true;
+    let address_error2 = true;
+    let pin_error2 = true;
+    let landmark_error2 = true;
 
-		//email
-		$('#client_email').keyup(function(){
-			validatebookemail2();
-		});
-		function validatebookemail2(){
-			let bookemail=$('#client_email').val();
-			let bookregex = /^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
-			if(bookemail.length==''){
-				$('#spanclient_email').show().css('color','red');
-				email_error2 = false;
-				return false;
-			}else if(!bookregex.test(bookemail)){
-				$('#spanclient_email').show().css('color','red');
-				email_error2 = false;
-				return false;
-			}
-			else{
-				$('#spanclient_email').hide();
-			}
-		}
-        
+    $('#client_name').keyup(function() {
+        validatebookname2();
+    });
+
+    function validatebookname2() {
+        let bookname = $('#client_name').val();
+        let booktext = /^[A-Za-z ]+$/;
+        if (bookname.length == '') {
+            $('#spanclient_name').show().css('color', 'red');
+            name_error2 = false;
+            return false;
+        } else if (!booktext.test(bookname)) {
+            $('#spanclient_name').show().html('** Enter Alphabets only').css('color', 'red');
+            name_error2 = false;
+            return false;
+        } else {
+            $('#spanclient_name').hide();
+        }
+    }
+
+    //contact
+    $('#client_contact').keyup(function() {
+        validatebookcontact2();
+    });
+
+    function validatebookcontact2() {
+        let bookcontact = $('#client_contact').val();
+        let booknumber = /^[6,7,8,9][0-9]{0,9}$/;
+
+        if (bookcontact.length == '') {
+            $('#spanclient_contact').show().css('color', 'red');
+            contact_error2 = false;
+            return false;
+        } else if (!booknumber.test(bookcontact)) {
+            $('#spanclient_contact').show().css('color', 'red').html(
+                '** please enter 10 digit mobile number withou space and  starting with 6,7,8,9');
+            contact_error2 = false;
+            return false;
+        } else if (bookcontact.length != '10') {
+            $('#spanclient_contact').show().css('color', 'red').html('** Enter Only 10 digit number');
+            contact_error2 = false;
+            return false;
+        } else {
+            $('#spanclient_contact').hide();
+        }
+    }
+
+    //email
+    $('#client_email').keyup(function() {
+        validatebookemail2();
+    });
+
+    function validatebookemail2() {
+        let bookemail = $('#client_email').val();
+        let bookregex = /^([_\-\.0-9a-zA-Z]+)@([_\-\.0-9a-zA-Z]+)\.([a-zA-Z]){2,7}$/;
+        if (bookemail.length == '') {
+            $('#spanclient_email').show().css('color', 'red');
+            email_error2 = false;
+            return false;
+        } else if (!bookregex.test(bookemail)) {
+            $('#spanclient_email').show().css('color', 'red');
+            email_error2 = false;
+            return false;
+        } else {
+            $('#spanclient_email').hide();
+        }
+    }
+
     //address
-    $('#client_address').keyup(function(){
+    $('#client_address').keyup(function() {
         validatebookaddress2();
     });
-    function validatebookaddress2(){
-        let bookaddress=$('#client_address').val();
-        if(bookaddress.length==''){
-            $('#spanclient_address').show().css('color','red');
+
+    function validatebookaddress2() {
+        let bookaddress = $('#client_address').val();
+        if (bookaddress.length == '') {
+            $('#spanclient_address').show().css('color', 'red');
             address_error2 = false;
             return false;
-        }
-        else{
+        } else {
             $('#spanclient_address').hide();
         }
     }
 
-	 //landmark
-	 $('#client_landmark').keyup(function(){
+    //landmark
+    $('#client_landmark').keyup(function() {
         validatebooklandmark();
     });
-    function validatebooklandmark(){
-        let booklandmark=$('#client_landmark').val();
-        if(booklandmark.length==''){
-            $('#spanclient_landmark').show().css('color','red');
+
+    function validatebooklandmark() {
+        let booklandmark = $('#client_landmark').val();
+        if (booklandmark.length == '') {
+            $('#spanclient_landmark').show().css('color', 'red');
             landmark_error2 = false;
             return false;
-        }
-        else{
+        } else {
             $('#spanclient_landmark').hide();
         }
     }
 
     //pincode
-    $('#client_pincode').keyup(function(){
+    $('#client_pincode').keyup(function() {
         validatebookpin3();
     });
-    function validatebookpin3(){
-        let bookpin=$('#client_pincode').val();
+
+    function validatebookpin3() {
+        let bookpin = $('#client_pincode').val();
         let zipRegex = /^\d{6}$/;
-        if(bookpin.length==''){
-            $('#spanclient_pincode').show().css('color','red');
+        if (bookpin.length == '') {
+            $('#spanclient_pincode').show().css('color', 'red');
             pin_error3 = false;
             return false;
-        }
-        else if(!zipRegex.test(bookpin)){
-            $('#spanclient_pincode').show().css('color','red').html('** zipcode should only be 6 digits');
+        } else if (!zipRegex.test(bookpin)) {
+            $('#spanclient_pincode').show().css('color', 'red').html('** zipcode should only be 6 digits');
             pin_error3 = false;
             return false;
-        }
-        else{
+        } else {
             $('#spanclient_pincode').hide();
         }
     }
 
 
     // Submit button
-    $("#submit_address").click(function () {
+    $("#submit_address").click(function() {
         name_error2 = true;
         contact_error2 = true;
-         email_error2 = true;
-         address_error2 = true;
-         pin_error2 = true;
-         landmark_error2 = true;
-         validatebookname2();
-         validatebookcontact2();
-         validatebookemail2();
-         validatebookaddress2();
-		 validatebooklandmark();
-         validatebookpin3();
-          if (name_error2 == true && contact_error2 == true && email_error2 == true && address_error2 == true && pin_error2==true && landmark_error2==true ) {
+        email_error2 = true;
+        address_error2 = true;
+        pin_error2 = true;
+        landmark_error2 = true;
+        validatebookname2();
+        validatebookcontact2();
+        validatebookemail2();
+        validatebookaddress2();
+        validatebooklandmark();
+        validatebookpin3();
+        if (name_error2 == true && contact_error2 == true && email_error2 == true && address_error2 ==
+            true && pin_error2 == true && landmark_error2 == true) {
             return true;
-          } else {
-                      return false;
-          }
-      });
-	});
-</script>
+        } else {
+            return false;
+        }
+    });
+});
+	</script>
 
-<script>
-		function fulltotal(){
-			let subtotalElement = $('.result.totamtpay');
-			let couponDiscountElement = $('.coupondis');
-			let shippingChargeElement = $('.totalship.totamtpay');
+	<script>
+function fulltotal() {
+    let subtotalElement = $('.result.totamtpay');
+    let couponDiscountElement = $('.coupondis');
+    let shippingChargeElement = $('.totalship.totamtpay');
 
-			// Get the values from the elements and convert them to numbers
-			let subtotal = parseFloat(subtotalElement.text());
-			let couponDiscount = parseFloat(couponDiscountElement.text());
-			let shippingCharge = parseFloat(shippingChargeElement.text());
+    // Get the values from the elements and convert them to numbers
+    let subtotal = parseFloat(subtotalElement.text());
+    let couponDiscount = parseFloat(couponDiscountElement.text());
+    let shippingCharge = parseFloat(shippingChargeElement.text());
 
-			// Calculate the new total by subtracting the coupon discount and adding the shipping charge
-			let total = subtotal - couponDiscount + shippingCharge;
+    // Calculate the new total by subtracting the coupon discount and adding the shipping charge
+    let total = subtotal - couponDiscount + shippingCharge;
 
-			// Display the new total in the appropriate element
-			$('.totalsubtoatl').text(total.toFixed(2));
+    // Display the new total in the appropriate element
+    $('.totalsubtoatl').text(total.toFixed(2));
 
-		}
-        let sum = 0, sumship = 0, sumpv = 0, sumbv = 0;
+}
+let sum = 0,
+    sumship = 0,
+    sumpv = 0,
+    sumbv = 0;
 
-        $(window).on("load", function () {
-			$('.subtotaljs').each(function () {
-				let amt = $(this).text();
-				sum += parseInt(amt);
-			});
-			$('.result').text(sum);
+$(window).on("load", function() {
+    $('.subtotaljs').each(function() {
+        let amt = $(this).text();
+        sum += parseInt(amt);
+    });
+    $('.result').text(sum);
 
-			$('.shipingcharge').each(function(){
-				let shipcharg = $(this).text();
-				sumship += parseInt(shipcharg);
-			});
-			$('.totalship').text(sumship);
+    $('.shipingcharge').each(function() {
+        let shipcharg = $(this).text();
+        sumship += parseInt(shipcharg);
+    });
+    $('.totalship').text(sumship);
 
-			$('.prpv').each(function(){
-				let amt = $(this).text();
-				sumpv += parseInt(amt);
-			});
-			$('.tpv').text(sumpv);
+    $('.prpv').each(function() {
+        let amt = $(this).text();
+        sumpv += parseInt(amt);
+    });
+    $('.tpv').text(sumpv);
 
-			$('.prbv').each(function(){
-				let amt = $(this).text();
-				sumbv += parseInt(amt);
-			});
-			$('.tbv').text(sumbv);
+    $('.prbv').each(function() {
+        let amt = $(this).text();
+        sumbv += parseInt(amt);
+    });
+    $('.tbv').text(sumbv);
 
-			fulltotal();
-			
-        });
+    fulltotal();
 
-        $(document).ready(function () {
-        $('.plus').click(function (e) {
-            e.preventDefault();
-            var $input = $(this).siblings(':text');
-            var currentValue = parseInt($input.val());
-            var newValue = currentValue + 1;
-            $input.val(newValue).change();
-        });
+});
 
-        $('.minus').click(function (e) {
-            e.preventDefault();
-            var $input = $(this).siblings(':text');
-            var currentValue = parseInt($input.val());
-            var newValue = currentValue - 1 >= 1 ? currentValue - 1 : 1;
-            $input.val(newValue).change();
-        });
+$(document).ready(function() {
+    $('.plus').click(function(e) {
+        e.preventDefault();
+        var $input = $(this).siblings(':text');
+        var currentValue = parseInt($input.val());
+        var newValue = currentValue + 1;
+        $input.val(newValue).change();
+    });
 
-        $(document).on('change', '.qtyvalue', function () {
-            let $tr = $(this).closest('tr');
-            let pricejs = $tr.find('.pricejs').text();
-            let total = pricejs * $(this).val();
-            $tr.find('.subtotaljs').text(total);
-            var quantity = $(this).val();
-            var cartId = $(this).data('cart-id');
+    $('.minus').click(function(e) {
+        e.preventDefault();
+        var $input = $(this).siblings(':text');
+        var currentValue = parseInt($input.val());
+        var newValue = currentValue - 1 >= 1 ? currentValue - 1 : 1;
+        $input.val(newValue).change();
+    });
 
-            if ($(this).val() != '0') {
+    $(document).on('change', '.qtyvalue', function() {
+        let $tr = $(this).closest('tr');
+        let pricejs = $tr.find('.pricejs').text();
+        let total = pricejs * $(this).val();
+        $tr.find('.subtotaljs').text(total);
+        var quantity = $(this).val();
+        var cartId = $(this).data('cart-id');
+
+        if ($(this).val() != '0') {
             updateSubtotal(cartId, quantity);
             updateTotal();
-            }
-			fulltotal();
-        });
+        }
+        fulltotal();
+    });
 
-        function updateTotal() {
-            sum = 0;
-            $('.subtotaljs').each(function () {
+    function updateTotal() {
+        sum = 0;
+        $('.subtotaljs').each(function() {
             let amt = $(this).text();
             sum += parseInt(amt);
-            });
-            $('.result').text(sum);
-        }
+        });
+        $('.result').text(sum);
+    }
 
-        function updateSubtotal(cartId, quantity) {
-            $.ajax({
+    function updateSubtotal(cartId, quantity) {
+        $.ajax({
             url: '<?php echo base_url('ajax/updateSubtotal '); ?>',
             method: 'POST',
             data: {
@@ -521,95 +526,124 @@
                 quantity: quantity
             },
             dataType: 'json',
-            success: function (response) {
+            success: function(response) {
                 if (response.success) {
-                console.log('success');
+                    console.log('success');
                 }
             },
-            error: function () {
+            error: function() {
                 console.log('An error occurred during the AJAX request.');
             }
-            });
-        }
-
         });
+    }
 
-</script>
+});
+	</script>
 
-<script>
-	$('.filter-button').click(function(){
-		$('.left-box').addClass('show');
-	});
-	$('.back-button').click(function(){
-		$('.left-box').removeClass('show');
-	})
-</script>
-<script>
-	$(document).ready(function() {
-		// Function to sort the product list based on the selected option
-		function sortProducts(option) {
-			var productList = $(".product-list-section");
-			var products = productList.children();
-			products.sort(function(a, b) {
-				var aPrice = parseFloat($(a).find(".price").text().trim().replace(/[^0-9.]/g, ''));
-				var bPrice = parseFloat($(b).find(".price").text().trim().replace(/[^0-9.]/g, ''));
-				if (option === "high") {
-					return bPrice - aPrice;
-				} else {
-					return aPrice - bPrice;
-				}
+	<script>
+$('.filter-button').click(function() {
+    $('.left-box').addClass('show');
+});
+$('.back-button').click(function() {
+    $('.left-box').removeClass('show');
+})
+	</script>
+	<script>
+		$(document).ready(function() {
+			// Function to sort the product list based on the selected option
+			function sortProducts(option) {
+				var productList = $(".product-list-section");
+				var products = productList.children();
+				products.sort(function(a, b) {
+					var aPrice = parseFloat($(a).find(".price").text().trim().replace(/[^0-9.]/g, ''));
+					var bPrice = parseFloat($(b).find(".price").text().trim().replace(/[^0-9.]/g, ''));
+					if (option === "high") {
+						return bPrice - aPrice;
+					} else {
+						return aPrice - bPrice;
+					}
+				});
+				productList.empty().append(products);
+			}
+
+			// Handle the dropdown selection change event
+			$(".dropdown-item").on("click", function(e) {
+				e.preventDefault();
+				var option = $(this).attr("id");
+				sortProducts(option);
 			});
-			productList.empty().append(products);
-		}
-
-		// Handle the dropdown selection change event
-		$(".dropdown-item").on("click", function(e) {
-			e.preventDefault();
-			var option = $(this).attr("id");
-			sortProducts(option);
 		});
-	});
 
-	$(document).ready(function(){
-		$('.filteroption').on('change', function() {
-			let filterval = $(this).val();
-			alert(filterval);
-			$.ajax({
-				url: "<?= base_url('frontend/shop'); ?>",
-				type: "POST",
-				data: {
-					filterval : filterval,
-				},
-				success: function(response){
-					console.log(response);
-				},
-				failure: function(response){
-					console.log(response);
-				}
+		$(document).ready(function() {
+			$('.filteroption').on('change', function() {
+				let filterval = $(this).val();
+				alert(filterval);
+				$.ajax({
+					url: "<?= base_url('frontend/shop'); ?>",
+					type: "POST",
+					data: {
+						filterval: filterval,
+					},
+					success: function(response) {
+						console.log(response);
+					},
+					failure: function(response) {
+						console.log(response);
+					}
+				})
 			})
 		})
-	})
+	</script>
 
-</script>
+	<script>
+		$('.searchDiv').hide();
+		$('.searchbar').keyup(function() {
+			let searchQuery = $(this).val();
+			$.ajax({
+				url: "<?= base_url('frontend/searchbar') ?>",
+				type: 'post',
+				data: {
+					searchQuery: searchQuery,
+				},
+				dataType: 'json',
+				success: function(response) {
+					let textwrit = '';
+					if (response.data == 'No result found on your search') {
+						textwrit += '<li>' + response.data + '</li>';
+					} else {
+						$.each(response.data, function(index) {
+								console.log(response.data);
+								textwrit += '<li><a href="<?= base_url('/')?>' + response.data[index].product_name + '" class=""><span class="main">' + response.data[index].product_name + '</span></a></li><hr>';
+						});
+					}
 
-<script>
-	$('.searchbar').keyup(function(){
-		let searchbutton = $(this).val();
-		$.ajax({
-			url:"<?= base_url('frontend/searchbar') ?>",
-			type: 'post',
-			data: {
-				searchbutton : searchbutton,
-			},
-			dataType: 'json',
-			success: function(response){
-				alert(response);
-			},
-			failure: function(){
-				alert('dfd');
-			}
-		})
-	})
-</script>
+					$('.searchDiv').fadeIn().css('opacity', '1');
+					$('#searchList').html(textwrit);
+				},
+				error: function(response) {
+					alert('Failed to load');
+				}
+			});
+		});
 
+	</script>
 
+	<script>
+		$(document).ready(function() {
+			$('.place_order').click(function() {
+				let checkedAddress = $('.checkaddress:checked').data('id');
+				let useridcheck = $('.useridcheck').val();
+				$.ajax({
+					url: '<?= base_url('frontend/orderplace') ?>',
+					type: 'post',
+					data: {
+						checkedAddress: checkedAddress,
+						useridcheck: useridcheck,
+					},
+					success: function(response) {
+						console.log(response);
+					}
+				})
+			});
+		});
+	</script>

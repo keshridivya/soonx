@@ -71,6 +71,7 @@
 
 										<div class="checkout-detail">
 											<div class="row g-4">
+												<input type="hidden" name="useridcheck" value="123" id="">
 												<?php
                                                 foreach($delivery_address as $da){
                                                 ?>
@@ -78,8 +79,8 @@
 													<div class="delivery-address-box">
 														<div>
 															<div class="form-check">
-																<input class="form-check-input" type="radio" name="jack"
-																	id="<?= $da['id'] ?>" checked="checked">
+																<input class="form-check-input checkaddress" type="radio" name="jack"
+																	data-id="<?= $da['id'] ?>">
 															</div>
 
 															<div class="label dropdown">
@@ -560,8 +561,7 @@
 									</h4>
 									<h4 class="price"><i class="<?= $currency->currency_icon ?>"></i><span class="subtotaljs"><?= intval($cart_item['rate'] * $cart_item['quantity']* $currency->currency_rate) ?></span>
 									</h4>
-									<?php
-														if($cart_item['shipping'] == 'Shipping Charges'){
+									<?php	if($cart_item['shipping'] == 'Shipping Charges'){
 															echo '<span class="shipingcharge" style="display:none">'.$cart_item['shippingcharge'].'</span>';
 														}
 														?>
@@ -629,7 +629,7 @@
 							</ul>
 						</div>
 
-						<div class="checkout-offer">
+						<!-- <div class="checkout-offer">
 							<div class="offer-title">
 								<div class="offer-icon">
 									<img src="<?= base_url() ?>assets/images/inner-page/offer.svg" class="img-fluid"
@@ -648,9 +648,9 @@
 									<p>combo: Royal Cashew Californian, Extra Bold 100 gm + BB Royal Honey 500 gm</p>
 								</li>
 							</ul>
-						</div>
+						</div> -->
 
-						<button class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Place Order</button>
+						<button class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold place_order">Place Order</button>
 					</div>
 				</div>
 			</div>

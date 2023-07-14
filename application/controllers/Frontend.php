@@ -27,21 +27,40 @@ class Frontend extends CI_Controller {
 		$this->load->view('front/index',$page_data);
 	}
 
-	public function productThumbnail($id=false)
+	public function productThumbnail($id = false)
 	{
-		$this->db->select('*, product.id as pid,price-(price*dis_price/100) as rate');
+		$this->db->select('*, product.id as pid, price-(price*dis_price/100) as rate');
 		$this->db->from('category');
 		$this->db->join('product', 'category.id = product.category', 'right');
-		$this->db->where('product.id',$id);
+		$this->db->where('product.id', $id);
 		$this->db->order_by('product.id', 'desc');
-		$page_data['product'] = $this->db->get()->row();
-		// $page_data['product_img'] = $this->db->get_where('product',array('id'=>$id))->result_array();
-		$page_data['total_count'] = $this->total_count;
-		$page_data['ads'] = $this->db->get_where('ads',array('status'=>'1'))->result_array();
-		$page_data['category'] = $this->category;
-		$page_data['currency'] = $this->currency;
-		$this->load->view('front/product-thumbnail',$page_data);
+		$product = $this->db->get()->row();
+
+		if ($product) {
+			$relatedCategoryId = $product->category; // Get the category ID of the current product
+
+			$this->db->select('*, product.id as pid, price-(price*dis_price/100) as rate');
+			$this->db->from('category');
+			$this->db->join('product', 'category.id = product.category', 'right');
+			$this->db->where('product.category', $relatedCategoryId); // Fetch products with the same category as the current product
+			$this->db->where('product.id !=', $id); // Exclude the current product from the result
+			$this->db->limit(4); // Set the limit to the number of related products you want to display
+			$relatedProducts = $this->db->get()->result_array();
+
+			$page_data['product'] = $product;
+			$page_data['related_products'] = $relatedProducts;
+			$page_data['total_count'] = $this->total_count;
+			$page_data['ads'] = $this->db->get_where('ads', array('status' => '1'))->result_array();
+			$page_data['category'] = $this->category;
+			$page_data['currency'] = $this->currency;
+			$this->load->view('front/product-thumbnail', $page_data);
+		} else {
+			// Handle case when the product is not found
+			$page_data['message'] = 'Product not found';
+			$this->load->view('front/error-page', $page_data);
+		}
 	}
+
 
 	public function wishlist(){
 		$this->db->select('*, product.id as pid,price-(price*dis_price/100) as rate');
@@ -209,10 +228,47 @@ class Frontend extends CI_Controller {
 			echo json_encode($results);
 	}
 
-	// public function searchbar(){
-	// 	$searchbutton = $this->input->post('searchbutton');
-	// 	$
-	// }
+	public function orderplace(){
+		
+	}
 	
+	public function searchbar()
+	{
+		$searchQuery = $this->input->post('searchQuery');
+
+		// Perform the search query across multiple tables
+		$this->db->select('*');
+		$this->db->from('product');
+		$this->db->like('product_name', $searchQuery);
+		$productResults = $this->db->get()->result_array();
+
+		$this->db->select('*');
+		$this->db->from('category');
+		$this->db->like('category_name', $searchQuery);
+		$categoryResults = $this->db->get()->result_array();
+
+		// $this->db->select('*');
+		// $this->db->from('style');
+		// $this->db->like('style_name', $searchQuery);
+		// $styleResults = $this->db->get()->result_array();
+
+		// Combine the search results from all tables
+		$searchResults = array(
+			'products' => $productResults,
+			'categories' => $categoryResults,
+		);
+
+		// Prepare the JSON response
+		$response = array(
+			'success' => true,
+			'data' => $searchResults
+		);
+		$response['f'] = 'dd';
+
+		// Send the JSON response
+		echo json_encode($response);
+	}
+
+
 }
 ?>

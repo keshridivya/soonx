@@ -11885,7 +11885,8 @@ header .location-box button i {
     display: flex;
     -webkit-box-align: center;
     -ms-flex-align: center;
-    align-items: center
+    align-items: center;
+    position: relative;
 }
 
 @media (max-width: 767px) {
@@ -29845,4 +29846,28 @@ header .offcanvas-backdrop {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.searchDiv {
+    background: #f7ecec;
+    margin-top: 15rem;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+.searchList {
+    list-style: none;
+    overflow-y: auto;
+    padding-left: 1.5rem;
+    padding-right: 1.1875rem;
+    max-height: calc(100% - 5.25rem);
+}
+
+.searchList li {
+    padding: 17px 0;
+    text-align: left;
+    cursor: pointer;
 }

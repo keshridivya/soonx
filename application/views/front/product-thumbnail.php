@@ -944,64 +944,70 @@
             <div class="row">
                 <div class="col-12">
                     <div class="slider-6_1 product-wrapper">
+                        <?php
+                        foreach($related_products as $related_products){
+                        ?>
                         <div>
                             <div class="product-box-3 wow fadeInUp">
                                 <div class="product-header">
                                     <div class="product-image">
+                                    <span class="heartspan" data-id="<?= $related_products['pid'] ?>">
+										<?php
+                                        if($related_products['whislist'] == '1'){
+                                        ?>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											viewBox="0 0 24 24" fill="#239698" stroke="#239698" stroke-width="2"
+											stroke-linecap="round" stroke-linejoin="round"
+											class="feather feather-heart">
+											<path
+												d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+											</path>
+										</svg>
+										<?php }else{ ?>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+											viewBox="0 0 24 24" fill="none" stroke="#239698" stroke-width="2"
+											stroke-linecap="round" stroke-linejoin="round"
+											class="feather feather-heart">
+											<path
+												d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+											</path>
+										</svg>
+										<?php } ?>
+									</span>
                                         <a href="product-left.htm">
-                                            <img src="../assets/images/cake/product/11.png" class="img-fluid blur-up lazyload" alt="">
+                                            <img src="<?= base_url() ?>uploads/product_thumb_image/<?= $related_products['thumbnail_image'] ?>" class="img-fluid blur-up lazyload" alt="">
                                         </a>
-
-                                        <ul class="product-option">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#view">
-                                                    <i data-feather="eye"></i>
-                                                </a>
-                                            </li>
-
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                <a href="compare.html">
-                                                    <i data-feather="refresh-cw"></i>
-                                                </a>
-                                            </li>
-
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                <a href="wishlist.html" class="notifi-wishlist">
-                                                    <i data-feather="heart"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
                                     </div>
                                 </div>
 
                                 <div class="product-footer">
                                     <div class="product-detail">
-                                        <span class="span-name">Cake</span>
+                                        <!-- <span class="span-name">Cake</span> -->
                                         <a href="product-left-thumbnail.html">
-                                            <h5 class="name">Chocolate Chip Cookies 250 g</h5>
+                                            <h5 class="name"><?= $related_products['product_name'] ?></h5>
                                         </a>
                                         <div class="product-rating mt-2">
-                                            <ul class="rating">
-                                                <li>
-                                                    <i data-feather="star" class="fill"></i>
-                                                </li>
-                                                <li>
-                                                    <i data-feather="star" class="fill"></i>
-                                                </li>
-                                                <li>
-                                                    <i data-feather="star" class="fill"></i>
-                                                </li>
-                                                <li>
-                                                    <i data-feather="star" class="fill"></i>
-                                                </li>
-                                                <li>
-                                                    <i data-feather="star" class="fill"></i>
-                                                </li>
-                                            </ul>
-                                            <span>(5.0)</span>
+                                        <ul class="rating">
+                                            <li>
+                                                <i data-feather="star" class="<?php echo ($related_products['rating'] >= 1) ? 'fill' : ''; ?>"></i>
+                                            </li>
+                                            <li>
+                                                <i data-feather="star" class="<?php echo ($related_products['rating'] >= 2) ? 'fill' : ''; ?>"></i>
+                                            </li>
+                                            <li>
+                                                <i data-feather="star" class="<?php echo ($related_products['rating'] >= 3) ? 'fill' : ''; ?>"></i>
+                                            </li>
+                                            <li>
+                                                <i data-feather="star" class="<?php echo ($related_products['rating'] >= 4) ? 'fill' : ''; ?>"></i>
+                                            </li>
+                                            <li>
+                                                <i data-feather="star" class="<?php echo ($related_products['rating'] >= 5) ? 'fill' : ''; ?>"></i>
+                                            </li>
+                                        </ul>
                                         </div>
-                                        <h6 class="unit">500 G</h6>
-                                        <h5 class="price"><span class="theme-color">$10.25</span> <del>$12.57</del>
+                                        <h5 class="price"><span class="theme-color"><i
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($related_products['rate'] * $currency->currency_rate) ?></span> <del><i
+											class="<?= $currency->currency_icon ?>"></i><?= number_format($related_products['price'] * $currency->currency_rate) ?></del>
                                         </h5>
                                         <div class="add-to-cart-box bg-white">
                                             <button class="btn btn-add-cart addcart-button">Add
@@ -1025,8 +1031,9 @@
                                 </div>
                             </div>
                         </div>
+                        <?php } ?>
 
-                        <div>
+                        <!-- <div>
                             <div class="product-box-3 wow fadeInUp" data-wow-delay="0.05s">
                                 <div class="product-header">
                                     <div class="product-image">
@@ -1519,7 +1526,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
