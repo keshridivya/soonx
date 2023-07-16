@@ -99,7 +99,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '151.106.99.2',
+	'hostname' => 'srv523.hstgr.io',
 	'username' => 'u122921800_soonx',
 	'password' => 'Soonx@123',
 	'database' => 'u122921800_soonx',

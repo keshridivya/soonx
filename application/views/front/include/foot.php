@@ -239,28 +239,28 @@ $(document).ready(function() {
 
 });
 
-$('.currencycode').click(function() {
-    let currencycode = $(this).text();
-    $.ajax({
-        url: "<?= base_url('frontend/currencysession') ?>",
-        type: "post",
-        data: {
-            currencycode: currencycode,
-        },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                $('#currencyvalue').text(currencycode);
-                location.reload();
-            } else {
-                alert('Some network issue. Please try again');
-            }
-        },
-        failure: function() {
-            alert('fail to load');
-        }
-    });
-});
+// $('.currencycode').click(function() {
+//     let currencycode = $(this).text();
+//     $.ajax({
+//         url: "<?= base_url('frontend/currencysession') ?>",
+//         type: "post",
+//         data: {
+//             currencycode: currencycode,
+//         },
+//         dataType: 'json',
+//         success: function(response) {
+//             if (response.success) {
+//                 $('#currencyvalue').text(currencycode);
+//                 location.reload();
+//             } else {
+//                 alert('Some network issue. Please try again');
+//             }
+//         },
+//         failure: function() {
+//             alert('fail to load');
+//         }
+//     });
+// });
 	</script>
 
 	<script>
@@ -598,33 +598,37 @@ $('.back-button').click(function() {
 	<script>
 		$('.searchDiv').hide();
 		$('.searchbar').keyup(function() {
-			let searchQuery = $(this).val();
-			$.ajax({
-				url: "<?= base_url('frontend/searchbar') ?>",
-				type: 'post',
-				data: {
-					searchQuery: searchQuery,
-				},
-				dataType: 'json',
-				success: function(response) {
-					let textwrit = '';
-					if (response.data == 'No result found on your search') {
-						textwrit += '<li>' + response.data + '</li>';
-					} else {
-						$.each(response.data, function(index) {
-								console.log(response.data);
-								textwrit += '<li><a href="<?= base_url('/')?>' + response.data[index].product_name + '" class=""><span class="main">' + response.data[index].product_name + '</span></a></li><hr>';
-						});
-					}
+            let searchQuery = $(this).val();
+            $.ajax({
+                url: "<?= base_url('frontend/searchbar') ?>",
+                type: 'post',
+                data: {
+                    searchQuery: searchQuery,
+                },
+                dataType: 'json',
+                success: function(response) {
+                    let textwrit = '';
+                    if (response.data.products.length === 0 && response.data.categories.length === 0) {
+                        textwrit += '<li>No result found on your search</li>';
+                    } else {
+                        $.each(response.data.products, function(index, product) {
+                            textwrit += '<li><a href="<?= base_url('/') ?>' + product.product_name + '" class=""><span class="main">' + product.product_name + '</span></a></li><hr>';
+                        });
 
-					$('.searchDiv').fadeIn().css('opacity', '1');
-					$('#searchList').html(textwrit);
-				},
-				error: function(response) {
-					alert('Failed to load');
-				}
-			});
-		});
+                        $.each(response.data.categories, function(index, category) {
+                            textwrit += '<li><a href="<?= base_url('/') ?>' + category.category_name + '" class=""><span class="main">' + category.category_name + '</span></a></li><hr>';
+                        });
+                    }
+
+                    $('.searchDiv').fadeIn().css('opacity', '1');
+                    $('#searchList').html(textwrit);
+                },
+                error: function(response) {
+                    alert('Failed to load');
+                }
+            });
+        });
+
 
 	</script>
 

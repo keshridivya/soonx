@@ -52,13 +52,12 @@
                                 </div>
                                 <div class="searchDiv" style="opacity: 1;">
 									<ul id="searchList" class="searchList" >
-										<li><a href="">dfg</a></li>
 									</ul>
 								</div>
                             </div>
                         </div>
                         <div class="rightside-box">
-                            <div class="search-full">
+                            <div class="search-full" style="position:relative">
                                 <div class="input-group">
                                     <span class="input-group-text">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -69,7 +68,7 @@
                                             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                         </svg>
                                     </span>
-                                    <input type="text" class="form-control search-type" placeholder="Search here..">
+                                    <input type="text" class="form-control search-type searchbar " placeholder="Search here..">
                                     <span class="input-group-text close-search">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -80,6 +79,10 @@
                                         </svg>
                                     </span>
                                 </div>
+                                <div class="searchDiv" style="opacity: 1;">
+									<ul id="searchList" class="searchList" >
+									</ul>
+								</div>
                             </div>
                             <ul class="right-side-menu">
                                 <li class="right-side">
